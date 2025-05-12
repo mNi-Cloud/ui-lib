@@ -6,7 +6,7 @@ on:
     paths-ignore:
       - "README.md"
       - ".gitignore"
-      - "*.json"
+      - "package.json"
 
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       - name: Build registry
         run: pnpm registry:build
@@ -43,4 +43,4 @@ jobs:
           commit_user_name: "GitHub Actions"
           commit_user_email: "actions@github.com"
           commit_author: "GitHub Actions <actions@github.com>"
-          file_pattern: 'public/r/*.json'
+          file_pattern: 'public/r/*.json pnpm-lock.yaml'
