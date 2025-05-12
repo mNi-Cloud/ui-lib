@@ -4,74 +4,27 @@
   "homepage": "https://mnicloud.jp",
   "items": [
     {
-      "name": "hello-world",
+      "name": "link",
       "type": "registry:component",
-      "title": "Hello World",
-      "description": "A simple hello world component",
-      "registryDependencies": ["button"],
+      "title": "Link",
+      "description": "A link component.",
       "files": [
         {
-          "path": "registry/new-york/blocks/hello-world/hello-world.tsx",
+          "path": "registry/new-york/blocks/link/link.tsx",
           "type": "registry:component"
         }
       ]
     },
     {
-      "name": "example-form",
+      "name": "resource-index",
       "type": "registry:component",
-      "title": "Example Form",
-      "description": "A contact form with Zod validation.",
-      "dependencies": ["zod"],
-      "registryDependencies": ["button", "input", "label", "textarea", "card"],
+      "title": "Resource Index",
+      "description": "A resource index component.",
+      "dependencies": ["lucide-react", "next-intl"],
+      "registryDependencies": ["button", "card"],
       "files": [
         {
-          "path": "registry/new-york/blocks/example-form/example-form.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
-      "name": "complex-component",
-      "type": "registry:component",
-      "title": "Complex Component",
-      "description": "A complex component showing hooks, libs and components.",
-      "registryDependencies": ["card"],
-      "files": [
-        {
-          "path": "registry/new-york/blocks/complex-component/page.tsx",
-          "type": "registry:page",
-          "target": "app/pokemon/page.tsx"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/components/pokemon-card.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/components/pokemon-image.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/lib/pokemon.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/complex-component/hooks/use-pokemon.ts",
-          "type": "registry:hook"
-        }
-      ]
-    },
-    {
-      "name": "example-with-css",
-      "type": "registry:component",
-      "title": "Example with CSS",
-      "description": "A login form with a CSS file.",
-      "files": [
-        {
-          "path": "registry/new-york/blocks/example-with-css/example-card.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/example-with-css/example-card.css",
+          "path": "registry/new-york/blocks/resource-index/resource-index.tsx",
           "type": "registry:component"
         }
       ]
