@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "mnicloud",
-  "homepage": "https://mnicloud.jp",
+  "homepage": "https://raw.github.com/mNi-Cloud/ui-lib/main",
   "items": [
     {
       "name": "link",
@@ -35,7 +35,7 @@
       "title": "Header",
       "description": "A responsive application header with theme toggle, user dropdown and mobile menu.",
       "dependencies": ["lucide-react", "next-themes", "next-intl", "next-auth"],
-      "registryDependencies": ["button", "avatar", "dropdown-menu", "sheet", "separator", "sidebar", "http://localhost:3001/r/link.json"],
+      "registryDependencies": ["button", "avatar", "dropdown-menu", "sheet", "separator", "sidebar", "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"],
       "files": [
         {
           "path": "registry/new-york/blocks/header/header.tsx",
