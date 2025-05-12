@@ -28,6 +28,24 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "header",
+      "type": "registry:component",
+      "title": "Header",
+      "description": "A responsive application header with theme toggle, user dropdown and mobile menu.",
+      "dependencies": ["lucide-react", "next-themes", "next-intl", "next-auth"],
+      "registryDependencies": ["button", "avatar", "dropdown-menu", "sheet", "separator", "sidebar", "http://localhost:3001/r/link.json"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/header/header.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/header/header-search.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }

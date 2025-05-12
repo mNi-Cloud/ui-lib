@@ -1,0 +1,280 @@
+'use client'
+
+import { startTransition } from 'react'
+import { useTheme } from 'next-themes'
+import { useTranslations, Locale } from 'next-intl';
+import { signOut, useSession, signIn } from 'next-auth/react'
+import {
+  Bell,
+  Settings,
+  GlobeIcon,
+  JapaneseYen,
+  Menu,
+  Moon,
+  Sun,
+  Laptop,
+  LogOut,
+  UserPen,
+} from 'lucide-react'
+import { Button } from "@/registry/new-york/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/registry/new-york/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuPortal,
+} from '@/registry/new-york/ui/dropdown-menu'
+import { Sheet, SheetContent, SheetTrigger } from '@/registry/new-york/ui/sheet'
+import { SearchService } from './header-search'
+import { SidebarTrigger } from "@/registry/new-york/ui/sidebar"
+import { Separator } from "@/registry/new-york/ui/separator"
+import Link from "@/registry/new-york/link"
+
+
+export function Header({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
+  const t = useTranslations('component.header')
+  const { data: session } = useSession()
+
+  return (
+    <header className="sticky top-0 z-20 w-full bg-background border-b">
+      <div className="w-full px-3">
+        <div className="flex justify-between items-center py-2">
+          <div className="flex items-center gap-2">
+            <SidebarTrigger />
+            <Separator orientation="vertical" className="h-3" />
+            <Link href="/dashboard" className="text-xl font-bold">
+              mNi
+            </Link>
+          </div>
+          <div className="flex flex-1 items-center justify-end">
+            <nav className="flex items-center space-x-2">
+              <SearchService />
+              <div className="hidden md:flex items-center space-x-2">
+                <Button size="sm" variant="ghost">
+                  <Bell className="h-4 w-4" />
+                  <span className="sr-only">{t('notifications')}</span>
+                </Button>
+                <ThemeToggle />
+                {session ? (
+                  <UserDropdown setUserLocale={setUserLocale} />
+                ) : (
+                  <Button size="sm" onClick={() => signIn()}>{t('login')}</Button>
+                )}
+              </div>
+              <div className="flex md:hidden">
+                <MobileMenu setUserLocale={setUserLocale} />
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+export function ThemeToggle() {
+  const { setTheme } = useTheme()
+  const t = useTranslations('component.header')
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="sm">
+          <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">{"toggle theme"}</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          <Sun className="mr-2 h-4 w-4" />
+          <span>{t('light')}</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          <Moon className="mr-2 h-4 w-4" />
+          <span>{t('dark')}</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          <Laptop className="mr-2 h-4 w-4" />
+          <span>{t('system')}</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+function UserDropdown({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
+  const t = useTranslations('component.header')
+  const { data: session } = useSession()
+  const userName = session?.user?.name || 'User'
+  const userImage = session?.user?.image
+  const userEmail = session?.user?.email
+  const initials = userName.split(' ').map(name => name[0]).join('').toUpperCase()
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" className="relative h-7 w-7 rounded-full">
+          <Avatar className="h-7 w-7">
+            {userImage ? (
+              <AvatarImage src={userImage} alt={userName} />
+            ) : null}
+            <AvatarFallback>{initials}</AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-56" align="end" forceMount>
+        <DropdownMenuLabel className="font-normal">
+          <div className="flex flex-col space-y-1">
+            <p className="text-sm font-medium leading-none">{userName}</p>
+            <p className="text-xs leading-none text-muted-foreground">{userEmail}</p>
+          </div>
+        </DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>
+          <UserPen className="mr-2 h-4 w-4" />
+          <span>{t('profile')}</span>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/bap" className="flex items-center">
+            <JapaneseYen className="mr-2 h-5 w-5" />
+            <span>{t('billing')}</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Settings className="mr-2 h-4 w-4" />
+          <span>{t('settings')}</span>
+        </DropdownMenuItem>
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>
+            <GlobeIcon className="mr-4 h-4 w-4" />
+            <span>{t('language')}</span>
+          </DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              <LanguageToggle setUserLocale={setUserLocale} />
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => signOut()}>
+          <LogOut className="mr-2 h-4 w-4" />
+          <span>{t('logout')}</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
+
+function LanguageToggle({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
+  function onChange(value: string) {
+    const locale = value as Locale
+    startTransition(() => {
+      setUserLocale(locale)
+    })
+  }
+
+  return (
+    <>
+      <DropdownMenuItem onClick={() => onChange('ja')}>
+        <span>日本語</span>
+      </DropdownMenuItem>
+      <DropdownMenuItem onClick={() => onChange('en')}>
+        <span>English</span>
+      </DropdownMenuItem>
+    </>
+  )
+}
+
+function MobileMenu({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
+  const t = useTranslations('component.header')
+  const { setTheme } = useTheme()
+  const { data: session } = useSession()
+
+  return (
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="ghost" size="icon" className="md:hidden">
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">{t('openMenu')}</span>
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+        <div className="flex flex-col h-full">
+          <div className="flex-1">
+            <h2 className="text-lg font-semibold mb-4">{t('menu')}</h2>
+            <nav className="space-y-4">
+              <Button variant="ghost" className="w-full justify-start">
+                <Bell className="mr-2 h-5 w-5" />
+                {t('notifications')}
+              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="w-full justify-start">
+                    <Sun className="mr-2 h-5 w-5" />
+                    {t('theme')}
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem onClick={() => setTheme("light")}>
+                    <Sun className="mr-2 h-4 w-4" />
+                    <span>{t('light')}</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("dark")}>
+                    <Moon className="mr-2 h-4 w-4" />
+                    <span>{t('dark')}</span>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setTheme("system")}>
+                    <Laptop className="mr-2 h-4 w-4" />
+                    <span>{t('system')}</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+              {session ? (
+                <>
+                  <Button variant="ghost" className="w-full justify-start">
+                    <UserPen className="mr-2 h-5 w-5" />
+                    {t('profile')}
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start" asChild>
+                    <Link href="/bap" className="flex items-center">
+                      <JapaneseYen className="mr-2 h-5 w-5" />
+                      <span>{t('billing')}</span>
+                    </Link>
+                  </Button>
+                  <Button variant="ghost" className="w-full justify-start">
+                    <Settings className="mr-2 h-5 w-5" />
+                    {t('settings')}
+                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="ghost" className="w-full justify-start">
+                        <GlobeIcon className="mr-2 h-5 w-5" />
+                        {t('language')}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                      <LanguageToggle setUserLocale={setUserLocale} />
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                  <Button variant="ghost" className="w-full justify-start" onClick={() => signOut()}>
+                    <LogOut className="mr-2 h-5 w-5" />
+                    {t('logout')}
+                  </Button>
+                </>
+              ) : (
+                <Button className="w-full" onClick={() => signIn()}>{t('login')}</Button>
+              )}
+            </nav>
+          </div>
+        </div>
+      </SheetContent>
+    </Sheet>
+  )
+}
