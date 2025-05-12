@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
-  "name": "acme",
-  "homepage": "https://acme.com",
+  "name": "mnicloud",
+  "homepage": "https://mnicloud.jp",
   "items": [
     {
       "name": "hello-world",
