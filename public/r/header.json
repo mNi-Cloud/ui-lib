@@ -17,7 +17,7 @@
     "sheet",
     "separator",
     "sidebar",
-    "http://localhost:3001/r/link.json"
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"
   ],
   "files": [
     {
