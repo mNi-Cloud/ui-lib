@@ -32,7 +32,7 @@ const StatusIndicator = ({ status }: { status: string }) => {
 }
 
 export const ResourceColumns = () => {
-  const t = useTranslations('resource.items.columns')
+  const t = useTranslations('pages.resource1.columns')
 
   const columns: ColumnDef<Resource>[] = [
     {

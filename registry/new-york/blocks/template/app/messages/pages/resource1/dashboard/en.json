@@ -1,0 +1,17 @@
+{
+  "pages": {
+    "resource1": {
+      "dashboard": {
+        "resourcetype": "Resource1",
+        "deletionError": "Resource1 {name} has {relatedItemCount} related items and cannot be deleted."
+      },
+      "columns": {
+        "name": "Name",
+        "status": "Status",
+        "relatedItems": "Related Items",
+        "noRelatedItems": "No related items",
+        "created": "Created At"
+      }
+    }
+  }
+}

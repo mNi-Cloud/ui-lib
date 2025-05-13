@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 
 export default function ResourcePage() {
   const columns = ResourceColumns()
-  const t = useTranslations('resource.items.index')
+  const t = useTranslations('pages.resource1.dashboard')
 
   const checkDependencies = (resource: Resource) => {
     const relatedItemCount = resource.relatedItems?.length ?? 0

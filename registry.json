@@ -319,6 +319,16 @@
           "path": "registry/new-york/blocks/template/app/messages/pages/index/ja.json",
           "type": "registry:file",
           "target": "messages/pages/index/ja.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/dashboard/en.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/dashboard/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/dashboard/ja.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/dashboard/ja.json"
         }
       ]
     }
