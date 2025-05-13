@@ -2,15 +2,16 @@
   "pages": {
     "resource1": {
       "dashboard": {
-        "resourcetype": "リソース1",
-        "deletionError": "リソース1 {name} は {relatedItemCount} 個の関連項目を持っていて、削除できません。"
+        "resourcetype": "ユーザー",
+        "deletionError": "ユーザー {name} は {company} に関連付けられているため、削除できません。"
       },
       "columns": {
         "name": "名前",
-        "status": "ステータス",
-        "relatedItem": "関連項目",
-        "noRelatedItems": "関連項目なし",
-        "created": "作成日"
+        "username": "ユーザー名",
+        "email": "メールアドレス",
+        "website": "ウェブサイト",
+        "company": "会社名",
+        "city": "都市"
       }
     }
   }

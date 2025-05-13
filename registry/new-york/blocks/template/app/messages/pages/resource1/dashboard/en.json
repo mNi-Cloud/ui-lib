@@ -2,15 +2,16 @@
   "pages": {
     "resource1": {
       "dashboard": {
-        "resourcetype": "Resource1",
-        "deletionError": "Resource1 {name} has {relatedItemCount} related items and cannot be deleted."
+        "resourcetype": "Users",
+        "deletionError": "User {name} is associated with {company} and cannot be deleted."
       },
       "columns": {
         "name": "Name",
-        "status": "Status",
-        "relatedItem": "Related Items",
-        "noRelatedItems": "No related items",
-        "created": "Created At"
+        "username": "Username",
+        "email": "Email",
+        "website": "Website",
+        "company": "Company",
+        "city": "City"
       }
     }
   }

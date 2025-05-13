@@ -9,13 +9,13 @@ export default function ResourcePage() {
   const t = useTranslations('pages.resource1.dashboard')
 
   const checkDependencies = (resource: Resource) => {
-    const relatedItemCount = resource.relatedItems?.length ?? 0
-    const hasRelatedItems = relatedItemCount > 0
+    const companyName = resource.company.name || '';
+    const hasDependency = companyName.includes('Group') || companyName.includes('LLC');
     
     return Promise.resolve({
-      hasDependencies: hasRelatedItems,
-      message: hasRelatedItems 
-        ? t('deletionError', { name: resource.name, relatedItemCount: relatedItemCount })
+      hasDependencies: hasDependency,
+      message: hasDependency 
+        ? t('deletionError', { name: resource.name, company: companyName })
         : undefined
     })
   }
@@ -24,10 +24,10 @@ export default function ResourcePage() {
     <ResourceDashboard<Resource>
       resourceType={t('resourcetype')}
       columns={columns}
-      apiUrl=""
-      deleteUrl={(name: string) => `/resource/items/delete/${name}`}
+      apiUrl="https://jsonplaceholder.typicode.com/users"
+      deleteUrl={(id: string) => `/resource/items/delete/${id}`}
       createPath="/resource/items/create"
-      editPath={(name: string) => `/resource/items/edit/${name}`}
+      editPath={(id: string) => `/resource/items/edit/${id}`}
       checkDependencies={checkDependencies}
     />
   )
