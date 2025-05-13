@@ -107,6 +107,47 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:component",
+      "title": "Sidebar",
+      "description": "A sidebar component.",
+      "dependencies": ["lucide-react"],
+      "registryDependencies": [
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/i18n.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/sidebar/sidebar.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "theme-provider",
+      "type": "registry:component",
+      "title": "Theme Provider",
+      "description": "A theme provider component.",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/theme-provider/theme-provider.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "session-provider",
+      "type": "registry:component",
+      "title": "Session Provider",
+      "description": "A session provider component.",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/session-provider/session-provider.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
