@@ -26,7 +26,7 @@
     },
     {
       "path": "registry/new-york/blocks/template/app/page.tsx",
-      "content": "import React from 'react';\nimport { \n  CloudIcon, \n  MapPinIcon,\n} from 'lucide-react';\n\nimport ServiceIndex from '@/registry/new-york/blocks/service-index/service-index';\nimport { useTranslations } from 'next-intl';\n\nconst ServiceIndexTemplate: React.FC = () => {\n  const t = useTranslations('service.index');\n\n  const resources = [\n    {\n      title: t('resources.item1.title'),\n      icon: CloudIcon,\n      description: t('resources.item1.description'),\n      link: '/service/resource1'\n    },\n    {\n      title: t('resources.item2.title'),\n      icon: MapPinIcon,\n      description: t('resources.item2.description'),\n      link: '/service/resource2'\n    },\n  ];\n\n  return (\n    <ServiceIndex\n      title={t('title')}\n      description={t('description')}\n      resources={resources}\n      primaryButtonText={t('primaryButton')}\n      secondaryButtonText={t('secondaryButton')}\n      primaryButtonLink=\"/service/resource1\"\n      secondaryButtonLink=\"#\"\n    />\n  );\n};\n\nexport default ServiceIndexTemplate;",
+      "content": "import React from 'react';\nimport { \n  CloudIcon, \n  MapPinIcon,\n} from 'lucide-react';\n\nimport ServiceIndex from '@/registry/new-york/blocks/service-index/service-index';\nimport { useTranslations } from 'next-intl';\n\nconst ServiceIndexTemplate: React.FC = () => {\n  const t = useTranslations('pages.index');\n\n  const resources = [\n    {\n      title: t('resources.item1.title'),\n      icon: CloudIcon,\n      description: t('resources.item1.description'),\n      link: '/service/resource1',\n      detail: t('resources.item1.detail')\n    },\n    {\n      title: t('resources.item2.title'),\n      icon: MapPinIcon,\n      description: t('resources.item2.description'),\n      link: '/service/resource2',\n      detail: t('resources.item2.detail')\n    },\n  ];\n\n  return (\n    <ServiceIndex\n      title={t('title')}\n      description={t('description')}\n      resources={resources}\n      primaryButtonText={t('primaryButton')}\n      secondaryButtonText={t('secondaryButton')}\n      primaryButtonLink=\"/service/resource1\"\n      secondaryButtonLink=\"#\"\n    />\n  );\n};\n\nexport default ServiceIndexTemplate;",
       "type": "registry:file",
       "target": "app/service/page.tsx"
     },
@@ -41,6 +41,18 @@
       "content": "import { NextConfig } from 'next';\nimport createNextIntlPlugin from 'next-intl/plugin';\n \nconst nextConfig: NextConfig = {}; \nconst withNextIntl = createNextIntlPlugin();\n\nexport default withNextIntl(nextConfig);",
       "type": "registry:file",
       "target": "next.config.ts"
+    },
+    {
+      "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
+      "content": "{\n  \"pages\": {\n    \"index\": {\n      \"title\": \"Service Title\",\n      \"description\": \"Description of your service and its purpose in your application.\",\n      \"primaryButton\": \"Get Started\",\n      \"secondaryButton\": \"Learn More\",\n      \"resources\": {\n        \"item1\": {\n          \"title\": \"Resource Type 1\",\n          \"description\": \"Description of the first resource type\",\n          \"detail\": \"Learn More\"\n        },\n        \"item2\": {\n          \"title\": \"Resource Type 2\",\n          \"description\": \"Description of the second resource type\",\n          \"detail\": \"Learn More\"\n        }\n      }\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "app/messages/pages/index/en.json"
+    },
+    {
+      "path": "registry/new-york/blocks/template/app/messages/pages/index/ja.json",
+      "content": "{\n  \"pages\": {\n    \"index\": {\n      \"title\": \"サービス タイトル\",\n      \"description\": \"アプリケーションにおけるサービスとその目的の説明。\",\n      \"primaryButton\": \"今すぐ始める\",\n      \"secondaryButton\": \"詳細を見る\",\n      \"resources\": {\n        \"item1\": {\n          \"title\": \"リソースタイプ 1\",\n          \"description\": \"最初のリソースタイプの説明\",\n          \"detail\": \"詳細を表示\"\n        },\n        \"item2\": {\n          \"title\": \"リソースタイプ 2\",\n          \"description\": \"2番目のリソースタイプの説明\",\n          \"detail\": \"詳細を表示\"\n        }\n      }\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "app/messages/pages/index/ja.json"
     }
   ]
 }
