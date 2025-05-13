@@ -2,18 +2,19 @@
 
 import ResourceEdit from "@/registry/new-york/blocks/resource-edit/resource-edit"
 import { useTranslations } from 'next-intl'
-import { Resource } from '../../columns'
+import { use } from "react"
 
-const PostEditPage = ({ params }: { params: { id: string } }) => {
+const PostEditPage = (props: { params: Promise<{ id: string }> }) => {
   const t = useTranslations('pages.resource2.edit')
+  const params = use(props.params)
 
   const postFields = [
     {
       name: 'title',
-      label: t('title.label'),
+      label: t('titleField.label'),
       type: 'text' as const,
-      placeholder: t('title.placeholder'),
-      description: t('title.description'),
+      placeholder: t('titleField.placeholder'),
+      description: t('titleField.description'),
       validation: {
         required: true,
         maxLength: 100

@@ -3,12 +3,14 @@
 import { useTranslations } from 'next-intl'
 import { ResourceDetail } from '@/registry/new-york/blocks/resource-detail/resource-detail'
 import { Resource } from '../columns'
+import { use } from 'react'
 
 type EmptyRelatedType = { name: string }
 
-export default function PostDetailPage({ params }: { params: { id: string } }) {
+export default function PostDetailPage(props: { params: Promise<{ id: string }> }) {
   const t = useTranslations('pages.resource2.detail')
-  
+  const params = use(props.params)
+
   const renderDetails = (post: Resource) => {
     return (
       <div className="grid grid-cols-1 gap-4">

@@ -9,10 +9,10 @@ const PostCreatePage = () => {
   const postFields = [
     {
       name: 'title',
-      label: t('title.label'),
+      label: t('titleField.label'),
       type: 'text' as const,
-      placeholder: t('title.placeholder'),
-      description: t('title.description'),
+      placeholder: t('titleField.placeholder'),
+      description: t('titleField.description'),
       validation: {
         required: true,
         maxLength: 100

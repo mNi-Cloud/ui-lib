@@ -1,8 +1,27 @@
 {
-  "title": "Create Resource",
-  "description": "Create a new resource",
-  "submit": "Create",
-  "cancel": "Cancel",
-  "successMessage": "Resource created successfully",
-  "errorMessage": "Failed to create resource"
+  "pages": {
+    "resource2": {
+      "create": {
+        "title": "Create Resource",
+        "resourcetype": "Resource",
+        "successmessage": "Resource created successfully",
+        "errormessage": "Failed to create resource",
+        "titleField": {
+          "label": "Title",
+          "placeholder": "Enter title",
+          "description": "Resource title"
+        },
+        "body": {
+          "label": "Body",
+          "placeholder": "Enter content",
+          "description": "Resource content"
+        },
+        "userId": {
+          "label": "User ID",
+          "placeholder": "Enter user ID",
+          "description": "User ID of the creator (1-10)"
+        }
+      }
+    }
+  }
 } 

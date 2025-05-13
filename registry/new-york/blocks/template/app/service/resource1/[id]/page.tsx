@@ -7,7 +7,6 @@ import { ColumnDef } from "@tanstack/react-table"
 import Link from "@/registry/new-york/blocks/link/link"
 import { useTranslations } from 'next-intl'
 
-// ユーザーの投稿を表す型
 interface Post {
   userId: number
   id: number

@@ -2,9 +2,11 @@
 
 import ResourceEdit from "@/registry/new-york/blocks/resource-edit/resource-edit"
 import { useTranslations } from 'next-intl'
+import { use } from "react"
 
-const ResourceEditPage = ({ params }: { params: { id: string } }) => {
+const ResourceEditPage = (props: { params: Promise<{ id: string }> }) => {
   const t = useTranslations('pages.resource1.edit')
+  const params = use(props.params)
 
   const resourceFields = [
     {

@@ -2,24 +2,24 @@
   "pages": {
     "resource2": {
       "edit": {
-        "title": "Edit Post",
-        "resourcetype": "Post",
-        "successmessage": "Post updated successfully",
-        "errormessage": "An error occurred while updating the post",
-        "title": {
+        "title": "Edit Resource",
+        "resourcetype": "Resource",
+        "successmessage": "Resource updated successfully",
+        "errormessage": "Failed to update resource",
+        "titleField": {
           "label": "Title",
           "placeholder": "Enter title",
-          "description": "The title of the post"
+          "description": "Resource title"
         },
         "body": {
           "label": "Body",
           "placeholder": "Enter content",
-          "description": "The content of the post"
+          "description": "Resource content"
         },
         "userId": {
           "label": "User ID",
           "placeholder": "Enter user ID",
-          "description": "The user ID of the author (1-10)",
+          "description": "User ID of the creator (1-10)",
           "readonlymessage": "User ID cannot be changed"
         }
       }
