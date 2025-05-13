@@ -185,7 +185,7 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/header.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/sidenav.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-index.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json"
       ],
       "files": [
         {
