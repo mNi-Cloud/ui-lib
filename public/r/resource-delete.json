@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "resource-delete",
+  "type": "registry:hook",
+  "title": "Resource Delete",
+  "description": "A resource delete hook.",
+  "files": [
+    {
+      "path": "registry/new-york/blocks/resource-delete/resource-delete.tsx",
+      "content": "import { useState } from 'react';\nimport { KeyedMutator } from 'swr';\nimport { useTranslations } from 'next-intl';\n\ninterface Resource {\n  name: string;\n  [key: string]: any;\n}\n\ninterface UseResourceDeletionProps<T extends Resource> {\n  resourceType: string;\n  mutate: KeyedMutator<T[]>;\n  deleteUrl: (resourceName: string) => string;\n}\n\nexport function useResourceDeletion<T extends Resource>({ \n  resourceType, \n  mutate, \n  deleteUrl \n}: UseResourceDeletionProps<T>) {\n  const [selectedResources, setSelectedResources] = useState<T[]>([]);\n  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);\n  const [error, setError] = useState<string | null>(null);\n  const [successMessage, setSuccessMessage] = useState<string | null>(null);\n  const t = useTranslations('hooks.resource-delete');\n  const openDeleteDialog = (resources: T[]) => {\n    setSelectedResources(resources);\n    setIsDeleteDialogOpen(true);\n    setError(null);\n    setSuccessMessage(null);\n  };\n\n  const handleDelete = async () => {\n    setError(null);\n    setSuccessMessage(null);\n    try {\n      for (const resource of selectedResources) {\n        const response = await fetch(deleteUrl(resource.name), { method: 'DELETE' });\n        if (!response.ok) {\n          throw new Error(t('failedmessage', { resourceType }));\n        }\n      }\n      await mutate();\n      setSelectedResources([]);\n      setIsDeleteDialogOpen(false);\n      setSuccessMessage(t('successmessage', { resourceType }));\n    } catch (error) {\n      setError(t('errormessage', { resourceType }));\n    }\n  };\n\n  const closeDeleteDialog = () => {\n    setIsDeleteDialogOpen(false);\n    setError(null);\n    setSuccessMessage(null);\n  };\n\n  return {\n    selectedResources,\n    isDeleteDialogOpen,\n    error,\n    successMessage,\n    openDeleteDialog,\n    handleDelete,\n    closeDeleteDialog,\n  };\n}",
+      "type": "registry:hook"
+    },
+    {
+      "path": "registry/new-york/blocks/resource-delete/messages/en.json",
+      "content": "{\n  \"hooks\": {\n    \"resource-delete\": {\n      \"failedmessage\": \"{resourceType} deletion failed\",\n      \"successmessage\": \"{resourceType} deleted successfully\",\n      \"errormessage\": \"An error occurred while deleting {resourceType}. Please try again.\"\n    }\n  }\n}\n",
+      "type": "registry:file",
+      "target": "messages/hooks/resource-delete/en.json"
+    },
+    {
+      "path": "registry/new-york/blocks/resource-delete/messages/ja.json",
+      "content": "{\n  \"hooks\": {\n    \"resource-delete\": {\n      \"failedmessage\": \"{resourceType}の削除に失敗しました\",\n      \"successmessage\": \"{resourceType}を削除しました\",\n      \"errormessage\": \"{resourceType}の削除中にエラーが発生しました。もう一度お試しください。\"\n    }\n  }\n}\n",
+      "type": "registry:file",
+      "target": "messages/hooks/resource-delete/ja.json"
+    }
+  ]
+}
