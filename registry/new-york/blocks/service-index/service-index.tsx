@@ -31,7 +31,7 @@ const ServiceIndex: React.FC<ServiceIndexProps> = ({
   primaryButtonLink = "#",
   secondaryButtonLink = "#",
 }) => {
-  const t = useTranslations('resource.index')
+  const t = useTranslations('service.index')
 
   return (
     <div className="bg-background">
