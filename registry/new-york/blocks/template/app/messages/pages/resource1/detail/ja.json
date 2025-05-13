@@ -1,0 +1,24 @@
+{
+  "pages": {
+    "resource1": {
+      "detail": {
+        "resourcetype": "ユーザー詳細",
+        "name": "名前",
+        "username": "ユーザー名",
+        "email": "メールアドレス",
+        "phone": "電話番号",
+        "website": "ウェブサイト",
+        "company": "会社",
+        "address": "住所",
+        "geo": "座標",
+        "relatedtitle": "ユーザーの投稿",
+        "deletionError": "ユーザー {name} は {company} に関連付けられているため、削除できません。",
+        "postcolumns": {
+          "id": "ID",
+          "title": "タイトル",
+          "body": "内容"
+        }
+      }
+    }
+  }
+} 

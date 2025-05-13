@@ -1,0 +1,24 @@
+{
+  "pages": {
+    "resource1": {
+      "detail": {
+        "resourcetype": "User Details",
+        "name": "Name",
+        "username": "Username",
+        "email": "Email",
+        "phone": "Phone",
+        "website": "Website",
+        "company": "Company",
+        "address": "Address",
+        "geo": "Coordinates",
+        "relatedtitle": "User's Posts",
+        "deletionError": "User {name} is associated with {company} and cannot be deleted.",
+        "postcolumns": {
+          "id": "ID",
+          "title": "Title",
+          "body": "Content"
+        }
+      }
+    }
+  }
+} 
