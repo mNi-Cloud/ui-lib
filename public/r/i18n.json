@@ -4,10 +4,13 @@
   "type": "registry:file",
   "title": "i18n",
   "description": "i18n configuration.",
+  "dependencies": [
+    "next-intl"
+  ],
   "files": [
     {
       "path": "registry/new-york/blocks/i18n/request.ts",
-      "content": "import { getRequestConfig } from 'next-intl/server';\nimport { getUserLocale } from './locale';\n \nexport default getRequestConfig(async () => {\n  const locale = await getUserLocale();\n \n  return {\n    locale,\n    messages: (await import(`../messages/${locale}.json`)).default\n  };\n});",
+      "content": "import { getRequestConfig } from 'next-intl/server';\nimport { getUserLocale } from './locale';\nimport fs from 'fs/promises';\nimport path from 'path';\n\nasync function loadAllMessages(dir: string, locale: string): Promise<Record<string, any>> {\n  let merged: Record<string, any> = {};\n\n  const entries = await fs.readdir(dir, { withFileTypes: true });\n  for (const entry of entries) {\n    const fullPath = path.join(dir, entry.name);\n\n    if (entry.isDirectory()) {\n      const nested = await loadAllMessages(fullPath, locale);\n      Object.assign(merged, nested);\n    } else if (entry.isFile() && entry.name === `${locale}.json`) {\n      const raw = await fs.readFile(fullPath, 'utf-8');\n      const json = JSON.parse(raw);\n      Object.assign(merged, json);\n    }\n  }\n\n  return merged;\n}\n\nexport default getRequestConfig(async () => {\n  const locale = await getUserLocale();\n  const messagesDir = path.resolve(process.cwd(), 'messages');\n  const messages = await loadAllMessages(messagesDir, locale);\n\n  return {\n    locale,\n    messages\n  };\n});\n",
       "type": "registry:file",
       "target": "i18n/request.ts"
     },

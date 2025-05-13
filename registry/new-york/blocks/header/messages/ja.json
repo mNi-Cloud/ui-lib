@@ -1,0 +1,23 @@
+{
+  "component": {
+    "header-search": {
+      "placeholder": "検索...",
+      "noresults": "結果が見つかりませんでした"
+    },
+    "header": {
+      "notifications": "通知",
+      "login": "ログイン",
+      "profile": "プロフィール",
+      "billing": "支払い",
+      "settings": "設定",
+      "language": "言語",
+      "theme": "テーマ",
+      "logout": "ログアウト",
+      "light": "ライト",
+      "dark": "ダーク",
+      "system": "システム",
+      "openMenu": "メニューを開く",
+      "menu": "メニュー"
+    }
+  }
+}

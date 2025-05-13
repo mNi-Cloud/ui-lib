@@ -1,0 +1,23 @@
+{
+  "component": {
+    "header-search": {
+      "placeholder": "Search...",
+      "noresults": "No results found"
+    },
+    "header": {
+      "notifications": "Notifications",
+      "login": "Login",
+      "profile": "Profile",
+      "billing": "Billing",
+      "settings": "Settings",
+      "language": "Language",
+      "theme": "Theme",
+      "logout": "Logout",
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "openMenu": "Open Menu",
+      "menu": "Menu"
+    }
+  }
+}

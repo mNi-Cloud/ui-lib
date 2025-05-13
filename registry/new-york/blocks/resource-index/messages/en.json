@@ -1,0 +1,20 @@
+{
+  "resource": {
+      "index": {
+      "title": "Resource Title",
+      "description": "Description of your resources and their purpose in your application.",
+      "primaryButton": "Get Started",
+      "secondaryButton": "Learn More",
+      "resources": {
+          "item1": {
+          "title": "Resource Type 1",
+          "description": "Description of the first resource type"
+          },
+          "item2": {
+          "title": "Resource Type 2",
+          "description": "Description of the second resource type"
+          }
+      }
+      }
+  }
+}

@@ -4,9 +4,6 @@
   "type": "registry:component",
   "title": "Sidebar",
   "description": "A sidebar component.",
-  "dependencies": [
-    "lucide-react"
-  ],
   "registryDependencies": [
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json",
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/i18n.json"

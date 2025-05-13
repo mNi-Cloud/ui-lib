@@ -1,0 +1,20 @@
+{
+  "resource": {
+    "index": {
+      "title": "リソース タイトル",
+      "description": "アプリケーションにおけるリソースとその目的の説明。",
+      "primaryButton": "今すぐ始める",
+      "secondaryButton": "詳細を見る",
+      "resources": {
+        "item1": {
+          "title": "リソースタイプ 1",
+          "description": "最初のリソースタイプの説明"
+        },
+        "item2": {
+          "title": "リソースタイプ 2",
+          "description": "2番目のリソースタイプの説明"
+        }
+      }
+    }
+  }
+}

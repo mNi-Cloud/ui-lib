@@ -31,7 +31,7 @@ const ResourceIndex: React.FC<ResourceIndexProps> = ({
   primaryButtonLink = "#",
   secondaryButtonLink = "#",
 }) => {
-  const t = useTranslations('component.resource-index')
+  const t = useTranslations('resource.index')
 
   return (
     <div className="bg-background">

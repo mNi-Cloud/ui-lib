@@ -5,6 +5,7 @@
   "title": "Breadcrumb",
   "description": "A breadcrumb component.",
   "registryDependencies": [
+    "breadcrumb",
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"
   ],
   "files": [

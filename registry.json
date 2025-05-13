@@ -8,6 +8,7 @@
       "type": "registry:file",
       "title": "i18n",
       "description": "i18n configuration.",
+      "dependencies": ["next-intl"],
       "files": [
         {
           "path": "registry/new-york/blocks/i18n/request.ts",
@@ -39,25 +40,11 @@
       ]
     },
     {
-      "name": "resource-index",
-      "type": "registry:component",
-      "title": "Resource Index",
-      "description": "A resource index component.",
-      "dependencies": ["lucide-react", "next-intl"],
-      "registryDependencies": ["button", "card"],
-      "files": [
-        {
-          "path": "registry/new-york/blocks/resource-index/resource-index.tsx",
-          "type": "registry:component"
-        }
-      ]
-    },
-    {
       "name": "header",
       "type": "registry:component",
       "title": "Header",
       "description": "A responsive application header with theme toggle, user dropdown and mobile menu.",
-      "dependencies": ["lucide-react", "next-themes", "next-intl", "next-auth"],
+      "dependencies": ["next-themes", "next-intl", "next-auth"],
       "registryDependencies": [
         "button", 
         "avatar", 
@@ -65,6 +52,7 @@
         "sheet", 
         "separator", 
         "sidebar", 
+        "command",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json", 
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/i18n.json"
       ],
@@ -76,6 +64,16 @@
         {
           "path": "registry/new-york/blocks/header/header-search.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/header/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/header/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/header/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/header/ja.json"
         }
       ]
     },
@@ -84,7 +82,10 @@
       "type": "registry:component",
       "title": "Breadcrumb",
       "description": "A breadcrumb component.",
-      "registryDependencies": ["https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"],
+      "registryDependencies": [
+        "breadcrumb",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/breadcrumb/breadcrumb.tsx",
@@ -113,7 +114,6 @@
       "type": "registry:component",
       "title": "Sidebar",
       "description": "A sidebar component.",
-      "dependencies": ["lucide-react"],
       "registryDependencies": [
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/i18n.json"
@@ -146,6 +146,66 @@
         {
           "path": "registry/new-york/blocks/session-provider/session-provider.tsx",
           "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "resource-index",
+      "type": "registry:component",
+      "title": "Resource Index",
+      "description": "A resource index component.",
+      "dependencies": ["next-intl"],
+      "registryDependencies": ["button", "card"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-index/resource-index.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-index/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource-index/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-index/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource-index/ja.json"
+        }
+      ]
+    },
+    {
+      "name": "template",
+      "type": "registry:block",
+      "title": "Template",
+      "description": "A template component.",
+      "dependencies": ["next-intl", "next-themes", "next-auth"],
+      "registryDependencies": [
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/session-provider.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/theme-provider.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/header.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/sidebar.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/template/app/layout.tsx",
+          "type": "registry:file",
+          "target": "app/layout.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/page.tsx",
+          "type": "registry:file",
+          "target": "app/page.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/globals.css",
+          "type": "registry:file",
+          "target": "app/globals.css"
+        },
+        {
+          "path": "registry/new-york/blocks/template/next.config.ts",
+          "type": "registry:file",
+          "target": "next.config.ts"
         }
       ]
     }
