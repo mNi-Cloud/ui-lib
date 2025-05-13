@@ -1,34 +1,43 @@
-'use client'
+import React from 'react';
+import { 
+  CloudIcon, 
+  MapPinIcon,
+} from 'lucide-react';
 
-import ResourceDashboard from '@/registry/new-york/blocks/resource-dashboard/resource-dashboard'
-import { ResourceColumns, Resource } from './columns'
-import { useTranslations } from 'next-intl'
+import ServiceIndex from '@/registry/new-york/blocks/service-index/service-index';
+import { useTranslations } from 'next-intl';
 
-export default function ResourcePage() {
-  const columns = ResourceColumns()
-  const t = useTranslations('resource.items.index')
+const ServiceIndexTemplate: React.FC = () => {
+  const t = useTranslations('pages.index');
 
-  const checkDependencies = (resource: Resource) => {
-    const relatedItemCount = resource.relatedItems?.length ?? 0
-    const hasRelatedItems = relatedItemCount > 0
-    
-    return Promise.resolve({
-      hasDependencies: hasRelatedItems,
-      message: hasRelatedItems 
-        ? t('deletionError', { name: resource.name, relatedItemCount: relatedItemCount })
-        : undefined
-    })
-  }
+  const resources = [
+    {
+      title: t('resources.item1.title'),
+      icon: CloudIcon,
+      description: t('resources.item1.description'),
+      link: '/service/resource1',
+      detail: t('resources.item1.detail')
+    },
+    {
+      title: t('resources.item2.title'),
+      icon: MapPinIcon,
+      description: t('resources.item2.description'),
+      link: '/service/resource2',
+      detail: t('resources.item2.detail')
+    },
+  ];
 
   return (
-    <ResourceDashboard<Resource>
-      resourceType={t('resourcetype')}
-      columns={columns}
-      apiUrl=""
-      deleteUrl={(name: string) => `/resource/items/delete/${name}`}
-      createPath="/resource/items/create"
-      editPath={(name: string) => `/resource/items/edit/${name}`}
-      checkDependencies={checkDependencies}
+    <ServiceIndex
+      title={t('title')}
+      description={t('description')}
+      resources={resources}
+      primaryButtonText={t('primaryButton')}
+      secondaryButtonText={t('secondaryButton')}
+      primaryButtonLink="/service/resource1"
+      secondaryButtonLink="#"
     />
-  )
-}
+  );
+};
+
+export default ServiceIndexTemplate;
