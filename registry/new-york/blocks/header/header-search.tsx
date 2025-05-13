@@ -30,7 +30,7 @@ interface GroupedData {
 export function SearchService() {
   const [open, setOpen] = React.useState(false)
   const router = useRouter()
-  const t = useTranslations('component.header-search')
+  const t = useTranslations('components.header-search')
 
   const searchData = useMemo<SearchItem[]>(
     () => [

@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "header-search": {
       "placeholder": "検索...",
       "noresults": "結果が見つかりませんでした"

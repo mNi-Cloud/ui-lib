@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "header-search": {
       "placeholder": "Search...",
       "noresults": "No results found"

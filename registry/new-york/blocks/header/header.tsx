@@ -39,7 +39,7 @@ import { Separator } from '@/registry/new-york/ui/separator'
 import Link from '@/registry/new-york/blocks/link/link'
 
 export function Header() {
-  const t = useTranslations('component.header')
+  const t = useTranslations('components.header')
   const { data: session } = useSession()
 
   return (
@@ -81,7 +81,7 @@ export function Header() {
 
 export function ThemeToggle() {
   const { setTheme } = useTheme()
-  const t = useTranslations('component.header')
+  const t = useTranslations('components.header')
 
   return (
     <DropdownMenu>
@@ -111,7 +111,7 @@ export function ThemeToggle() {
 }
 
 function UserDropdown() {
-  const t = useTranslations('component.header')
+  const t = useTranslations('components.header')
   const { data: session } = useSession()
   const userName = session?.user?.name || 'User'
   const userImage = session?.user?.image
@@ -200,7 +200,7 @@ function LanguageToggle() {
 }
 
 function MobileMenu() {
-  const t = useTranslations('component.header')
+  const t = useTranslations('components.header')
   const { setTheme } = useTheme()
   const { data: session } = useSession()
 
