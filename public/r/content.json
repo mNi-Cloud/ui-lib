@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "content",
+  "type": "registry:component",
+  "title": "Content",
+  "description": "A content component.",
+  "registryDependencies": [
+    "sidebar",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/breadcrumb.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/blocks/content/content.tsx",
+      "content": "'use client'\n\nimport * as React from \"react\";\nimport { useState, useEffect, useCallback } from \"react\";\nimport { useSidebar } from \"@/registry/new-york/ui/sidebar\";\nimport { BreadcrumbNav } from \"@/registry/new-york/blocks/breadcrumb/breadcrumb\";\n\ninterface ContentProps {\n  children: React.ReactNode;\n}\n\nexport function Content({ children }: ContentProps) {\n  const { open: isSidebarVisible } = useSidebar();\n  const [isSmallScreen, setIsSmallScreen] = useState(false);\n  const [maxWidth, setMaxWidth] = useState<number | undefined>();\n\n  const updateLayout = useCallback(() => {\n    const windowWidth = window.innerWidth;\n    const isSmall = windowWidth <= 768;\n    setIsSmallScreen(isSmall);\n    setMaxWidth(\n      !isSmall && isSidebarVisible ? windowWidth - 256 : undefined\n    );\n  }, [isSidebarVisible]);\n\n  useEffect(() => {\n    updateLayout();\n  }, [updateLayout]);\n\n  useEffect(() => {\n    window.addEventListener(\"resize\", updateLayout);\n    return () => {\n      window.removeEventListener(\"resize\", updateLayout);\n    };\n  }, [updateLayout]);\n\n  return (\n    <div\n      style={\n        !isSmallScreen && maxWidth ? { maxWidth: `${maxWidth}px` } : undefined\n      }\n      className={`p-4 transition-all duration-200 ${\n        isSmallScreen\n          ? \"w-screen\"\n          : !isSidebarVisible\n          ? \"w-full\"\n          : \"\"\n      }`}\n    >\n      <BreadcrumbNav />\n      <div>{children}</div>\n    </div>\n  );\n}",
+      "type": "registry:component"
+    }
+  ]
+}

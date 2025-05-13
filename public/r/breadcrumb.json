@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb",
+  "type": "registry:component",
+  "title": "Breadcrumb",
+  "description": "A breadcrumb component.",
+  "registryDependencies": [
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/blocks/breadcrumb/breadcrumb.tsx",
+      "content": "'use client'\n\nimport React from 'react';\nimport Link from '@/registry/new-york/blocks/link/link';\nimport { usePathname } from 'next/navigation';\n\nimport {\n  Breadcrumb,\n  BreadcrumbItem,\n  BreadcrumbList,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/registry/new-york/ui/breadcrumb\";\n\nexport function BreadcrumbNav() {\n  const pathname = usePathname();\n  const pathnames = pathname.split('/').filter(segment => segment);\n\n  return (\n    <Breadcrumb>\n      <BreadcrumbList>\n        <BreadcrumbItem>\n          <Link href=\"/dashboard\">Home</Link>\n        </BreadcrumbItem>\n        {pathnames.map((name, index) => {\n          const routeTo = `/${pathnames.slice(0, index + 1).join('/')}`;\n          const isLast = index === pathnames.length - 1;\n\n          return (\n            <React.Fragment key={routeTo}>\n              <BreadcrumbSeparator />\n              <BreadcrumbItem>\n                {isLast ? (\n                  <BreadcrumbPage>{name.charAt(0).toUpperCase() + name.slice(1)}</BreadcrumbPage>\n                ) : (\n                  <Link href={routeTo}>{name.charAt(0).toUpperCase() + name.slice(1)}</Link>\n                )}\n              </BreadcrumbItem>\n            </React.Fragment>\n          );\n        })}\n      </BreadcrumbList>\n    </Breadcrumb>\n  );\n}",
+      "type": "registry:component"
+    }
+  ]
+}

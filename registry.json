@@ -78,6 +78,35 @@
           "type": "registry:component"
         }
       ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:component",
+      "title": "Breadcrumb",
+      "description": "A breadcrumb component.",
+      "registryDependencies": ["https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/breadcrumb/breadcrumb.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
+      "name": "content",
+      "type": "registry:component",
+      "title": "Content",
+      "description": "A content component.",
+      "registryDependencies": [
+        "sidebar",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/breadcrumb.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/content/content.tsx",
+          "type": "registry:component"
+        }
+      ]
     }
   ]
 }
