@@ -10,6 +10,7 @@ import { Content } from "@/registry/new-york/blocks/content/content";
 import SideNav from "@/registry/new-york/blocks/sidenav/sidenav";
 import { SidebarInset, SidebarProvider } from "@/registry/new-york/ui/sidebar";
 import { LayoutGrid } from "lucide-react";
+import { Toaster } from "sonner";
 
 
 const geistSans = Geist({
@@ -74,6 +75,7 @@ export default async function RootLayout({
                   <Content>
                     <div className="flex">
                       <main className="flex-1">
+                        <Toaster richColors />
                         {children}
                       </main>
                     </div>
