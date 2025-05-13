@@ -8,7 +8,7 @@
       "columns": {
         "name": "名前",
         "status": "ステータス",
-        "relatedItems": "関連項目",
+        "relatedItem": "関連項目",
         "noRelatedItems": "関連項目なし",
         "created": "作成日"
       }

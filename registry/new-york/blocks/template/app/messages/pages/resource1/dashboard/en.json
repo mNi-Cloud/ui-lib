@@ -8,7 +8,7 @@
       "columns": {
         "name": "Name",
         "status": "Status",
-        "relatedItems": "Related Items",
+        "relatedItem": "Related Items",
         "noRelatedItems": "No related items",
         "created": "Created At"
       }
