@@ -8,20 +8,22 @@ import ServiceIndex from '@/registry/new-york/blocks/service-index/service-index
 import { useTranslations } from 'next-intl';
 
 const ServiceIndexTemplate: React.FC = () => {
-  const t = useTranslations('service.index');
+  const t = useTranslations('pages.index');
 
   const resources = [
     {
       title: t('resources.item1.title'),
       icon: CloudIcon,
       description: t('resources.item1.description'),
-      link: '/service/resource1'
+      link: '/service/resource1',
+      detail: t('resources.item1.detail')
     },
     {
       title: t('resources.item2.title'),
       icon: MapPinIcon,
       description: t('resources.item2.description'),
-      link: '/service/resource2'
+      link: '/service/resource2',
+      detail: t('resources.item2.detail')
     },
   ];
 

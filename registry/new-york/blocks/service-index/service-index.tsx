@@ -3,13 +3,13 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/reg
 import { Button } from "@/registry/new-york/ui/button"
 import { LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl';
 
 interface Resource {
   title: string;
   icon: LucideIcon;
   description: string;
   link: string;
+  detail: string;
 }
 
 interface ServiceIndexProps {
@@ -31,8 +31,6 @@ const ServiceIndex: React.FC<ServiceIndexProps> = ({
   primaryButtonLink = "#",
   secondaryButtonLink = "#",
 }) => {
-  const t = useTranslations('service.index')
-
   return (
     <div className="bg-background">
       <div className="w-full border-b">
@@ -76,7 +74,7 @@ const ServiceIndex: React.FC<ServiceIndexProps> = ({
               <CardContent>
                 <Button variant="ghost" className="w-full justify-start" asChild>
                   <Link href={resource.link}>
-                    {t('detail')}
+                    {resource.detail}
                   </Link>
                 </Button>
               </CardContent>

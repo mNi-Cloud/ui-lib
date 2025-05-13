@@ -154,22 +154,11 @@
       "type": "registry:component",
       "title": "Service Index",
       "description": "A service index component.",
-      "dependencies": ["next-intl"],
       "registryDependencies": ["button", "card"],
       "files": [
         {
           "path": "registry/new-york/blocks/service-index/service-index.tsx",
           "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/service-index/messages/en.json",
-          "type": "registry:file",
-          "target": "messages/pages/service-index/en.json"
-        },
-        {
-          "path": "registry/new-york/blocks/service-index/messages/ja.json",
-          "type": "registry:file",
-          "target": "messages/pages/service-index/ja.json"
         }
       ]
     },
@@ -207,6 +196,16 @@
           "path": "registry/new-york/blocks/template/next.config.ts",
           "type": "registry:file",
           "target": "next.config.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
+          "type": "registry:file",
+          "target": "app/messages/pages/index/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/index/ja.json",
+          "type": "registry:file",
+          "target": "app/messages/pages/index/ja.json"
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "service": {
+  "pages": {
     "index": {
       "title": "サービス タイトル",
       "description": "アプリケーションにおけるサービスとその目的の説明。",
@@ -8,14 +8,15 @@
       "resources": {
         "item1": {
           "title": "リソースタイプ 1",
-          "description": "最初のリソースタイプの説明"
+          "description": "最初のリソースタイプの説明",
+          "detail": "詳細を表示"
         },
         "item2": {
           "title": "リソースタイプ 2",
-          "description": "2番目のリソースタイプの説明"
+          "description": "2番目のリソースタイプの説明",
+          "detail": "詳細を表示"
         }
-      },
-      "detail": "詳細を見る"
+      }
     }
   }
 }

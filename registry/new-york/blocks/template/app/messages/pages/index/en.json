@@ -1,5 +1,5 @@
 {
-  "service": {
+  "pages": {
     "index": {
       "title": "Service Title",
       "description": "Description of your service and its purpose in your application.",
@@ -8,14 +8,15 @@
       "resources": {
         "item1": {
           "title": "Resource Type 1",
-          "description": "Description of the first resource type"
+          "description": "Description of the first resource type",
+          "detail": "Learn More"
         },
         "item2": {
           "title": "Resource Type 2",
-          "description": "Description of the second resource type"
+          "description": "Description of the second resource type",
+          "detail": "Learn More"
         }
-      },
-      "detail": "Learn More"
+      }
     }
   }
 }
