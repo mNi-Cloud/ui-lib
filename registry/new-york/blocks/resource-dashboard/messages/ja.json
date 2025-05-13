@@ -1,0 +1,33 @@
+{
+  "component": {
+    "data-table": {
+      "noresults": "結果がありません",
+      "rowselect": "{selected} / {total} 行選択"
+    },
+    "resource-dashboard": {
+      "error": "エラー",
+      "dependencyerror": "依存関係のチェック中にエラーが発生しました",
+      "deletesuccess": "削除成功",
+      "fetcherror": "データの取得中にエラーが発生しました",
+      "editerror": "編集するには1つのリソースを選択してください",
+      "deleteerror": "依存するリソースが存在するため削除できません",
+      "edit": "編集",
+      "delete": "削除"
+    },
+    "resource-view": {
+      "error": "エラー",
+      "fetcherror": "リソースの取得に失敗しました",
+      "action": "アクション",
+      "create": "作成"
+    },
+    "table-setting": {
+      "title": "テーブル設定",
+      "pagesize": "ページサイズ",
+      "row": "行",
+      "custom": "カスタム",
+      "column": "表示列",
+      "cancel": "キャンセル",
+      "apply": "適用"
+    }
+  }
+}

@@ -207,6 +207,44 @@
       ]
     },
     {
+      "name": "resource-dashboard",
+      "type": "registry:component",
+      "title": "Resource Dashboard",
+      "description": "A resource dashboard component.",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-dashboard/resource-dashboard.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-dashboard/resource-view.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-dashboard/data-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-dashboard/table-setting.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-dashboard/table-search.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-dashboard/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-dashboard/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-dashboard/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-dashboard/ja.json"
+        }
+      ]
+    },
+    {
       "name": "template",
       "type": "registry:block",
       "title": "Template",

@@ -1,0 +1,33 @@
+{
+  "component": {
+    "data-table": {
+      "noresults": "No results",
+      "rowselect": "{selected} of {total} row(s) selected."
+    },
+    "resource-dashboard": {
+      "error": "Error",
+      "dependencyerror": "An error occurred while checking dependencies",
+      "deletesuccess": "Delete successful",
+      "fetcherror": "An error occurred while fetching data",
+      "editerror": "Please select one resource to edit",
+      "deleteerror": "Cannot delete due to existing dependent resources",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "resource-view": {
+      "error": "Error",
+      "fetcherror": "Failed to fetch resource",
+      "action": "Action",
+      "create": "Create"
+    },
+    "table-setting": {
+      "title": "Table Settings",
+      "pagesize": "Page Size",
+      "row": "rows",
+      "custom": "Custom",
+      "column": "Display Columns",
+      "cancel": "Cancel",
+      "apply": "Apply"
+    }
+  }
+}
