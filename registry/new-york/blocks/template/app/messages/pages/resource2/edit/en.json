@@ -1,0 +1,28 @@
+{
+  "pages": {
+    "resource2": {
+      "edit": {
+        "title": "Edit Post",
+        "resourcetype": "Post",
+        "successmessage": "Post updated successfully",
+        "errormessage": "An error occurred while updating the post",
+        "title": {
+          "label": "Title",
+          "placeholder": "Enter title",
+          "description": "The title of the post"
+        },
+        "body": {
+          "label": "Body",
+          "placeholder": "Enter content",
+          "description": "The content of the post"
+        },
+        "userId": {
+          "label": "User ID",
+          "placeholder": "Enter user ID",
+          "description": "The user ID of the author (1-10)",
+          "readonlymessage": "User ID cannot be changed"
+        }
+      }
+    }
+  }
+} 

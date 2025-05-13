@@ -1,0 +1,17 @@
+{
+  "pages": {
+    "resource2": {
+      "dashboard": {
+        "resourcetype": "Post",
+        "deletionError": "'{name}' cannot be deleted due to dependencies with '{company}'"
+      },
+      "columns": {
+        "id": "ID",
+        "title": "Title",
+        "body": "Content",
+        "author": "Author",
+        "user": "User"
+      }
+    }
+  }
+} 

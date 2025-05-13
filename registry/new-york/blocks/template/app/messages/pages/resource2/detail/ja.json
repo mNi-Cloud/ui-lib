@@ -1,0 +1,13 @@
+{
+  "pages": {
+    "resource2": {
+      "detail": {
+        "resourcetype": "投稿",
+        "title": "タイトル",
+        "content": "コンテンツ",
+        "author": "作成者",
+        "user": "ユーザー"
+      }
+    }
+  }
+} 

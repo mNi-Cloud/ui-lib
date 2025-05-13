@@ -1,0 +1,17 @@
+{
+  "pages": {
+    "resource2": {
+      "dashboard": {
+        "resourcetype": "投稿",
+        "deletionError": "'{name}'は'{company}'に依存関係があるため削除できません"
+      },
+      "columns": {
+        "id": "ID",
+        "title": "タイトル",
+        "body": "本文",
+        "author": "作成者",
+        "user": "ユーザー"
+      }
+    }
+  }
+} 

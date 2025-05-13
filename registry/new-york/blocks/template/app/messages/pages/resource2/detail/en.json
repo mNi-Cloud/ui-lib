@@ -1,0 +1,13 @@
+{
+  "pages": {
+    "resource2": {
+      "detail": {
+        "resourcetype": "Post",
+        "title": "Title",
+        "content": "Content",
+        "author": "Author",
+        "user": "User"
+      }
+    }
+  }
+} 
