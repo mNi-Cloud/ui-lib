@@ -271,6 +271,7 @@
       "description": "A template component.",
       "dependencies": ["next-intl", "next-themes", "next-auth", "@tanstack/react-table"],
       "registryDependencies": [
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/i18n.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/session-provider.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/theme-provider.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/header.json",
