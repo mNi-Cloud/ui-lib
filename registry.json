@@ -380,12 +380,12 @@
           "target": "messages/pages/resource1/dashboard/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/[name]/en.json",
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/detail/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/[name]/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/[name]/ja.json",
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/detail/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/[name]/ja.json"
         }
