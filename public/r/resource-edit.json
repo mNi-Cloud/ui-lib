@@ -27,13 +27,13 @@
     },
     {
       "path": "registry/new-york/blocks/resource-edit/messages/en.json",
-      "content": "{\n  \"component\": {\n    \"resource-edit\": {\n      \"add\": \"Add\",\n      \"select\": \"Select {label}\",\n      \"successmessage\": \"Resource updated successfully\",\n      \"errormessage\": \"An error occurred while updating the resource\",\n      \"error\": \"Error\",\n      \"fetcherror\": \"Failed to fetch resource data\",\n      \"updated\": \"{resourceName} has been updated\",\n      \"canceledit\": \"Edit canceled\",\n      \"cancel\": \"Cancel\",\n      \"updating\": \"Updating...\",\n      \"update\": \"Update\"\n    }\n  }\n} ",
+      "content": "{\n  \"component\": {\n    \"resource-edit\": {\n      \"successmessage\": \"Resource update completed successfully\",\n      \"errormessage\": \"An error occurred while updating the resource\",\n      \"add\": \"Add\",\n      \"select\": \"Select {label}\",\n      \"need\": \"{label} is required\",\n      \"textlesser\": \"{label} must be {maxLength} characters or less\",\n      \"fetcherror\": \"Failed to fetch resource\",\n      \"error\": \"Error\",\n      \"updated\": \"Updated '{resourceName}'\",\n      \"canceledit\": \"Edit cancelled\",\n      \"cancel\": \"Cancel\",\n      \"updating\": \"Updating...\",\n      \"update\": \"Update\"\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/components/resource-edit/en.json"
     },
     {
       "path": "registry/new-york/blocks/resource-edit/messages/ja.json",
-      "content": "{\n  \"component\": {\n    \"resource-edit\": {\n      \"add\": \"追加\",\n      \"select\": \"{label}を選択\",\n      \"successmessage\": \"リソースが正常に更新されました\",\n      \"errormessage\": \"リソースの更新中にエラーが発生しました\",\n      \"error\": \"エラー\",\n      \"fetcherror\": \"リソースの取得中にエラーが発生しました\",\n      \"updated\": \"{resourceName}が更新されました\",\n      \"canceledit\": \"編集をキャンセルしました\",\n      \"cancel\": \"キャンセル\",\n      \"updating\": \"更新中...\",\n      \"update\": \"更新\"\n    }\n  }\n} ",
+      "content": "{\n  \"component\": {\n    \"resource-edit\": {\n      \"successmessage\": \"リソースの更新が完了しました\",\n      \"errormessage\": \"リソースの更新中にエラーが発生しました\",\n      \"add\": \"追加\",\n      \"select\": \"{label}を選択\",\n      \"need\": \"{label}は必須項目です\",\n      \"textlesser\": \"{label}は${maxLength}文字以内で入力してください\",\n      \"fetcherror\": \"リソースの取得に失敗しました\",\n      \"error\": \"エラー\",\n      \"updated\": \"「{resourceName}」を更新しました\",\n      \"canceledit\": \"編集をキャンセルしました\",\n      \"cancel\": \"キャンセル\",\n      \"updating\": \"更新中...\",\n      \"update\": \"更新\"\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/components/resource-edit/ja.json"
     }
