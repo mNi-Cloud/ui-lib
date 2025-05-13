@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "delete-confirmation",
+  "type": "registry:component",
+  "title": "Delete Confirmation",
+  "description": "A delete confirmation component.",
+  "files": [
+    {
+      "path": "registry/new-york/blocks/delete-confirmation/delete-confirmation.tsx",
+      "content": "import { useState } from 'react';\nimport { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from \"@/registry/new-york/ui/dialog\"\nimport { Button } from \"@/registry/new-york/ui/button\"\nimport { Input } from \"@/registry/new-york/ui/input\"\nimport { useTranslations } from 'next-intl'\n\ninterface DeleteConfirmationDialogProps {\n  isOpen: boolean;\n  onClose: () => void;\n  onConfirm: () => void;\n  resourceNames: string[];\n}\n\nexport function DeleteConfirmationDialog({ isOpen, onClose, onConfirm, resourceNames }: DeleteConfirmationDialogProps) {\n  const [inputValue, setInputValue] = useState('');\n  const isMultiple = resourceNames.length > 1;\n  const confirmText = isMultiple ? 'Delete All' : resourceNames[0];\n  const t = useTranslations('components.delete-confirmation')\n\n  const handleConfirm = () => {\n    if (inputValue === confirmText) {\n      onConfirm();\n      onClose();\n    }\n  };\n\n  return (\n    <Dialog open={isOpen} onOpenChange={onClose}>\n      <DialogContent>\n        <DialogHeader>\n          <DialogTitle>{t('title')}</DialogTitle>\n          <DialogDescription>\n            {isMultiple\n              ? t('description1', { length: resourceNames.length })\n              : t('description2', { resourceName: resourceNames[0] })}\n            <br />\n            {t('confirmation', { confirmText })}\n          </DialogDescription>\n        </DialogHeader>\n        <Input\n          value={inputValue}\n          onChange={(e) => setInputValue(e.target.value)}\n          placeholder={confirmText}\n        />\n        <DialogFooter>\n          <Button variant=\"outline\" onClick={onClose}>{t('cancel')}</Button>\n          <Button\n            variant=\"destructive\"\n            onClick={handleConfirm}\n            disabled={inputValue !== confirmText}\n          >\n            {t('delete')}\n          </Button>\n        </DialogFooter>\n      </DialogContent>\n    </Dialog>\n  );\n}",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/new-york/blocks/delete-confirmation/messages/en.json",
+      "content": "{\n  \"components\": {\n    \"delete-confirmation\": {\n      \"title\": \"Resource Deletion Confirmation\",\n      \"description1\": \"You are about to delete {length} resources\",\n      \"description2\": \"You are about to delete {resourceName}\",\n      \"confirmation\": \"This action cannot be undone. To continue, please type {confirmText} below\",\n      \"cancel\": \"Cancel\",\n      \"delete\": \"Delete\"\n    }\n  }\n}",
+      "type": "registry:file",
+      "target": "messages/components/delete-confirmation/en.json"
+    },
+    {
+      "path": "registry/new-york/blocks/delete-confirmation/messages/ja.json",
+      "content": "{\n  \"components\": {\n    \"delete-confirmation\": {\n      \"title\": \"リソースの削除確認\",\n      \"description1\": \"{length}個のリソースを削除しようとしています\",\n      \"description2\": \"{resourceName}を削除しようとしています\",\n      \"confirmation\": \"この操作は取り消せません。続行するには、以下に{confirmText}と入力してください\",\n      \"cancel\": \"キャンセル\",\n      \"delete\": \"削除\"\n    }\n  }\n}\n",
+      "type": "registry:file",
+      "target": "messages/components/delete-confirmation/ja.json"
+    }
+  ]
+}

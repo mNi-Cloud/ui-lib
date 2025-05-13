@@ -46,13 +46,13 @@
       "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
       "content": "{\n  \"pages\": {\n    \"index\": {\n      \"title\": \"Service Title\",\n      \"description\": \"Description of your service and its purpose in your application.\",\n      \"primaryButton\": \"Get Started\",\n      \"secondaryButton\": \"Learn More\",\n      \"resources\": {\n        \"item1\": {\n          \"title\": \"Resource Type 1\",\n          \"description\": \"Description of the first resource type\",\n          \"detail\": \"Learn More\"\n        },\n        \"item2\": {\n          \"title\": \"Resource Type 2\",\n          \"description\": \"Description of the second resource type\",\n          \"detail\": \"Learn More\"\n        }\n      }\n    }\n  }\n}",
       "type": "registry:file",
-      "target": "app/messages/pages/index/en.json"
+      "target": "messages/pages/index/en.json"
     },
     {
       "path": "registry/new-york/blocks/template/app/messages/pages/index/ja.json",
       "content": "{\n  \"pages\": {\n    \"index\": {\n      \"title\": \"サービス タイトル\",\n      \"description\": \"アプリケーションにおけるサービスとその目的の説明。\",\n      \"primaryButton\": \"今すぐ始める\",\n      \"secondaryButton\": \"詳細を見る\",\n      \"resources\": {\n        \"item1\": {\n          \"title\": \"リソースタイプ 1\",\n          \"description\": \"最初のリソースタイプの説明\",\n          \"detail\": \"詳細を表示\"\n        },\n        \"item2\": {\n          \"title\": \"リソースタイプ 2\",\n          \"description\": \"2番目のリソースタイプの説明\",\n          \"detail\": \"詳細を表示\"\n        }\n      }\n    }\n  }\n}",
       "type": "registry:file",
-      "target": "app/messages/pages/index/ja.json"
+      "target": "messages/pages/index/ja.json"
     }
   ]
 }
