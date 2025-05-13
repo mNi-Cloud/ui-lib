@@ -5,12 +5,13 @@
   "title": "i18n",
   "description": "i18n configuration.",
   "dependencies": [
-    "next-intl"
+    "next-intl",
+    "deepmerge"
   ],
   "files": [
     {
       "path": "registry/new-york/blocks/i18n/request.ts",
-      "content": "import { getRequestConfig } from 'next-intl/server';\nimport { getUserLocale } from './locale';\nimport fs from 'fs/promises';\nimport path from 'path';\n\nasync function loadAllMessages(dir: string, locale: string): Promise<Record<string, any>> {\n  let merged: Record<string, any> = {};\n\n  const entries = await fs.readdir(dir, { withFileTypes: true });\n  for (const entry of entries) {\n    const fullPath = path.join(dir, entry.name);\n\n    if (entry.isDirectory()) {\n      const nested = await loadAllMessages(fullPath, locale);\n      Object.assign(merged, nested);\n    } else if (entry.isFile() && entry.name === `${locale}.json`) {\n      const raw = await fs.readFile(fullPath, 'utf-8');\n      const json = JSON.parse(raw);\n      Object.assign(merged, json);\n    }\n  }\n\n  return merged;\n}\n\nexport default getRequestConfig(async () => {\n  const locale = await getUserLocale();\n  const messagesDir = path.resolve(process.cwd(), 'messages');\n  const messages = await loadAllMessages(messagesDir, locale);\n\n  return {\n    locale,\n    messages\n  };\n});\n",
+      "content": "import { getRequestConfig } from 'next-intl/server';\nimport { getUserLocale } from './locale';\nimport { promises as fs } from 'fs';\nimport path from 'path';\nimport deepmerge from 'deepmerge';\n\nasync function loadAllMessages(\n  dir: string,\n  locale: string\n): Promise<Record<string, any>> {\n  let merged: Record<string, any> = {};\n\n  const entries = await fs.readdir(dir, { withFileTypes: true });\n  for (const entry of entries) {\n    const fullPath = path.join(dir, entry.name);\n\n    if (entry.isDirectory()) {\n      const nested = await loadAllMessages(fullPath, locale);\n      merged = deepmerge(merged, nested);\n    } else if (entry.isFile() && entry.name === `${locale}.json`) {\n      try {\n        const raw = await fs.readFile(fullPath, 'utf-8');\n        const json = JSON.parse(raw);\n        merged = deepmerge(merged, json);\n      } catch (err) {\n        console.error(`Failed to load or parse: ${fullPath}`, err);\n      }\n    }\n  }\n\n  return merged;\n}\n\nexport default getRequestConfig(async () => {\n  const locale = await getUserLocale();\n  const messagesDir = path.resolve(process.cwd(), 'messages');\n  const messages = await loadAllMessages(messagesDir, locale);\n\n  return { locale, messages };\n});\n",
       "type": "registry:file",
       "target": "i18n/request.ts"
     },
