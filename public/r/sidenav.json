@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "sidenav",
+  "type": "registry:component",
+  "title": "SideNav",
+  "description": "A sidebar component.",
+  "registryDependencies": [
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/i18n.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/blocks/sidenav/sidenav.tsx",
+      "content": "import { LucideIcon } from \"lucide-react\"\nimport {\n  Sidebar as SidebarRoot,\n  SidebarContent,\n  SidebarGroup,\n  SidebarHeader,\n  SidebarMenu,\n  SidebarMenuItem,\n  SidebarMenuButton,\n  SidebarMenuSub,\n  SidebarMenuSubButton,\n  SidebarMenuSubItem,\n  SidebarRail,\n} from \"@/registry/new-york/ui/sidebar\"\nimport Link from \"@/registry/new-york/blocks/link/link\"\n\ninterface NavSubItem {\n  name: string\n  href: string\n}\n\ninterface NavItem {\n  name: string\n  href: string\n  items?: NavSubItem[]\n}\n\ninterface HeaderMenuItem {\n  icon: LucideIcon\n  title: string\n  subtitle: string\n  href: string\n}\n\ninterface SidebarProps {\n  navItems: NavItem[]\n  headerMenu: HeaderMenuItem\n}\n\nconst SideNav = ({ navItems, headerMenu }: SidebarProps) => {\n  const { icon: Icon, title, subtitle, href } = headerMenu\n\n  return (\n    <SidebarRoot>\n      <SidebarHeader>\n        <SidebarMenu>\n          <SidebarMenuItem>\n            <SidebarMenuButton size=\"lg\" asChild>\n              <Link href={href}>\n                <div className=\"flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground\">\n                  <Icon className=\"size-4\" />\n                </div>\n                <div className=\"flex flex-col gap-0.5 leading-none\">\n                  <span className=\"font-semibold\">{title}</span>\n                  <span className=\"text-sm text-muted-foreground\">{subtitle}</span>\n                </div>\n              </Link>\n            </SidebarMenuButton>\n          </SidebarMenuItem>\n        </SidebarMenu>\n      </SidebarHeader>\n      <SidebarContent>\n        <SidebarGroup>\n          <SidebarMenu>\n            {navItems.map((item) => (\n              <SidebarMenuItem key={item.name}>\n                <SidebarMenuButton asChild>\n                  <Link\n                    href={item.href}\n                    className=\"font-medium\"\n                  >\n                    {item.name}\n                  </Link>\n                </SidebarMenuButton>\n                {item.items?.length ? (\n                  <SidebarMenuSub>\n                    {item.items.map((subItem) => (\n                      <SidebarMenuSubItem key={subItem.name}>\n                        <SidebarMenuSubButton asChild>\n                          <Link href={subItem.href}>{subItem.name}</Link>\n                        </SidebarMenuSubButton>\n                      </SidebarMenuSubItem>\n                    ))}\n                  </SidebarMenuSub>\n                ) : null}\n              </SidebarMenuItem>\n            ))}\n          </SidebarMenu>\n        </SidebarGroup>\n      </SidebarContent>\n      <SidebarRail />\n    </SidebarRoot>\n  )\n}\n\nexport default SideNav",
+      "type": "registry:component"
+    }
+  ]
+}
