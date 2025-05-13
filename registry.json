@@ -321,6 +321,36 @@
       ]
     },
     {
+      "name": "resource-create",
+      "type": "registry:component",
+      "title": "Resource Create",
+      "description": "A resource creation form component.",
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod"],
+      "registryDependencies": [
+        "form",
+        "card",
+        "input",
+        "select",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-create/resource-create.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-create/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-create/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-create/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-create/ja.json"
+        }
+      ]
+    },
+    {
       "name": "template",
       "type": "registry:block",
       "title": "Template",
@@ -335,7 +365,8 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-create.json"
       ],
       "files": [
         {
@@ -367,6 +398,11 @@
           "path": "registry/new-york/blocks/template/app/service/resource1/page.tsx",
           "type": "registry:file",
           "target": "app/service/resource1/page.tsx"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/service/resource1/create/page.tsx",
+          "type": "registry:file",
+          "target": "app/service/resource1/create/page.tsx"
         },
         {
           "path": "registry/new-york/blocks/template/app/service/resource1/[id]/page.tsx",
@@ -402,6 +438,16 @@
           "path": "registry/new-york/blocks/template/app/messages/pages/resource1/detail/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/detail/ja.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/create/en.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/create/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/create/ja.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/create/ja.json"
         }
       ]
     }

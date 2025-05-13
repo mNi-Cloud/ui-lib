@@ -1,0 +1,48 @@
+{
+  "title": "Create Resource",
+  "resourcetype": "Resource",
+  "successmessage": "Resource successfully created",
+  "errormessage": "Error occurred while creating resource",
+  "name": {
+    "label": "Name",
+    "placeholder": "Enter resource name",
+    "description": "The display name of the resource"
+  },
+  "username": {
+    "label": "Username",
+    "placeholder": "Enter username",
+    "description": "Username used in the system (alphanumeric and underscore only)",
+    "validation": "Username can only contain alphanumeric characters and underscores"
+  },
+  "email": {
+    "label": "Email",
+    "placeholder": "example@example.com",
+    "description": "Contact email address"
+  },
+  "website": {
+    "label": "Website",
+    "placeholder": "https://example.com",
+    "description": "URL of the website"
+  },
+  "company": {
+    "name": {
+      "label": "Company Name",
+      "placeholder": "Enter company name",
+      "description": "Name of the company or organization"
+    },
+    "catchPhrase": {
+      "label": "Catch Phrase",
+      "placeholder": "Enter company catch phrase"
+    }
+  },
+  "address": {
+    "city": {
+      "label": "City",
+      "placeholder": "Enter city"
+    },
+    "zipcode": {
+      "label": "Zip Code",
+      "placeholder": "123-4567"
+    }
+  }
+} 
