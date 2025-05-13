@@ -1,0 +1,8 @@
+{
+  "title": "Create Resource",
+  "description": "Create a new resource",
+  "submit": "Create",
+  "cancel": "Cancel",
+  "successMessage": "Resource created successfully",
+  "errorMessage": "Failed to create resource"
+} 
