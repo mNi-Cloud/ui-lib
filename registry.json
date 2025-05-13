@@ -215,6 +215,22 @@
       "title": "Resource View",
       "description": "A resource view component.",
       "dependencies": ["next-intl", "swr", "@tanstack/react-table", "@radix-ui/react-icons"],
+      "registryDependencies": [
+        "table",
+        "checkbox",
+        "button",
+        "separator",
+        "dropdown-menu",
+        "alert",
+        "input",
+        "radio-group",
+        "switch",
+        "dialog",
+        "label",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-delete.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/resource-view/resource-view.tsx",
@@ -249,20 +265,9 @@
       "type": "registry:component",
       "title": "Resource Dashboard",
       "description": "A resource dashboard component.",
-      "dependencies": ["next-intl", "swr", "@tanstack/react-table", "@radix-ui/react-icons"],
+      "dependencies": ["next-intl", "swr"],
       "registryDependencies": [
-        "table",
-        "checkbox",
-        "button",
-        "separator",
         "sonner",
-        "dropdown-menu",
-        "alert",
-        "input",
-        "radio-group",
-        "switch",
-        "dialog",
-        "label",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-delete.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json"
@@ -289,6 +294,15 @@
       "type": "registry:component",
       "title": "Resource Detail",
       "description": "A resource detail component.",
+      "dependencies": ["next-intl", "swr", "@tanstack/react-table"],
+      "registryDependencies": [
+        "sonner",
+        "button",
+        "dropdown-menu",
+        "separator",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/resource-detail/resource-detail.tsx",

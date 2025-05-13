@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
-import { ResourceView } from '@/registry/new-york/blocks/resource-dashboard/resource-view'
+import { ResourceView } from '@/registry/new-york/blocks/resource-view/resource-view'
 import useSWR from 'swr'
 import { DeleteConfirmationDialog } from '@/registry/new-york/blocks/delete-confirmation/delete-confirmation'
 import { useResourceDeletion } from '@/registry/new-york/blocks/resource-delete/resource-delete'

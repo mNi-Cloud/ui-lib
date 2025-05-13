@@ -54,7 +54,7 @@ export const ResourceColumns = () => {
       header: t('name'),
       cell: ({row}) => (
         <Link 
-          href={`/resource/items/${row.getValue("id")}`} 
+          href={`/service/resource1/${row.original.id}`}
           className="text-blue-500 hover:underline"
         >
           {row.getValue("name")}

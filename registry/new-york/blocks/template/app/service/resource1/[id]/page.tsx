@@ -7,6 +7,7 @@ import { ColumnDef } from "@tanstack/react-table"
 import Link from "@/registry/new-york/blocks/link/link"
 import { useTranslations } from 'next-intl'
 
+// ユーザーの投稿を表す型
 interface Post {
   userId: number
   id: number
@@ -50,12 +51,15 @@ const PostColumns = () => {
 
 export default function UserDetailPage(
   props: {
-    params: Promise<{ name: string }>
+    params: Promise<{ id: string }>
   }
 ) {
   const params = use(props.params)
   const postColumns = PostColumns()
   const t = useTranslations('pages.resource1.detail')
+  
+  // パラメータとしてユーザーIDを直接取得
+  const userId = params.id
 
   const renderUserDetails = (user: Resource) => (
     <>
@@ -106,10 +110,10 @@ export default function UserDetailPage(
   return (
     <ResourceDetail<Resource, Post>
       resourceType={t('resourcetype', { defaultMessage: 'ユーザー' })}
-      resourceId={params.name}
-      apiUrl={`https://jsonplaceholder.typicode.com/users/${params.name}`}
-      editPath={`/resource/items/edit/${params.name}`}
-      deleteUrl={`/resource/items/delete/${params.name}`}
+      resourceId={userId}
+      apiUrl={`https://jsonplaceholder.typicode.com/users/${userId}`}
+      editPath={`/resource/items/edit/${userId}`}
+      deleteUrl={`/resource/items/delete/${userId}`}
       onDelete={{
         path: "/service/resource1",
       }}
@@ -142,4 +146,4 @@ export default function UserDetailPage(
       }}
     />
   )
-}
+} 
