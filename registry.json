@@ -285,6 +285,28 @@
       ]
     },
     {
+      "name": "resource-detail",
+      "type": "registry:component",
+      "title": "Resource Detail",
+      "description": "A resource detail component.",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-detail/resource-detail.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-detail/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-detail/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-detail/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-detail/ja.json"
+        }
+      ]
+    },
+    {
       "name": "template",
       "type": "registry:block",
       "title": "Template",
@@ -298,7 +320,8 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/sidenav.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json"
       ],
       "files": [
         {
@@ -332,6 +355,11 @@
           "target": "app/service/resource1/page.tsx"
         },
         {
+          "path": "registry/new-york/blocks/template/app/service/resource1/[name]/page.tsx",
+          "type": "registry:file",
+          "target": "app/service/resource1/[name]/page.tsx"
+        },
+        {
           "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
           "type": "registry:file",
           "target": "messages/pages/index/en.json"
@@ -350,6 +378,16 @@
           "path": "registry/new-york/blocks/template/app/messages/pages/resource1/dashboard/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/dashboard/ja.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/[name]/en.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/[name]/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/[name]/ja.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/[name]/ja.json"
         }
       ]
     }
