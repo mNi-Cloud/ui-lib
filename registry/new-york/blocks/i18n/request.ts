@@ -1,9 +1,13 @@
 import { getRequestConfig } from 'next-intl/server';
 import { getUserLocale } from './locale';
-import fs from 'fs/promises';
+import { promises as fs } from 'fs';
 import path from 'path';
+import deepmerge from 'deepmerge';
 
-async function loadAllMessages(dir: string, locale: string): Promise<Record<string, any>> {
+async function loadAllMessages(
+  dir: string,
+  locale: string
+): Promise<Record<string, any>> {
   let merged: Record<string, any> = {};
 
   const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -12,11 +16,15 @@ async function loadAllMessages(dir: string, locale: string): Promise<Record<stri
 
     if (entry.isDirectory()) {
       const nested = await loadAllMessages(fullPath, locale);
-      Object.assign(merged, nested);
+      merged = deepmerge(merged, nested);
     } else if (entry.isFile() && entry.name === `${locale}.json`) {
-      const raw = await fs.readFile(fullPath, 'utf-8');
-      const json = JSON.parse(raw);
-      Object.assign(merged, json);
+      try {
+        const raw = await fs.readFile(fullPath, 'utf-8');
+        const json = JSON.parse(raw);
+        merged = deepmerge(merged, json);
+      } catch (err) {
+        console.error(`Failed to load or parse: ${fullPath}`, err);
+      }
     }
   }
 
@@ -28,8 +36,5 @@ export default getRequestConfig(async () => {
   const messagesDir = path.resolve(process.cwd(), 'messages');
   const messages = await loadAllMessages(messagesDir, locale);
 
-  return {
-    locale,
-    messages
-  };
+  return { locale, messages };
 });

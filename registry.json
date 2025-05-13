@@ -8,7 +8,7 @@
       "type": "registry:file",
       "title": "i18n",
       "description": "i18n configuration.",
-      "dependencies": ["next-intl"],
+      "dependencies": ["next-intl", "deepmerge"],
       "files": [
         {
           "path": "registry/new-york/blocks/i18n/request.ts",
