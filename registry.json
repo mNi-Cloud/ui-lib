@@ -437,6 +437,11 @@
           "target": "app/service/resource1/create/page.tsx"
         },
         {
+          "path": "registry/new-york/blocks/template/app/service/resource1/edit/[id]/page.tsx",
+          "type": "registry:file",
+          "target": "app/service/resource1/edit/[id]/page.tsx"
+        },
+        {
           "path": "registry/new-york/blocks/template/app/service/resource1/[id]/page.tsx",
           "type": "registry:file",
           "target": "app/service/resource1/[id]/page.tsx"
@@ -480,6 +485,16 @@
           "path": "registry/new-york/blocks/template/app/messages/pages/resource1/create/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/create/ja.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/edit/en.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/edit/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/edit/ja.json",
+          "type": "registry:file",
+          "target": "messages/pages/resource1/edit/ja.json"
         }
       ]
     }

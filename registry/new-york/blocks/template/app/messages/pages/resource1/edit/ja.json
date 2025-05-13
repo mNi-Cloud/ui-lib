@@ -1,0 +1,55 @@
+{
+  "pages": {
+    "resource1": {
+      "edit": {
+        "title": "リソースの編集",
+        "resourcetype": "リソース",
+        "successmessage": "リソースが正常に更新されました",
+        "errormessage": "リソースの更新中にエラーが発生しました",
+        "name": {
+          "label": "名前",
+          "placeholder": "リソース名を入力してください",
+          "description": "リソースの名前（表示名）"
+        },
+        "username": {
+          "label": "ユーザー名",
+          "placeholder": "ユーザー名を入力してください",
+          "description": "システム内で使用されるユーザー名（英数字とアンダースコアのみ）",
+          "validation": "ユーザー名には英数字とアンダースコアのみ使用できます",
+          "readonlymessage": "ユーザー名は変更できません"
+        },
+        "email": {
+          "label": "メールアドレス",
+          "placeholder": "example@example.com",
+          "description": "連絡先のメールアドレス"
+        },
+        "website": {
+          "label": "Webサイト",
+          "placeholder": "https://example.com",
+          "description": "ウェブサイトのURL"
+        },
+        "company": {
+          "name": {
+            "label": "会社名",
+            "placeholder": "会社名を入力してください",
+            "description": "所属する会社や組織の名前"
+          },
+          "catchPhrase": {
+            "label": "キャッチフレーズ",
+            "placeholder": "会社のキャッチフレーズを入力してください"
+          }
+        },
+        "address": {
+          "city": {
+            "label": "市区町村",
+            "placeholder": "市区町村を入力してください"
+          },
+          "zipcode": {
+            "label": "郵便番号",
+            "placeholder": "123-4567"
+          }
+        }
+      }
+    }
+  }
+} 
