@@ -1,0 +1,20 @@
+{
+  "component": {
+    "resource-detail": {
+      "error": "Error",
+      "dependencyerror": "An error occurred while checking dependencies",
+      "deleteerror": "Cannot delete due to existing dependent resources",
+      "deletesuccess": "Delete successful",
+      "deleted1": "Deleted {resourceType}",
+      "deletefailed1": "Failed to delete {resourceType}",
+      "deleted2": "Deleted selected resources",
+      "deletefailed2": "Failed to delete resources",
+      "edit": "Edit",
+      "editerror": "Please select one resource to edit",
+      "delete": "Delete",
+      "notfound": "Not Found",
+      "notfounddetail": "{resourceType} not found",
+      "action": "Action"
+    }
+  }
+}
