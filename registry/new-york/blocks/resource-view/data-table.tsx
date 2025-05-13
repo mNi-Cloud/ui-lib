@@ -23,8 +23,8 @@ import { Checkbox } from "@/registry/new-york/ui/checkbox"
 import { Button } from "@/registry/new-york/ui/button"
 import { Separator } from '@/registry/new-york/ui/separator'
 import { Loader2, ChevronRight, ChevronLeft } from 'lucide-react'
-import { TableSetting } from "@/registry/new-york/blocks/resource-dashboard/table-setting"
-import { TableSearch } from "@/registry/new-york/blocks/resource-dashboard/table-search"
+import { TableSetting } from "@/registry/new-york/blocks/resource-view/table-setting"
+import { TableSearch } from "@/registry/new-york/blocks/resource-view/table-search"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]

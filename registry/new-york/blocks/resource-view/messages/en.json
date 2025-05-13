@@ -1,0 +1,23 @@
+{
+  "component": {
+    "data-table": {
+      "noresults": "No results",
+      "rowselect": "{selected} of {total} row(s) selected."
+    },
+    "resource-view": {
+      "error": "Error",
+      "fetcherror": "Failed to fetch resource",
+      "action": "Action",
+      "create": "Create"
+    },
+    "table-setting": {
+      "title": "Table Settings",
+      "pagesize": "Page Size",
+      "row": "rows",
+      "custom": "Custom",
+      "column": "Display Columns",
+      "cancel": "Cancel",
+      "apply": "Apply"
+    }
+  }
+}

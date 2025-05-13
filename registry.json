@@ -210,6 +210,41 @@
       ]
     },
     {
+      "name": "resource-view",
+      "type": "registry:component",
+      "title": "Resource View",
+      "description": "A resource view component.",
+      "dependencies": ["next-intl", "swr", "@tanstack/react-table", "@radix-ui/react-icons"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-view/resource-view.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-view/data-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-view/table-setting.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-view/table-search.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-view/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-view/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-view/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-view/ja.json"
+        }
+      ]
+    },
+    {
       "name": "resource-dashboard",
       "type": "registry:component",
       "title": "Resource Dashboard",
@@ -229,27 +264,12 @@
         "dialog",
         "label",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-delete.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-delete.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json"
       ],
       "files": [
         {
           "path": "registry/new-york/blocks/resource-dashboard/resource-dashboard.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-dashboard/resource-view.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-dashboard/data-table.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-dashboard/table-setting.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-dashboard/table-search.tsx",
           "type": "registry:component"
         },
         {
