@@ -351,6 +351,37 @@
       ]
     },
     {
+      "name": "resource-edit",
+      "type": "registry:component",
+      "title": "Resource Edit",
+      "description": "A resource editing form component.",
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod"],
+      "registryDependencies": [
+        "form",
+        "card",
+        "input",
+        "select",
+        "button",
+        "alert"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-edit/resource-edit.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-edit/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-edit/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-edit/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-edit/ja.json"
+        }
+      ]
+    },
+    {
       "name": "template",
       "type": "registry:block",
       "title": "Template",
@@ -366,7 +397,8 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-create.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-create.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-edit.json"
       ],
       "files": [
         {

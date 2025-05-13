@@ -1,0 +1,17 @@
+{
+  "component": {
+    "resource-edit": {
+      "add": "追加",
+      "select": "{label}を選択",
+      "successmessage": "リソースが正常に更新されました",
+      "errormessage": "リソースの更新中にエラーが発生しました",
+      "error": "エラー",
+      "fetcherror": "リソースの取得中にエラーが発生しました",
+      "updated": "{resourceName}が更新されました",
+      "canceledit": "編集をキャンセルしました",
+      "cancel": "キャンセル",
+      "updating": "更新中...",
+      "update": "更新"
+    }
+  }
+} 

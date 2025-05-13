@@ -1,0 +1,17 @@
+{
+  "component": {
+    "resource-edit": {
+      "add": "Add",
+      "select": "Select {label}",
+      "successmessage": "Resource updated successfully",
+      "errormessage": "An error occurred while updating the resource",
+      "error": "Error",
+      "fetcherror": "Failed to fetch resource data",
+      "updated": "{resourceName} has been updated",
+      "canceledit": "Edit canceled",
+      "cancel": "Cancel",
+      "updating": "Updating...",
+      "update": "Update"
+    }
+  }
+} 
