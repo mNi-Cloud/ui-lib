@@ -37,7 +37,7 @@ interface SidebarProps {
   headerMenu: HeaderMenuItem
 }
 
-const Sidebar = ({ navItems, headerMenu }: SidebarProps) => {
+const SideNav = ({ navItems, headerMenu }: SidebarProps) => {
   const { icon: Icon, title, subtitle, href } = headerMenu
 
   return (
@@ -93,4 +93,4 @@ const Sidebar = ({ navItems, headerMenu }: SidebarProps) => {
   )
 }
 
-export default Sidebar
+export default SideNav

@@ -110,9 +110,9 @@
       ]
     },
     {
-      "name": "sidebar",
+      "name": "sidenav",
       "type": "registry:component",
-      "title": "Sidebar",
+      "title": "SideNav",
       "description": "A sidebar component.",
       "registryDependencies": [
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json",
@@ -120,7 +120,7 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/blocks/sidebar/sidebar.tsx",
+          "path": "registry/new-york/blocks/sidenav/sidenav.tsx",
           "type": "registry:component"
         }
       ]
@@ -183,8 +183,9 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/session-provider.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/theme-provider.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/header.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/sidebar.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/sidenav.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-index.json"
       ],
       "files": [
         {

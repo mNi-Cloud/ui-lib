@@ -7,7 +7,7 @@ import { NextAuthProvider } from "@/registry/new-york/blocks/session-provider/se
 import { ThemeProvider } from "@/registry/new-york/blocks/theme-provider/theme-provider";
 import { Header } from "@/registry/new-york/blocks/header/header";
 import { Content } from "@/registry/new-york/blocks/content/content";
-import Sidebar from "@/registry/new-york/blocks/sidebar/sidebar";
+import SideNav from "@/registry/new-york/blocks/sidenav/sidenav";
 import { SidebarInset, SidebarProvider } from "@/registry/new-york/ui/sidebar";
 import { LayoutGrid } from "lucide-react";
 
@@ -68,7 +68,7 @@ export default async function RootLayout({
               disableTransitionOnChange
             >
               <SidebarProvider>
-                <Sidebar headerMenu={headerMenu} navItems={navItems} />
+                <SideNav headerMenu={headerMenu} navItems={navItems} />
                 <SidebarInset>
                   <Header />
                   <Content>
