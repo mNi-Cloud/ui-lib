@@ -191,12 +191,12 @@
         {
           "path": "registry/new-york/blocks/template/app/layout.tsx",
           "type": "registry:file",
-          "target": "app/resource/layout.tsx"
+          "target": "app/service/layout.tsx"
         },
         {
           "path": "registry/new-york/blocks/template/app/page.tsx",
           "type": "registry:file",
-          "target": "app/resource/page.tsx"
+          "target": "app/service/page.tsx"
         },
         {
           "path": "registry/new-york/blocks/template/app/globals.css",

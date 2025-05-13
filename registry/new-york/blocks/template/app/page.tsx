@@ -15,13 +15,13 @@ const ResourceIndexTemplate: React.FC = () => {
       title: t('resources.item1.title'),
       icon: CloudIcon,
       description: t('resources.item1.description'),
-      link: '/resources/item1'
+      link: '/service/resource1'
     },
     {
       title: t('resources.item2.title'),
       icon: MapPinIcon,
       description: t('resources.item2.description'),
-      link: '/resources/item2'
+      link: '/service/resource2'
     },
   ];
 
@@ -32,7 +32,7 @@ const ResourceIndexTemplate: React.FC = () => {
       resources={resources}
       primaryButtonText={t('primaryButton')}
       secondaryButtonText={t('secondaryButton')}
-      primaryButtonLink="/resources/item1"
+      primaryButtonLink="/service/resource1"
       secondaryButtonLink="#"
     />
   );
