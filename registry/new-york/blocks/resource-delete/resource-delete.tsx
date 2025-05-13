@@ -3,26 +3,89 @@ import { KeyedMutator } from 'swr';
 import { useTranslations } from 'next-intl';
 
 interface Resource {
-  name: string;
   [key: string]: any;
+}
+
+export interface ResourceIdentifierConfig {
+  idField?: string;
+  nameField?: string;
+  alternativeFields?: string[];
 }
 
 interface UseResourceDeletionProps<T extends Resource> {
   resourceType: string;
   mutate: KeyedMutator<T[]>;
-  deleteUrl: (resourceName: string) => string;
+  deleteUrl: (resourceId: string) => string;
+  getResourceIdentifier?: (resource: T) => string;
+  identifierConfig?: ResourceIdentifierConfig;
+}
+
+const defaultConfig: ResourceIdentifierConfig = {
+  idField: 'id',
+  nameField: 'name',
+  alternativeFields: ['title', 'label', 'text', 'description']
+};
+
+export function getDefaultResourceIdentifier<T extends Resource>(
+  resource: T, 
+  config: ResourceIdentifierConfig = defaultConfig
+): string {
+  const { idField, nameField } = { ...defaultConfig, ...config };
+  
+  if (idField && resource[idField] !== undefined) {
+    return String(resource[idField]);
+  }
+  
+  if (nameField && resource[nameField] !== undefined) {
+    return String(resource[nameField]);
+  }
+  
+  return JSON.stringify(resource);
+}
+
+export function getResourceDisplayName<T extends Resource>(
+  resource: T, 
+  config: ResourceIdentifierConfig = defaultConfig
+): string {
+  const { idField, nameField, alternativeFields } = { ...defaultConfig, ...config };
+  
+  if (nameField && resource[nameField] !== undefined) {
+    return String(resource[nameField]);
+  }
+  
+  if (idField && resource[idField] !== undefined) {
+    return `ID: ${resource[idField]}`;
+  }
+  
+  if (alternativeFields) {
+    for (const field of alternativeFields) {
+      if (resource[field]) {
+        return String(resource[field]);
+      }
+    }
+  }
+  
+  return '不明なリソース';
 }
 
 export function useResourceDeletion<T extends Resource>({ 
   resourceType, 
   mutate, 
-  deleteUrl 
+  deleteUrl,
+  getResourceIdentifier,
+  identifierConfig = defaultConfig
 }: UseResourceDeletionProps<T>) {
   const [selectedResources, setSelectedResources] = useState<T[]>([]);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const t = useTranslations('hooks.resource-delete');
+  
+  const getResourceId = getResourceIdentifier || 
+    ((resource: T) => getDefaultResourceIdentifier(resource, identifierConfig));
+  
+  const getDisplayName = (resource: T) => getResourceDisplayName(resource, identifierConfig);
+  
   const openDeleteDialog = (resources: T[]) => {
     setSelectedResources(resources);
     setIsDeleteDialogOpen(true);
@@ -35,7 +98,8 @@ export function useResourceDeletion<T extends Resource>({
     setSuccessMessage(null);
     try {
       for (const resource of selectedResources) {
-        const response = await fetch(deleteUrl(resource.name), { method: 'DELETE' });
+        const resourceId = getResourceId(resource);
+        const response = await fetch(deleteUrl(resourceId), { method: 'DELETE' });
         if (!response.ok) {
           throw new Error(t('failedmessage', { resourceType }));
         }
@@ -63,5 +127,6 @@ export function useResourceDeletion<T extends Resource>({
     openDeleteDialog,
     handleDelete,
     closeDeleteDialog,
+    getResourceDisplayName: getDisplayName
   };
 }

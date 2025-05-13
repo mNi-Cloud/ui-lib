@@ -4,7 +4,12 @@ import { useState, useEffect, useMemo } from 'react'
 import { ResourceView } from '@/registry/new-york/blocks/resource-view/resource-view'
 import useSWR from 'swr'
 import { DeleteConfirmationDialog } from '@/registry/new-york/blocks/delete-confirmation/delete-confirmation'
-import { useResourceDeletion } from '@/registry/new-york/blocks/resource-delete/resource-delete'
+import { 
+  useResourceDeletion, 
+  getDefaultResourceIdentifier, 
+  getResourceDisplayName,
+  ResourceIdentifierConfig 
+} from '@/registry/new-york/blocks/resource-delete/resource-delete'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
@@ -24,12 +29,14 @@ interface ResourceDashboardProps<T> {
   resourceType: string
   columns: any[]
   apiUrl: string
-  deleteUrl: (name: string) => string
+  deleteUrl: (id: string) => string
   createPath?: string
   editPath?: (id: string) => string
   customActions?: Action<T>[]
   disableDefaultActions?: boolean
   checkDependencies?: (resource: T) => Promise<DependencyCheck>
+  getResourceIdentifier?: (resource: T) => string
+  identifierConfig?: ResourceIdentifierConfig
 }
 
 const fetcher = async (url: string) => {
@@ -44,7 +51,7 @@ const fetcher = async (url: string) => {
   return data
 }
 
-export default function ResourceDashboard<T extends { name: string; id: number | string }>({
+export default function ResourceDashboard<T extends Record<string, any>>({
   resourceType,
   columns,
   apiUrl,
@@ -53,12 +60,19 @@ export default function ResourceDashboard<T extends { name: string; id: number |
   editPath,
   customActions = [],
   disableDefaultActions = false,
-  checkDependencies
+  checkDependencies,
+  getResourceIdentifier,
+  identifierConfig
 }: ResourceDashboardProps<T>) {
   const router = useRouter()
   const { data, error: fetchError, isLoading, mutate } = useSWR<T[]>(apiUrl, fetcher)
   const [dependencyChecks, setDependencyChecks] = useState<Record<string, DependencyCheck>>({})
   const t = useTranslations('component.resource-dashboard')
+  
+  const getResourceId = useMemo(() => {
+    return getResourceIdentifier || 
+      ((resource: T) => getDefaultResourceIdentifier(resource, identifierConfig))
+  }, [getResourceIdentifier, identifierConfig])
   
   useEffect(() => {
     const checkAllDependencies = async () => {
@@ -69,10 +83,11 @@ export default function ResourceDashboard<T extends { name: string; id: number |
           data.map(async (resource) => {
             try {
               const check = await checkDependencies(resource)
-              return [resource.name, check] as const
+              const resourceKey = getResourceId(resource)
+              return [resourceKey, check] as const
             } catch (error) {
-              console.error(`Error checking dependencies for ${resource.name}:`, error)
-              return [resource.name, { hasDependencies: false }] as const
+              console.error(`Error checking dependencies for resource:`, error)
+              return [getResourceId(resource), { hasDependencies: false }] as const
             }
           })
         )
@@ -87,7 +102,7 @@ export default function ResourceDashboard<T extends { name: string; id: number |
     }
 
     checkAllDependencies()
-  }, [data, checkDependencies])
+  }, [data, checkDependencies, getResourceId])
 
   const {
     selectedResources,
@@ -96,11 +111,14 @@ export default function ResourceDashboard<T extends { name: string; id: number |
     successMessage,
     openDeleteDialog,
     handleDelete,
-    closeDeleteDialog
+    closeDeleteDialog,
+    getResourceDisplayName: getDisplayName
   } = useResourceDeletion<T>({
     resourceType,
     mutate,
-    deleteUrl
+    deleteUrl,
+    getResourceIdentifier: getResourceId,
+    identifierConfig
   })
 
   useEffect(() => {
@@ -134,8 +152,9 @@ export default function ResourceDashboard<T extends { name: string; id: number |
   const handleCreate = createPath ? () => router.push(createPath) : undefined
 
   const handleEdit = editPath ? (selectedRows: T[]) => {
-    if (selectedRows.length === 1 && selectedRows[0]?.id && editPath) {
-      router.push(editPath(String(selectedRows[0].id)))
+    if (selectedRows.length === 1) {
+      const resourceId = getResourceId(selectedRows[0])
+      router.push(editPath(resourceId))
     } else {
       toast.error(t('error'), {
         description: t('editerror'),
@@ -145,16 +164,20 @@ export default function ResourceDashboard<T extends { name: string; id: number |
   } : undefined
 
   const isDeleteDisabled = (selectedRows: T[]) => {
-    return selectedRows.some(resource => 
-      dependencyChecks[resource.name]?.hasDependencies
-    )
+    return selectedRows.some(resource => {
+      const resourceKey = getResourceId(resource)
+      return dependencyChecks[resourceKey]?.hasDependencies
+    })
   }
 
   const handleDeleteWithCheck = (selectedRows: T[]) => {
     const hasBlockingDependencies = isDeleteDisabled(selectedRows)
     if (hasBlockingDependencies) {
       const messages = selectedRows
-        .map(resource => dependencyChecks[resource.name]?.message)
+        .map(resource => {
+          const resourceKey = getResourceId(resource)
+          return dependencyChecks[resourceKey]?.message
+        })
         .filter(Boolean)
       toast.error(t('error'), {
         description: messages[0] || t('deleteerror'),
@@ -194,7 +217,7 @@ export default function ResourceDashboard<T extends { name: string; id: number |
         isOpen={isDeleteDialogOpen}
         onClose={closeDeleteDialog}
         onConfirm={handleDelete}
-        resourceNames={selectedResources.map(resource => resource.name)}
+        resourceNames={selectedResources.map(resource => getDisplayName(resource))}
       />
     </>
   )
