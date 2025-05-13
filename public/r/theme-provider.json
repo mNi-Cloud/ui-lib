@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "theme-provider",
+  "type": "registry:component",
+  "title": "Theme Provider",
+  "description": "A theme provider component.",
+  "files": [
+    {
+      "path": "registry/new-york/blocks/theme-provider/theme-provider.tsx",
+      "content": "'use client';\n\nimport { ThemeProvider as NextThemesProvider } from \"next-themes\";\nimport { useEffect, useState } from 'react';\n\ntype ThemeProviderProps = React.ComponentProps<typeof NextThemesProvider>;\n\nexport const ThemeProvider = ({ children, ...props }: ThemeProviderProps) => {\n  const [mounted, setMounted] = useState<boolean>(false);\n  useEffect(() => {\n    setMounted(true);\n    return () => setMounted(false);\n  }, []);\n  return (\n    mounted && <NextThemesProvider {...props}>{children}</NextThemesProvider>\n  );\n};",
+      "type": "registry:component"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "session-provider",
+  "type": "registry:component",
+  "title": "Session Provider",
+  "description": "A session provider component.",
+  "files": [
+    {
+      "path": "registry/new-york/blocks/session-provider/session-provider.tsx",
+      "content": "'use client'\n\nimport { SessionProvider } from 'next-auth/react'\nimport { ReactNode } from 'react'\n\nexport function NextAuthProvider ({ children }: { children: ReactNode }) {\n  return <SessionProvider>{children}</SessionProvider>\n}",
+      "type": "registry:component"
+    }
+  ]
+}
