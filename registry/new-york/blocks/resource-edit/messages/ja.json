@@ -1,13 +1,15 @@
 {
   "component": {
     "resource-edit": {
+      "successmessage": "リソースの更新が完了しました",
+      "errormessage": "リソースの更新中にエラーが発生しました",
       "add": "追加",
       "select": "{label}を選択",
-      "successmessage": "リソースが正常に更新されました",
-      "errormessage": "リソースの更新中にエラーが発生しました",
+      "need": "{label}は必須項目です",
+      "textlesser": "{label}は${maxLength}文字以内で入力してください",
+      "fetcherror": "リソースの取得に失敗しました",
       "error": "エラー",
-      "fetcherror": "リソースの取得中にエラーが発生しました",
-      "updated": "{resourceName}が更新されました",
+      "updated": "「{resourceName}」を更新しました",
       "canceledit": "編集をキャンセルしました",
       "cancel": "キャンセル",
       "updating": "更新中...",

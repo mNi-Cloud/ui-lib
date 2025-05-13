@@ -25,9 +25,9 @@ export default function ResourcePage() {
       resourceType={t('resourcetype')}
       columns={columns}
       apiUrl="https://jsonplaceholder.typicode.com/users"
-      deleteUrl={(id: string) => `/resource/items/delete/${id}`}
+      deleteUrl={(id: string) => `/service/resource1/delete/${id}`}
       createPath="/service/resource1/create"
-      editPath={(id: string) => `/resource/items/edit/${id}`}
+      editPath={(id: string) => `/service/resource1/edit/${id}`}
       checkDependencies={checkDependencies}
     />
   )

@@ -44,7 +44,7 @@ const fetcher = async (url: string) => {
   return data
 }
 
-export default function ResourceDashboard<T extends { name: string }>({
+export default function ResourceDashboard<T extends { name: string; id: number | string }>({
   resourceType,
   columns,
   apiUrl,
@@ -134,8 +134,8 @@ export default function ResourceDashboard<T extends { name: string }>({
   const handleCreate = createPath ? () => router.push(createPath) : undefined
 
   const handleEdit = editPath ? (selectedRows: T[]) => {
-    if (selectedRows.length === 1 && selectedRows[0]?.name && editPath) {
-      router.push(editPath(selectedRows[0].name))
+    if (selectedRows.length === 1 && selectedRows[0]?.id && editPath) {
+      router.push(editPath(String(selectedRows[0].id)))
     } else {
       toast.error(t('error'), {
         description: t('editerror'),
