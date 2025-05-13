@@ -10,6 +10,22 @@
     "@tanstack/react-table",
     "@radix-ui/react-icons"
   ],
+  "registryDependencies": [
+    "table",
+    "checkbox",
+    "button",
+    "separator",
+    "dropdown-menu",
+    "alert",
+    "input",
+    "radio-group",
+    "switch",
+    "dialog",
+    "label",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-delete.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json"
+  ],
   "files": [
     {
       "path": "registry/new-york/blocks/resource-view/resource-view.tsx",

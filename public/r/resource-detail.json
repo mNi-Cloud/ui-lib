@@ -4,6 +4,19 @@
   "type": "registry:component",
   "title": "Resource Detail",
   "description": "A resource detail component.",
+  "dependencies": [
+    "next-intl",
+    "swr",
+    "@tanstack/react-table"
+  ],
+  "registryDependencies": [
+    "sonner",
+    "button",
+    "dropdown-menu",
+    "separator",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json"
+  ],
   "files": [
     {
       "path": "registry/new-york/blocks/resource-detail/resource-detail.tsx",
