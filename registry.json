@@ -249,14 +249,15 @@
       "type": "registry:block",
       "title": "Template",
       "description": "A template component.",
-      "dependencies": ["next-intl", "next-themes", "next-auth"],
+      "dependencies": ["next-intl", "next-themes", "next-auth", "@tanstack/react-table"],
       "registryDependencies": [
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/session-provider.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/theme-provider.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/header.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/sidenav.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json"
       ],
       "files": [
         {

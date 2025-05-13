@@ -4,10 +4,10 @@ import Link from "@/registry/new-york/blocks/link/link"
 import { ColumnDef } from "@tanstack/react-table"
 import { useTranslations } from 'next-intl'
 
-export type Vpc = {
+export type Resource = {
   name: string
   status: string
-  subnets: string[] | null
+  relatedItems: string[] | null
   createdAt: string
 }
 
@@ -31,16 +31,16 @@ const StatusIndicator = ({ status }: { status: string }) => {
   )
 }
 
-export const VpcColumns = () => {
-  const t = useTranslations('vpc.vpcs.columns')
+export const ResourceColumns = () => {
+  const t = useTranslations('resource.items.columns')
 
-  const columns: ColumnDef<Vpc>[] = [
+  const columns: ColumnDef<Resource>[] = [
     {
       accessorKey: "name",
       header: t('name'),
       cell: ({row}) => (
         <Link 
-          href={`/vpc/vpcs/${row.getValue("name")}`} 
+          href={`/resource/items/${row.getValue("name")}`} 
           className="text-blue-500 hover:underline"
         >
           {row.getValue("name")}
@@ -55,21 +55,21 @@ export const VpcColumns = () => {
       ),
     },
     {
-      accessorKey: "subnets",
-      header: t('subnet'),
+      accessorKey: "relatedItems",
+      header: t('relatedItem'),
       cell: ({ row }) => {
-        const subnets = row.getValue("subnets") as string[] | null;
-        if (!subnets || subnets.length === 0) return t('nosubnet');
+        const relatedItems = row.getValue("relatedItems") as string[] | null;
+        if (!relatedItems || relatedItems.length === 0) return t('noRelatedItems');
 
         return (
           <div className="space-x-2">
-            {subnets.map((subnet, index) => (
+            {relatedItems.map((item, index) => (
               <Link
                 key={index}
-                href={`/vpc/subnets/${subnet}`}
+                href={`/resource/related-items/${item}`}
                 className="text-blue-500 hover:underline"
               >
-                {subnet}
+                {item}
               </Link>
             ))}
           </div>
@@ -86,4 +86,4 @@ export const VpcColumns = () => {
   return columns
 }
 
-export default VpcColumns
+export default ResourceColumns

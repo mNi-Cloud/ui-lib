@@ -1,33 +1,33 @@
 'use client'
 
 import ResourceDashboard from '@/registry/new-york/blocks/resource-dashboard/resource-dashboard'
-import { VpcColumns, Vpc } from './columns'
+import { ResourceColumns, Resource } from './columns'
 import { useTranslations } from 'next-intl'
 
-export default function VPCPage() {
-  const columns = VpcColumns()
-  const t = useTranslations('vpc.vpcs.index')
+export default function ResourcePage() {
+  const columns = ResourceColumns()
+  const t = useTranslations('resource.items.index')
 
-  const checkDependencies = (vpc: Vpc) => {
-    const subnetCount = vpc.subnets?.length ?? 0
-    const hasSubnets = subnetCount > 0
+  const checkDependencies = (resource: Resource) => {
+    const relatedItemCount = resource.relatedItems?.length ?? 0
+    const hasRelatedItems = relatedItemCount > 0
     
     return Promise.resolve({
-      hasDependencies: hasSubnets,
-      message: hasSubnets 
-        ? t('deletionError', { name: vpc.name, subnetCount: subnetCount })
+      hasDependencies: hasRelatedItems,
+      message: hasRelatedItems 
+        ? t('deletionError', { name: resource.name, relatedItemCount: relatedItemCount })
         : undefined
     })
   }
 
   return (
-    <ResourceDashboard<Vpc>
+    <ResourceDashboard<Resource>
       resourceType={t('resourcetype')}
       columns={columns}
-      apiUrl="/api/vpc/vpcs"
-      deleteUrl={(name: string) => `/api/vpc/vpcs/${name}`}
-      createPath="/vpc/vpcs/create"
-      editPath={(name: string) => `/vpc/vpcs/edit/${name}`}
+      apiUrl=""
+      deleteUrl={(name: string) => `/resource/items/delete/${name}`}
+      createPath="/resource/items/create"
+      editPath={(name: string) => `/resource/items/edit/${name}`}
       checkDependencies={checkDependencies}
     />
   )
