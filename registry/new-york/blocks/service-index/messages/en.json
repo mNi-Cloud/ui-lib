@@ -1,8 +1,8 @@
 {
-  "resource": {
+  "service": {
     "index": {
-      "title": "Resource Title",
-      "description": "Description of your resources and their purpose in your application.",
+      "title": "Service Title",
+      "description": "Description of your service and its purpose in your application.",
       "primaryButton": "Get Started",
       "secondaryButton": "Learn More",
       "resources": {

@@ -4,11 +4,11 @@ import {
   MapPinIcon,
 } from 'lucide-react';
 
-import ResourceIndex from '@/registry/new-york/blocks/resource-index/resource-index';
+import ResourceIndex from '@/registry/new-york/blocks/service-index/service-index';
 import { useTranslations } from 'next-intl';
 
 const ResourceIndexTemplate: React.FC = () => {
-  const t = useTranslations('resource.index');
+  const t = useTranslations('service.index');
 
   const resources = [
     {

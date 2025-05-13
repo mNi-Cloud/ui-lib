@@ -12,7 +12,7 @@ interface Resource {
   link: string;
 }
 
-interface ResourceIndexProps {
+interface ServiceIndexProps {
   title: string;
   description: string;
   resources: Resource[];
@@ -22,7 +22,7 @@ interface ResourceIndexProps {
   secondaryButtonLink?: string;
 }
 
-const ResourceIndex: React.FC<ResourceIndexProps> = ({
+const ServiceIndex: React.FC<ServiceIndexProps> = ({
   title,
   description,
   resources,
@@ -88,4 +88,4 @@ const ResourceIndex: React.FC<ResourceIndexProps> = ({
   );
 };
 
-export default ResourceIndex;
+export default ServiceIndex;
