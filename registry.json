@@ -369,9 +369,9 @@
           "target": "app/service/resource1/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/service/resource1/[name]/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource1/[id]/page.tsx",
           "type": "registry:file",
-          "target": "app/service/resource1/[name]/page.tsx"
+          "target": "app/service/resource1/[id]/page.tsx"
         },
         {
           "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
