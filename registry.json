@@ -185,6 +185,28 @@
       ]
     },
     {
+      "name": "resource-delete",
+      "type": "registry:hook",
+      "title": "Resource Delete",
+      "description": "A resource delete hook.",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-delete/resource-delete.tsx",
+          "type": "registry:hook"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-delete/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/hooks/resource-delete/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-delete/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/hooks/resource-delete/ja.json"
+        }
+      ]
+    },
+    {
       "name": "template",
       "type": "registry:block",
       "title": "Template",

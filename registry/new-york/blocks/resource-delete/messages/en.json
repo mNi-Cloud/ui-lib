@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "resource-delete": {
+      "failedmessage": "{resourceType} deletion failed",
+      "successmessage": "{resourceType} deleted successfully",
+      "errormessage": "An error occurred while deleting {resourceType}. Please try again."
+    }
+  }
+}
