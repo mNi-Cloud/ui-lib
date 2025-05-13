@@ -200,12 +200,12 @@
         {
           "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
           "type": "registry:file",
-          "target": "app/messages/pages/index/en.json"
+          "target": "messages/pages/index/en.json"
         },
         {
           "path": "registry/new-york/blocks/template/app/messages/pages/index/ja.json",
           "type": "registry:file",
-          "target": "app/messages/pages/index/ja.json"
+          "target": "messages/pages/index/ja.json"
         }
       ]
     }
