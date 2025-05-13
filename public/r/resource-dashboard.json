@@ -4,6 +4,28 @@
   "type": "registry:component",
   "title": "Resource Dashboard",
   "description": "A resource dashboard component.",
+  "dependencies": [
+    "next-intl",
+    "swr",
+    "@tanstack/react-table",
+    "@radix-ui/react-icons"
+  ],
+  "registryDependencies": [
+    "table",
+    "checkbox",
+    "button",
+    "separator",
+    "sonner",
+    "dropdown-menu",
+    "alert",
+    "input",
+    "radio-group",
+    "switch",
+    "dialog",
+    "label",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-delete.json"
+  ],
   "files": [
     {
       "path": "registry/new-york/blocks/resource-dashboard/resource-dashboard.tsx",

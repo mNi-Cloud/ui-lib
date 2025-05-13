@@ -4,6 +4,10 @@
   "type": "registry:hook",
   "title": "Resource Delete",
   "description": "A resource delete hook.",
+  "dependencies": [
+    "next-intl",
+    "swr"
+  ],
   "files": [
     {
       "path": "registry/new-york/blocks/resource-delete/resource-delete.tsx",

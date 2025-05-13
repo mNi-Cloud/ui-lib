@@ -4,6 +4,14 @@
   "type": "registry:component",
   "title": "Delete Confirmation",
   "description": "A delete confirmation component.",
+  "dependencies": [
+    "next-intl"
+  ],
+  "registryDependencies": [
+    "dialog",
+    "button",
+    "input"
+  ],
   "files": [
     {
       "path": "registry/new-york/blocks/delete-confirmation/delete-confirmation.tsx",
