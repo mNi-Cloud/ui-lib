@@ -1,0 +1,27 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "i18n",
+  "type": "registry:file",
+  "title": "i18n",
+  "description": "i18n configuration.",
+  "files": [
+    {
+      "path": "registry/new-york/blocks/i18n/request.ts",
+      "content": "import { getRequestConfig } from 'next-intl/server';\nimport { getUserLocale } from './locale';\n \nexport default getRequestConfig(async () => {\n  const locale = await getUserLocale();\n \n  return {\n    locale,\n    messages: (await import(`../messages/${locale}.json`)).default\n  };\n});",
+      "type": "registry:file",
+      "target": "i18n/request.ts"
+    },
+    {
+      "path": "registry/new-york/blocks/i18n/config.ts",
+      "content": "export type Locale = (typeof locales)[number];\n\nexport const locales = ['ja', 'en'] as const;\nexport const defaultLocale: Locale = 'ja';",
+      "type": "registry:file",
+      "target": "i18n/config.ts"
+    },
+    {
+      "path": "registry/new-york/blocks/i18n/locale.ts",
+      "content": "'use server';\n\nimport { cookies } from 'next/headers';\nimport { Locale, defaultLocale } from './config'\n\nconst COOKIE_NAME = 'NEXT_LOCALE';\n\nexport async function getUserLocale() {\n  return (await cookies()).get(COOKIE_NAME)?.value || defaultLocale;\n}\n\nexport async function setUserLocale(locale: Locale) {\n  (await cookies()).set(COOKIE_NAME, locale);\n}",
+      "type": "registry:file",
+      "target": "i18n/locale.ts"
+    }
+  ]
+}

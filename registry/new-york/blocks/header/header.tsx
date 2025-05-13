@@ -2,7 +2,9 @@
 
 import { startTransition } from 'react'
 import { useTheme } from 'next-themes'
-import { useTranslations, Locale } from 'next-intl';
+import { useTranslations } from 'next-intl'
+import { setUserLocale } from '@/registry/new-york/blocks/i18n/locale'
+import { locales, Locale } from '@/registry/new-york/blocks/i18n/config'
 import { signOut, useSession, signIn } from 'next-auth/react'
 import {
   Bell,
@@ -16,8 +18,8 @@ import {
   LogOut,
   UserPen,
 } from 'lucide-react'
-import { Button } from "@/registry/new-york/ui/button"
-import { Avatar, AvatarFallback, AvatarImage } from "@/registry/new-york/ui/avatar"
+import { Button } from '@/registry/new-york/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/registry/new-york/ui/avatar'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,12 +34,11 @@ import {
 } from '@/registry/new-york/ui/dropdown-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/registry/new-york/ui/sheet'
 import { SearchService } from './header-search'
-import { SidebarTrigger } from "@/registry/new-york/ui/sidebar"
-import { Separator } from "@/registry/new-york/ui/separator"
-import Link from "@/registry/new-york/link"
+import { SidebarTrigger } from '@/registry/new-york/ui/sidebar'
+import { Separator } from '@/registry/new-york/ui/separator'
+import Link from '@/registry/new-york/blocks/link/link'
 
-
-export function Header({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
+export function Header() {
   const t = useTranslations('component.header')
   const { data: session } = useSession()
 
@@ -62,13 +63,13 @@ export function Header({ setUserLocale }: { setUserLocale: (locale: Locale) => v
                 </Button>
                 <ThemeToggle />
                 {session ? (
-                  <UserDropdown setUserLocale={setUserLocale} />
+                  <UserDropdown />
                 ) : (
                   <Button size="sm" onClick={() => signIn()}>{t('login')}</Button>
                 )}
               </div>
               <div className="flex md:hidden">
-                <MobileMenu setUserLocale={setUserLocale} />
+                <MobileMenu />
               </div>
             </nav>
           </div>
@@ -109,7 +110,7 @@ export function ThemeToggle() {
   )
 }
 
-function UserDropdown({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
+function UserDropdown() {
   const t = useTranslations('component.header')
   const { data: session } = useSession()
   const userName = session?.user?.name || 'User'
@@ -158,7 +159,7 @@ function UserDropdown({ setUserLocale }: { setUserLocale: (locale: Locale) => vo
           </DropdownMenuSubTrigger>
           <DropdownMenuPortal>
             <DropdownMenuSubContent>
-              <LanguageToggle setUserLocale={setUserLocale} />
+              <LanguageToggle />
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
@@ -172,9 +173,13 @@ function UserDropdown({ setUserLocale }: { setUserLocale: (locale: Locale) => vo
   )
 }
 
-function LanguageToggle({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
-  function onChange(value: string) {
-    const locale = value as Locale
+function LanguageToggle() {
+  const languageNames: Record<Locale, string> = {
+    'ja': '日本語',
+    'en': 'English',
+  }
+
+  function onChange(locale: Locale) {
     startTransition(() => {
       setUserLocale(locale)
     })
@@ -182,17 +187,19 @@ function LanguageToggle({ setUserLocale }: { setUserLocale: (locale: Locale) => 
 
   return (
     <>
-      <DropdownMenuItem onClick={() => onChange('ja')}>
-        <span>日本語</span>
-      </DropdownMenuItem>
-      <DropdownMenuItem onClick={() => onChange('en')}>
-        <span>English</span>
-      </DropdownMenuItem>
+      {locales.map((locale) => (
+        <DropdownMenuItem 
+          key={locale} 
+          onClick={() => onChange(locale)}
+        >
+          <span>{languageNames[locale]}</span>
+        </DropdownMenuItem>
+      ))}
     </>
   )
 }
 
-function MobileMenu({ setUserLocale }: { setUserLocale: (locale: Locale) => void }) {
+function MobileMenu() {
   const t = useTranslations('component.header')
   const { setTheme } = useTheme()
   const { data: session } = useSession()
@@ -260,7 +267,7 @@ function MobileMenu({ setUserLocale }: { setUserLocale: (locale: Locale) => void
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <LanguageToggle setUserLocale={setUserLocale} />
+                      <LanguageToggle />
                     </DropdownMenuContent>
                   </DropdownMenu>
                   <Button variant="ghost" className="w-full justify-start" onClick={() => signOut()}>

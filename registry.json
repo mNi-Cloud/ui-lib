@@ -4,6 +4,29 @@
   "homepage": "https://raw.github.com/mNi-Cloud/ui-lib/main",
   "items": [
     {
+      "name": "i18n",
+      "type": "registry:file",
+      "title": "i18n",
+      "description": "i18n configuration.",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/i18n/request.ts",
+          "type": "registry:file",
+          "target": "i18n/request.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/i18n/config.ts",
+          "type": "registry:file",
+          "target": "i18n/config.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/i18n/locale.ts",
+          "type": "registry:file",
+          "target": "i18n/locale.ts"
+        }
+      ]
+    },
+    {
       "name": "link",
       "type": "registry:component",
       "title": "Link",
@@ -35,7 +58,16 @@
       "title": "Header",
       "description": "A responsive application header with theme toggle, user dropdown and mobile menu.",
       "dependencies": ["lucide-react", "next-themes", "next-intl", "next-auth"],
-      "registryDependencies": ["button", "avatar", "dropdown-menu", "sheet", "separator", "sidebar", "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json"],
+      "registryDependencies": [
+        "button", 
+        "avatar", 
+        "dropdown-menu", 
+        "sheet", 
+        "separator", 
+        "sidebar", 
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/link.json", 
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/i18n.json"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/header/header.tsx",
