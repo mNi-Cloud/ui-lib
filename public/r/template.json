@@ -15,7 +15,7 @@
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/header.json",
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/sidenav.json",
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/content.json",
-    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-index.json"
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json"
   ],
   "files": [
     {
@@ -26,7 +26,7 @@
     },
     {
       "path": "registry/new-york/blocks/template/app/page.tsx",
-      "content": "import React from 'react';\nimport { \n  CloudIcon, \n  MapPinIcon,\n} from 'lucide-react';\n\nimport ResourceIndex from '@/registry/new-york/blocks/service-index/service-index';\nimport { useTranslations } from 'next-intl';\n\nconst ResourceIndexTemplate: React.FC = () => {\n  const t = useTranslations('service.index');\n\n  const resources = [\n    {\n      title: t('resources.item1.title'),\n      icon: CloudIcon,\n      description: t('resources.item1.description'),\n      link: '/service/resource1'\n    },\n    {\n      title: t('resources.item2.title'),\n      icon: MapPinIcon,\n      description: t('resources.item2.description'),\n      link: '/service/resource2'\n    },\n  ];\n\n  return (\n    <ResourceIndex\n      title={t('title')}\n      description={t('description')}\n      resources={resources}\n      primaryButtonText={t('primaryButton')}\n      secondaryButtonText={t('secondaryButton')}\n      primaryButtonLink=\"/service/resource1\"\n      secondaryButtonLink=\"#\"\n    />\n  );\n};\n\nexport default ResourceIndexTemplate;",
+      "content": "import React from 'react';\nimport { \n  CloudIcon, \n  MapPinIcon,\n} from 'lucide-react';\n\nimport ServiceIndex from '@/registry/new-york/blocks/service-index/service-index';\nimport { useTranslations } from 'next-intl';\n\nconst ServiceIndexTemplate: React.FC = () => {\n  const t = useTranslations('service.index');\n\n  const resources = [\n    {\n      title: t('resources.item1.title'),\n      icon: CloudIcon,\n      description: t('resources.item1.description'),\n      link: '/service/resource1'\n    },\n    {\n      title: t('resources.item2.title'),\n      icon: MapPinIcon,\n      description: t('resources.item2.description'),\n      link: '/service/resource2'\n    },\n  ];\n\n  return (\n    <ServiceIndex\n      title={t('title')}\n      description={t('description')}\n      resources={resources}\n      primaryButtonText={t('primaryButton')}\n      secondaryButtonText={t('secondaryButton')}\n      primaryButtonLink=\"/service/resource1\"\n      secondaryButtonLink=\"#\"\n    />\n  );\n};\n\nexport default ServiceIndexTemplate;",
       "type": "registry:file",
       "target": "app/service/page.tsx"
     },
