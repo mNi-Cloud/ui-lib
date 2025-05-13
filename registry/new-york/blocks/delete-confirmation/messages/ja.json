@@ -1,0 +1,12 @@
+{
+  "components": {
+    "delete-confirmation": {
+      "title": "リソースの削除確認",
+      "description1": "{length}個のリソースを削除しようとしています",
+      "description2": "{resourceName}を削除しようとしています",
+      "confirmation": "この操作は取り消せません。続行するには、以下に{confirmText}と入力してください",
+      "cancel": "キャンセル",
+      "delete": "削除"
+    }
+  }
+}

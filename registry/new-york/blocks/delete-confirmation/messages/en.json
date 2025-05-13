@@ -1,0 +1,12 @@
+{
+  "components": {
+    "delete-confirmation": {
+      "title": "Resource Deletion Confirmation",
+      "description1": "You are about to delete {length} resources",
+      "description2": "You are about to delete {resourceName}",
+      "confirmation": "This action cannot be undone. To continue, please type {confirmText} below",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
+  }
+}

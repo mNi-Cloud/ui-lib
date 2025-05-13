@@ -150,6 +150,28 @@
       ]
     },
     {
+      "name": "delete-confirmation",
+      "type": "registry:component",
+      "title": "Delete Confirmation",
+      "description": "A delete confirmation component.",
+      "files": [
+        {
+          "path": "registry/new-york/blocks/delete-confirmation/delete-confirmation.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/delete-confirmation/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/delete-confirmation/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/delete-confirmation/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/delete-confirmation/ja.json"
+        }
+      ]
+    },
+    {
       "name": "service-index",
       "type": "registry:component",
       "title": "Service Index",
