@@ -1,0 +1,43 @@
+{
+  "components": {
+    "resource-create": {
+      "need": "{label}は必須項目です",
+      "textlesser": "{label}は{maxLength}文字以内で入力してください",
+      "number": "数値を入力してください",
+      "greater": "{label}は{min}以上の値を入力してください",
+      "lesser": "{label}は{max}以下の値を入力してください",
+      "successmessage": "リソースが作成されました",
+      "errormessage": "リソースの作成中にエラーが発生しました",
+      "created": "{resourceName}が作成されました",
+      "error": "エラーが発生しました",
+      "cancelcreate": "作成がキャンセルされました",
+      "cancel": "キャンセル",
+      "creating": "作成中...",
+      "create": "作成",
+      "select": "{label}を選択",
+      "add": "追加"
+    },
+    "resource-create-multiple": {
+      "need": "{label}は必須項目です",
+      "textlesser": "{label}は{maxLength}文字以内で入力してください",
+      "number": "数値を入力してください",
+      "greater": "{label}は{min}以上の値を入力してください",
+      "lesser": "{label}は{max}以下の値を入力してください",
+      "unit": "単位を選択してください",
+      "successmessage": "リソースが作成されました",
+      "errormessage": "リソースの作成中にエラーが発生しました",
+      "created": "{resourceName}が作成されました",
+      "resource": "リソース",
+      "error": "エラーが発生しました",
+      "nostep": "ステップが定義されていません",
+      "back": "戻る",
+      "cancelcreate": "作成がキャンセルされました",
+      "step": "ステップ",
+      "prevstep": "前のステップ",
+      "cancel": "キャンセル",
+      "creating": "作成中...",
+      "create": "作成",
+      "nextstep": "次のステップ"
+    }
+  }
+} 

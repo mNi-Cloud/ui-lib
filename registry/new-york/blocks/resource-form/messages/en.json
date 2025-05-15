@@ -1,0 +1,43 @@
+{
+  "components": {
+    "resource-create": {
+      "need": "{label} is required",
+      "textlesser": "{label} must be {maxLength} characters or less",
+      "number": "Please enter a number",
+      "greater": "{label} must be greater than or equal to {min}",
+      "lesser": "{label} must be less than or equal to {max}",
+      "successmessage": "Resource created successfully",
+      "errormessage": "An error occurred while creating the resource",
+      "created": "{resourceName} has been created",
+      "error": "An error occurred",
+      "cancelcreate": "Creation cancelled",
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "create": "Create",
+      "select": "Select {label}",
+      "add": "Add"
+    },
+    "resource-create-multiple": {
+      "need": "{label} is required",
+      "textlesser": "{label} must be {maxLength} characters or less",
+      "number": "Please enter a number",
+      "greater": "{label} must be greater than or equal to {min}",
+      "lesser": "{label} must be less than or equal to {max}",
+      "unit": "Please select a unit",
+      "successmessage": "Resource created successfully",
+      "errormessage": "An error occurred while creating the resource",
+      "created": "{resourceName} has been created",
+      "resource": "Resource",
+      "error": "An error occurred",
+      "nostep": "No steps defined",
+      "back": "Back",
+      "cancelcreate": "Creation cancelled",
+      "step": "Step",
+      "prevstep": "Previous Step",
+      "cancel": "Cancel",
+      "creating": "Creating...",
+      "create": "Create",
+      "nextstep": "Next Step"
+    }
+  }
+} 
