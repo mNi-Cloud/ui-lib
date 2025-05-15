@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "actions",
-  "type": "registry:file",
+  "type": "registry:lib",
   "title": "Resource Actions",
   "description": "Server actions for resource operations.",
   "dependencies": [
