@@ -1,52 +1,69 @@
 'use client'
 
-import ResourceCreate from "@/registry/new-york/blocks/resource-create/resource-create";
+import MultiStepResourceCreate from "@/registry/new-york/blocks/resource-create-multiple/resource-create-multiple";
 import { useTranslations } from 'next-intl'
 
 const PostCreatePage = () => {
   const t = useTranslations('pages.resource2.create')
 
-  const postFields = [
+  const steps = [
     {
-      name: 'title',
-      label: t('titleField.label'),
-      type: 'text' as const,
-      placeholder: t('titleField.placeholder'),
-      description: t('titleField.description'),
-      validation: {
-        required: true,
-        maxLength: 100
-      }
+      title: t('step1.title'),
+      description: t('step1.description'),
+      fields: [
+        {
+          name: 'title',
+          label: t('titleField.label'),
+          type: 'text' as const,
+          placeholder: t('titleField.placeholder'),
+          description: t('titleField.description'),
+          validation: {
+            required: true,
+            maxLength: 100
+          }
+        }
+      ]
     },
     {
-      name: 'body',
-      label: t('body.label'),
-      type: 'text' as const,
-      placeholder: t('body.placeholder'),
-      description: t('body.description'),
-      validation: {
-        required: true,
-        maxLength: 1000
-      }
+      title: t('step2.title'),
+      description: t('step2.description'),
+      fields: [
+        {
+          name: 'body',
+          label: t('body.label'),
+          type: 'textarea' as const,
+          placeholder: t('body.placeholder'),
+          description: t('body.description'),
+          validation: {
+            required: true,
+            maxLength: 1000
+          }
+        }
+      ]
     },
     {
-      name: 'userId',
-      label: t('userId.label'),
-      type: 'number' as const,
-      placeholder: t('userId.placeholder'),
-      description: t('userId.description'),
-      validation: {
-        required: true,
-        valueAsNumber: true
-      }
+      title: t('step3.title'),
+      description: t('step3.description'),
+      fields: [
+        {
+          name: 'userId',
+          label: t('userId.label'),
+          type: 'number' as const,
+          placeholder: t('userId.placeholder'),
+          description: t('userId.description'),
+          validation: {
+            required: true
+          }
+        }
+      ]
     }
   ];
 
   return (
-    <ResourceCreate
+    <MultiStepResourceCreate
       title={t('title')}
       resourceType={t('resourcetype')}
-      fields={postFields}
+      steps={steps}
       apiEndpoint="https://jsonplaceholder.typicode.com/posts"
       redirectPath="/service/resource2"
       successMessage={t('successmessage')}

@@ -6,6 +6,18 @@
         "resourcetype": "Resource",
         "successmessage": "Resource created successfully",
         "errormessage": "Failed to create resource",
+        "step1": {
+          "title": "Basic Information",
+          "description": "Enter the basic information for the resource"
+        },
+        "step2": {
+          "title": "Detailed Information",
+          "description": "Enter the detailed content for the resource"
+        },
+        "step3": {
+          "title": "User Information",
+          "description": "Enter the creator information for the resource"
+        },
         "titleField": {
           "label": "Title",
           "placeholder": "Enter title",

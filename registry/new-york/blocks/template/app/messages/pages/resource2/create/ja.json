@@ -6,6 +6,18 @@
         "resourcetype": "投稿",
         "successmessage": "投稿が正常に作成されました",
         "errormessage": "投稿の作成中にエラーが発生しました",
+        "step1": {
+          "title": "基本情報",
+          "description": "投稿の基本情報を入力してください"
+        },
+        "step2": {
+          "title": "詳細情報",
+          "description": "投稿の詳細内容を入力してください"
+        },
+        "step3": {
+          "title": "ユーザー情報",
+          "description": "投稿者の情報を入力してください"
+        },
         "titleField": {
           "label": "タイトル",
           "placeholder": "タイトルを入力してください",
