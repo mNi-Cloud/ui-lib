@@ -425,6 +425,7 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-create.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-create-multiple.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-edit.json"
       ],
       "files": [
