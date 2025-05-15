@@ -132,7 +132,11 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     // 言語プラグインのMonaco設定を適用
     const languagePlugin = getLanguagePlugin(language);
     if (languagePlugin?.setupMonaco) {
-      languagePlugin.setupMonaco(monaco);
+      try {
+        languagePlugin.setupMonaco(monaco);
+      } catch (e) {
+        console.warn(`言語プラグイン${language}の初期化中にエラーが発生しました:`, e);
+      }
     }
 
     // 初期バリデーション

@@ -79,15 +79,21 @@ const jsonPlugin: LanguagePlugin = {
     });
     
     // エディタのテーマに合わせてJSON言語のハイライト設定を調整
-    const currentTheme = monaco.editor.getTheme();
-    if (currentTheme.includes('light')) {
-      // ライトテーマ向けの設定
-      monaco.editor.defineTheme('json-light', {
-        base: 'vs',
-        inherit: true,
-        rules: [],
-        colors: {}
-      });
+    // getThemeは関数ではないのでチェック方法を変更
+    try {
+      const currentTheme = monaco.editor._themeService?.getThemeId() || '';
+      if (currentTheme.includes('light')) {
+        // ライトテーマ向けの設定
+        monaco.editor.defineTheme('json-light', {
+          base: 'vs',
+          inherit: true,
+          rules: [],
+          colors: {}
+        });
+      }
+    } catch (e) {
+      // テーマサービスにアクセスできない場合は無視
+      console.warn('モナコエディタのテーマ情報にアクセスできません:', e);
     }
   }
 };
