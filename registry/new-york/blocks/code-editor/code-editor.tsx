@@ -5,13 +5,14 @@ import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { 
+  SupportedLanguage,
+  MonacoMarker, 
   getValidator, 
   applyMarkersToModel,
-  MonacoMarker,
   getLanguagePlugin,
-  getLanguageLabel
-} from './code-utils';
-import { initializeLanguagePlugins } from './language-plugins';
+  getLanguageLabel,
+  initializeLanguagePlugins
+} from '@/registry/new-york/blocks/code-editor/language-plugins';
 
 // 初期化時に言語プラグインをロード
 if (typeof window !== 'undefined') {
@@ -31,7 +32,6 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
 
 // サポートする言語とそのバリデーション関数の型
 type LanguageValidatorFn = (content: string) => { isValid: boolean; error?: string; markers?: MonacoMarker[] };
-export type SupportedLanguage = 'yaml' | 'json' | 'javascript' | 'typescript' | 'html' | 'css' | 'markdown' | 'plaintext';
 
 // プロパティの型定義
 type CodeEditorProps = {

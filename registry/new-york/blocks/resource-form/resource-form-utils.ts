@@ -1,7 +1,7 @@
 'use client';
 
 import { z } from 'zod';
-import { SupportedLanguage } from './code-editor';
+import { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/language-plugins';
 
 /**
  * 共通の型定義

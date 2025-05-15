@@ -1,4 +1,5 @@
-import { LanguagePlugin, MonacoMarker } from '../code-utils';
+import { SupportedLanguage } from './types';
+import type { LanguagePlugin, MonacoMarker } from './core';
 
 // TypeScriptの簡易的な構文チェック
 const validateTypeScript = (content: string): { isValid: boolean; error?: string; markers?: MonacoMarker[] } => {
@@ -140,9 +141,12 @@ const setupTypeScriptMonaco = (monaco: any) => {
 
 // TypeScriptプラグインのエクスポート
 const typescriptPlugin: LanguagePlugin = {
-  language: 'typescript',
+  language: 'typescript' as SupportedLanguage,
   validate: validateTypeScript,
   setupMonaco: setupTypeScriptMonaco
 };
 
-export default typescriptPlugin; 
+import { registerLanguagePlugin } from './core';
+registerLanguagePlugin(typescriptPlugin);
+
+export default typescriptPlugin;

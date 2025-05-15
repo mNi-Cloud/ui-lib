@@ -26,8 +26,8 @@ import {
   CommonFieldDefinition, 
   CommonFieldObjectDefinition 
 } from './resource-form-utils';
-import { SupportedLanguage } from './code-editor';
-import { getValidator } from './code-utils';
+import { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/language-plugins';
+import { getValidator } from '@/registry/new-york/blocks/code-editor/language-plugins';
 
 interface ArrayItemRecord {
   [key: string]: string;

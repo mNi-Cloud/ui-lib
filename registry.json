@@ -17,6 +17,54 @@
       ]
     },
     {
+      "name": "code-editor",
+      "type": "registry:component",
+      "title": "Code Editor",
+      "description": "A code editor component with language support and validation based on Monaco Editor.",
+      "dependencies": ["@monaco-editor/react", "next-themes"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/code-editor/code-editor.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/language-plugins/index.ts",
+          "type": "registry:lib",
+          "target": "lib/language-plugins/index.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/language-plugins/types.ts",
+          "type": "registry:lib",
+          "target": "lib/language-plugins/types.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/language-plugins/core.ts",
+          "type": "registry:lib",
+          "target": "lib/language-plugins/core.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/language-plugins/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/language-plugins/utils.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/language-plugins/yaml-plugin.ts",
+          "type": "registry:lib",
+          "target": "lib/language-plugins/yaml-plugin.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/language-plugins/json-plugin.ts",
+          "type": "registry:lib",
+          "target": "lib/language-plugins/json-plugin.ts"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/language-plugins/typescript-plugin.ts",
+          "type": "registry:lib",
+          "target": "lib/language-plugins/typescript-plugin.ts"
+        }
+      ]
+    },
+    {
       "name": "i18n",
       "type": "registry:file",
       "title": "i18n",
@@ -343,7 +391,7 @@
       "type": "registry:component",
       "title": "Resource Form",
       "description": "A resource create/edit form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "@monaco-editor/react"],
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod"],
       "registryDependencies": [
         "form",
         "card",
@@ -355,7 +403,8 @@
         "textarea",
         "sonner",
         "alert",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/actions.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/actions.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor.json"
       ],
       "files": [
         {
@@ -367,35 +416,11 @@
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/resource-form/code-editor.tsx",
-          "type": "registry:component"
-        },
-        {
           "path": "registry/new-york/blocks/resource-form/resource-form-utils.ts",
           "type": "registry:component"
         },
         {
           "path": "registry/new-york/blocks/resource-form/schema-generator.ts",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-form/code-utils.ts",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-form/language-plugins/index.ts",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-form/language-plugins/typescript-plugin.ts",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-form/language-plugins/html-plugin.ts",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-form/language-plugins/css-plugin.ts",
           "type": "registry:component"
         },
         {
