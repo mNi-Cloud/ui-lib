@@ -18,6 +18,7 @@ import { generateSchema, generateDefaultValues } from './schema-generator';
 import FieldRenderer from './field-renderer';
 import YamlEditor from './yaml-editor';
 import { validateYaml } from './yaml-utils';
+import { createResource, updateResource, fetchResource } from '@/registry/new-york/blocks/actions/resource-actions';
 
 // 単一ステップフォーム用の型定義
 export type ResourceFormProps = {
@@ -90,15 +91,12 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
 
   // 編集モードの場合、リソースデータを取得
   useEffect(() => {
-    const fetchResource = async () => {
+    const fetchResourceData = async () => {
       if (isEditMode && resourceId) {
         setIsLoading(true);
         try {
-          const response = await fetch(`${apiEndpoint}/${resourceId}`);
-          if (!response.ok) {
-            throw new Error(t('fetcherror'));
-          }
-          const data = await response.json();
+          // サーバーアクションを使用してリソースデータを取得
+          const data = await fetchResource(`${apiEndpoint}/${resourceId}`);
           
           // ネストしたフィールドの値を設定
           safeFields.forEach(field => {
@@ -127,7 +125,7 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
       }
     };
 
-    fetchResource();
+    fetchResourceData();
   }, [apiEndpoint, resourceId, isEditMode, form, safeFields, t]);
 
   // フォーム送信処理
@@ -136,20 +134,11 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
     try {
       const formattedData = formatFormData ? formatFormData(values) : values;
       
-      const url = isEditMode && resourceId ? `${apiEndpoint}/${resourceId}` : apiEndpoint;
-      const method = isEditMode ? 'PUT' : 'POST';
-
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(formattedData),
-      });
-
-      if (!response.ok) {
-        throw new Error(messages.error);
+      // サーバーアクションを使用してリソースを作成または更新
+      if (isEditMode && resourceId) {
+        await updateResource(`${apiEndpoint}/${resourceId}`, formattedData, redirectPath);
+      } else {
+        await createResource(apiEndpoint, formattedData, redirectPath);
       }
 
       // リソース名を取得（最初のフィールドかnameフィールドから）
@@ -338,18 +327,8 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
       try {
         const dataToSubmit = formatFormData ? formatFormData(updatedFormData) : updatedFormData;
 
-        const response = await fetch(apiEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-          body: JSON.stringify(dataToSubmit),
-        });
-        
-        if (!response.ok) {
-          throw new Error(messages.error);
-        }
+        // サーバーアクションを使用してリソースを作成
+        await createResource(apiEndpoint, dataToSubmit, redirectPath);
 
         // リソース名を取得
         const firstField = steps[0]?.fields[0];

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { KeyedMutator } from 'swr';
 import { useTranslations } from 'next-intl';
+import { deleteResources } from '@/registry/new-york/blocks/actions/resource-actions';
 
 interface Resource {
   [key: string]: any;
@@ -97,13 +98,11 @@ export function useResourceDeletion<T extends Resource>({
     setError(null);
     setSuccessMessage(null);
     try {
-      for (const resource of selectedResources) {
-        const resourceId = getResourceId(resource);
-        const response = await fetch(deleteUrl(resourceId), { method: 'DELETE' });
-        if (!response.ok) {
-          throw new Error(t('failedmessage', { resourceType }));
-        }
-      }
+      // 削除URL配列を生成
+      const deleteUrls = selectedResources.map(resource => deleteUrl(getResourceId(resource)));
+      // サーバーアクションを使用して複数リソースを削除
+      await deleteResources(deleteUrls);
+      
       await mutate();
       setSelectedResources([]);
       setIsDeleteDialogOpen(false);

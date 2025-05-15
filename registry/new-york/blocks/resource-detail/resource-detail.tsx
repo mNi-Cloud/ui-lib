@@ -17,6 +17,11 @@ import {
 import { ChevronDown, TrashIcon } from "lucide-react"
 import { Separator } from "@/registry/new-york/ui/separator"
 import { useTranslations } from 'next-intl'
+import { 
+  fetchResource,
+  deleteResource,
+  checkResourceDependencies as serverCheckDependencies
+} from "@/registry/new-york/blocks/actions/resource-actions"
 
 export interface ResourceDetailItemProps {
   label: string
@@ -105,20 +110,14 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(apiUrl)
-        if (!response.ok) {
-          throw new Error(`Failed to fetch ${resourceType}`)
-        }
-        const jsonData = await response.json()
+        // サーバーアクションを使用してリソースを取得
+        const jsonData = await fetchResource(apiUrl) as T;
         setData(jsonData)
 
         if (relatedResource) {
           setIsLoadingRelated(true)
-          const relatedResponse = await fetch(relatedResource.apiUrl)
-          if (!relatedResponse.ok) {
-            throw new Error(`Failed to fetch related resources`)
-          }
-          const relatedJsonData = await relatedResponse.json()
+          // サーバーアクションを使用して関連リソースを取得
+          const relatedJsonData = await fetchResource(relatedResource.apiUrl) as R[];
 
           const filteredData = relatedResource.filterData
             ? relatedResource.filterData(relatedJsonData, jsonData)
@@ -146,7 +145,8 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
       if (!data || !checkDependencies) return
 
       try {
-        const check = await checkDependencies(data)
+        // サーバーアクションを使用して依存関係をチェック
+        const check = await serverCheckDependencies(data, checkDependencies);
         setDependencyCheck(check)
       } catch (error) {
         console.error('Error checking dependencies:', error)
@@ -187,10 +187,8 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     setIsDeleting(true)
     try {
-      const response = await fetch(deleteUrl, {
-        method: "DELETE",
-      })
-      if (!response.ok) throw new Error(`Failed to delete ${resourceType}`)
+      // サーバーアクションを使用してリソースを削除
+      await deleteResource(deleteUrl, onDelete?.path);
 
       if (onDelete) {
         onDelete.callback?.()
@@ -217,9 +215,8 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     try {
       setIsLoadingRelated(true)
-      const response = await fetch(relatedResource.apiUrl)
-      if (!response.ok) throw new Error("Failed to refresh related data")
-      const newData = await response.json()
+      // サーバーアクションを使用して関連リソースを再取得
+      const newData = await fetchResource(relatedResource.apiUrl) as R[];
 
       const filteredData = relatedResource.filterData
         ? relatedResource.filterData(newData, data)
@@ -240,11 +237,10 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     setIsDeleting(true)
     try {
+      // サーバーアクションを使用して複数リソースを削除
       await Promise.all(
         resources.map((resource) =>
-          fetch(relatedResource.deleteUrl(resource.name), {
-            method: "DELETE",
-          })
+          deleteResource(relatedResource.deleteUrl(resource.name))
         )
       )
       await mutateRelatedData()
@@ -299,7 +295,11 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
           if (relatedResource.checkDependencies) {
             const hasBlockingDependencies = await Promise.all(
               selectedRows.map(async (resource) => {
-                const check = await relatedResource.checkDependencies!(resource)
+                // サーバーアクションを使用して依存関係をチェック
+                const check = await serverCheckDependencies(
+                  resource, 
+                  relatedResource.checkDependencies as any
+                );
                 if (check.hasDependencies) {
                   toast.error(t('error'), {
                     description: check.message || `${resource.name}: ${t('deleteerror')}`,

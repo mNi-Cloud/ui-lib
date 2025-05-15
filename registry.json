@@ -4,6 +4,20 @@
   "homepage": "https://raw.github.com/mNi-Cloud/ui-lib/main",
   "items": [
     {
+      "name": "actions",
+      "type": "registry:file",
+      "title": "Resource Actions",
+      "description": "Server actions for resource operations.",
+      "dependencies": ["next"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/actions/resource-actions.ts",
+          "type": "registry:file",
+          "target": "lib/actions/resource.ts"
+        }
+      ]
+    },
+    {
       "name": "i18n",
       "type": "registry:file",
       "title": "i18n",
@@ -192,6 +206,9 @@
       "title": "Resource Delete",
       "description": "A resource delete hook.",
       "dependencies": ["next-intl", "swr"],
+      "registryDependencies": [
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/actions.json"
+      ],
       "files": [
         {
           "path": "registry/new-york/blocks/resource-delete/resource-delete.tsx",
@@ -268,6 +285,7 @@
       "dependencies": ["next-intl", "swr"],
       "registryDependencies": [
         "sonner",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/actions.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-delete.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json"
@@ -300,6 +318,7 @@
         "button",
         "dropdown-menu",
         "separator",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/actions.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-view.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/delete-confirmation.json"
       ],
@@ -333,7 +352,8 @@
         "select",
         "button",
         "alert",
-        "progress"
+        "progress",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/actions.json"
       ],
       "files": [
         {

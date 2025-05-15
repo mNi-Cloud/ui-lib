@@ -1,20 +1,47 @@
 "use client"
 
-import { ResourceDetail, ResourceDetailItem } from "@/registry/new-york/blocks/resource-detail/resource-detail"
-import { Resource } from "../columns"
+import { ResourceDetail } from "@/registry/new-york/blocks/resource-detail/resource-detail"
+import ResourceColumns from "../columns"
+import { useTranslations } from "next-intl"
 import { use } from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "@/registry/new-york/blocks/link/link"
-import { useTranslations } from 'next-intl'
 
-interface Post {
-  userId: number
+// リソースの型定義
+type Resource = {
   id: number
-  title: string
-  body: string
   name: string
+  username: string
+  email: string
+  phone: string
+  website: string
+  company: {
+    name: string
+    catchPhrase: string
+    bs: string
+  }
+  address: {
+    street: string
+    suite: string
+    city: string
+    zipcode: string
+    geo: {
+      lat: string
+      lng: string
+    }
+  }
 }
 
+// 投稿の型定義
+type Post = {
+  id: number
+  userId: number
+  title: string
+  body: string
+  name: string // ResourceDetailコンポーネントの制約を満たすために追加
+}
+
+// PostColumns実装
 const PostColumns = () => {
   const t = useTranslations('pages.resource1.detail')
 
@@ -47,6 +74,14 @@ const PostColumns = () => {
   ]
   return postColumns
 }
+
+// リソース詳細項目コンポーネント
+const ResourceDetailItem = ({ label, value }: { label: string, value: React.ReactNode }) => (
+  <div className="py-3">
+    <dt className="text-sm font-medium text-muted-foreground">{label}</dt>
+    <dd className="mt-1 text-sm text-foreground">{value}</dd>
+  </div>
+)
 
 export default function UserDetailPage(
   props: {

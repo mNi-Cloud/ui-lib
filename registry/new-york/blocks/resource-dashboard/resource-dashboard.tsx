@@ -13,6 +13,7 @@ import {
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
+import { fetchResources, checkResourceDependencies as serverCheckDependencies } from '@/registry/new-york/blocks/actions/resource-actions'
 
 interface Action<T> {
   label: string
@@ -39,17 +40,8 @@ interface ResourceDashboardProps<T> {
   identifierConfig?: ResourceIdentifierConfig
 }
 
-const fetcher = async (url: string) => {
-  const response = await fetch(url)
-  if (!response.ok) {
-    throw new Error(`API error: ${response.statusText}`)
-  }
-  const data = await response.json()
-  if (!Array.isArray(data)) {
-    throw new Error('API response is not an array')
-  }
-  return data
-}
+// サーバーアクションを使用するためのfetcher
+const fetcher = (url: string) => fetchResources(url)
 
 export default function ResourceDashboard<T extends Record<string, any>>({
   resourceType,
@@ -82,7 +74,8 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         const checks = await Promise.all(
           data.map(async (resource) => {
             try {
-              const check = await checkDependencies(resource)
+              // サーバーアクションを使用して依存関係をチェック
+              const check = await serverCheckDependencies(resource, checkDependencies);
               const resourceKey = getResourceId(resource)
               return [resourceKey, check] as const
             } catch (error) {
