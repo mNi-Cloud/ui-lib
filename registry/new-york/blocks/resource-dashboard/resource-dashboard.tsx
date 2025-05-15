@@ -13,7 +13,7 @@ import {
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
-import { fetchResources, checkResourceDependencies as serverCheckDependencies } from '@/registry/new-york/blocks/actions/resource-actions'
+import { fetchResources } from '@/registry/new-york/blocks/actions/resource-actions'
 
 interface Action<T> {
   label: string
@@ -74,8 +74,8 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         const checks = await Promise.all(
           data.map(async (resource) => {
             try {
-              // サーバーアクションを使用して依存関係をチェック
-              const check = await serverCheckDependencies(resource, checkDependencies);
+              // クライアント側で直接依存関係チェック関数を呼び出す
+              const check = await checkDependencies(resource)
               const resourceKey = getResourceId(resource)
               return [resourceKey, check] as const
             } catch (error) {

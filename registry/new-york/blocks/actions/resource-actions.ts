@@ -148,19 +148,4 @@ export async function deleteResources(urls: string[]) {
     console.error('Error deleting resources:', error);
     throw error;
   }
-}
-
-/**
- * 依存関係をチェックするサーバーアクション
- */
-export async function checkResourceDependencies<T>(
-  resource: T, 
-  checkFn: (resource: T) => Promise<{ hasDependencies: boolean; message?: string }>
-) {
-  try {
-    return await checkFn(resource);
-  } catch (error) {
-    console.error('Error checking dependencies:', error);
-    throw error;
-  }
 } 

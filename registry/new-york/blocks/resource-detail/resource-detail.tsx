@@ -19,8 +19,7 @@ import { Separator } from "@/registry/new-york/ui/separator"
 import { useTranslations } from 'next-intl'
 import { 
   fetchResource,
-  deleteResource,
-  checkResourceDependencies as serverCheckDependencies
+  deleteResource
 } from "@/registry/new-york/blocks/actions/resource-actions"
 
 export interface ResourceDetailItemProps {
@@ -145,8 +144,8 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
       if (!data || !checkDependencies) return
 
       try {
-        // サーバーアクションを使用して依存関係をチェック
-        const check = await serverCheckDependencies(data, checkDependencies);
+        // クライアント側で直接依存関係をチェック
+        const check = await checkDependencies(data);
         setDependencyCheck(check)
       } catch (error) {
         console.error('Error checking dependencies:', error)
@@ -295,11 +294,8 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
           if (relatedResource.checkDependencies) {
             const hasBlockingDependencies = await Promise.all(
               selectedRows.map(async (resource) => {
-                // サーバーアクションを使用して依存関係をチェック
-                const check = await serverCheckDependencies(
-                  resource, 
-                  relatedResource.checkDependencies as any
-                );
+                // クライアント側で直接依存関係をチェック
+                const check = await relatedResource.checkDependencies!(resource);
                 if (check.hasDependencies) {
                   toast.error(t('error'), {
                     description: check.message || `${resource.name}: ${t('deleteerror')}`,
