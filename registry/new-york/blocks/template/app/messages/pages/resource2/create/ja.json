@@ -18,6 +18,10 @@
           "title": "ユーザー情報",
           "description": "投稿者の情報を入力してください"
         },
+        "step4": {
+          "title": "追加設定",
+          "description": "YAML形式で追加設定を入力してください"
+        },
         "titleField": {
           "label": "タイトル",
           "placeholder": "タイトルを入力してください",
@@ -32,6 +36,16 @@
           "label": "ユーザーID",
           "placeholder": "ユーザーIDを入力してください",
           "description": "投稿者のユーザーID（1-10）"
+        },
+        "config": {
+          "label": "詳細設定",
+          "placeholder": "YAML形式で設定を入力してください",
+          "description": "YAML形式で設定を記述してください。VSCode風エディタで編集できます。"
+        },
+        "jsonConfig": {
+          "label": "JSON設定",
+          "placeholder": "JSON形式で設定を入力してください",
+          "description": "JSON形式で設定を記述してください。"
         }
       }
     }

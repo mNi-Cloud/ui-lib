@@ -18,6 +18,10 @@
           "title": "User Information",
           "description": "Enter the creator information for the resource"
         },
+        "step4": {
+          "title": "Additional Settings",
+          "description": "Enter additional settings in YAML format"
+        },
         "titleField": {
           "label": "Title",
           "placeholder": "Enter title",
@@ -32,6 +36,16 @@
           "label": "User ID",
           "placeholder": "Enter user ID",
           "description": "User ID of the creator (1-10)"
+        },
+        "config": {
+          "label": "Detailed Settings",
+          "placeholder": "Enter settings in YAML format",
+          "description": "Describe settings in YAML format. You can edit in a VSCode-like editor."
+        },
+        "jsonConfig": {
+          "label": "JSON Settings",
+          "placeholder": "Enter settings in JSON format",
+          "description": "Describe settings in JSON format."
         }
       }
     }
