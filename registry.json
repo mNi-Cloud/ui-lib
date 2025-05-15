@@ -5,7 +5,7 @@
   "items": [
     {
       "name": "actions",
-      "type": "registry:file",
+      "type": "registry:lib",
       "title": "Resource Actions",
       "description": "Server actions for resource operations.",
       "dependencies": ["next"],
