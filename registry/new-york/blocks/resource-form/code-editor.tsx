@@ -3,6 +3,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 // Monaco Editorをクライアントサイドでのみロードするために動的にインポート
 const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
@@ -42,11 +43,15 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   readOnly = false,
   showValidation = true,
   validator,
-  theme = 'vs-dark',
+  theme: propTheme,
 }) => {
   const monacoRef = useRef<any>(null);
   const editorRef = useRef<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const { resolvedTheme } = useTheme();
+  
+  // テーマの決定: プロパティで指定された場合はそれを使用、それ以外はアプリケーションのテーマに従う
+  const theme = propTheme || (resolvedTheme === 'dark' ? 'vs-dark' : 'vs');
   
   // エディタが初期化されたときの処理
   const handleEditorDidMount = (editor: any, monaco: any) => {
