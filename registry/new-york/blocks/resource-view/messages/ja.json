@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "data-table": {
       "noresults": "結果がありません",
       "rowselect": "{selected} / {total} 行選択"

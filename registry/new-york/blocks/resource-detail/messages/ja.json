@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "resource-detail": {
       "error": "エラー",
       "dependencyerror": "依存関係のチェック中にエラーが発生しました",
