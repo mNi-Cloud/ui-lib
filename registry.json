@@ -351,6 +351,33 @@
       ]
     },
     {
+      "name": "resource-create-multiple",
+      "type": "registry:component",
+      "title": "Resource Create Multiple",
+      "description": "A resource creation form component.",
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "zod", "yaml"],
+      "registryDependencies": [
+        "card",
+        "button",
+        "input",
+        "select",
+        "textarea",
+        "form",
+        "progress",
+        "sonner"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/resource-create-multiple/resource-create-multiple.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-create-multiple/yaml-editor.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
+    {
       "name": "resource-edit",
       "type": "registry:component",
       "title": "Resource Edit",
