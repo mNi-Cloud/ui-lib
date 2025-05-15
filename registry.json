@@ -350,15 +350,15 @@
         },
         {
           "path": "registry/new-york/blocks/resource-form/resource-form-utils.ts",
-          "type": "registry:file"
+          "type": "registry:component"
         },
         {
           "path": "registry/new-york/blocks/resource-form/schema-generator.ts",
-          "type": "registry:file"
+          "type": "registry:component"
         },
         {
           "path": "registry/new-york/blocks/resource-form/yaml-utils.ts",
-          "type": "registry:file"
+          "type": "registry:component"
         },
         {
           "path": "registry/new-york/blocks/resource-form/messages/en.json",
