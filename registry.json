@@ -26,34 +26,6 @@
         {
           "path": "registry/new-york/blocks/code-editor/code-editor.tsx",
           "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins-types.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins-core.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins-utils.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/yaml-plugin.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/json-plugin.ts",
-          "type": "registry:lib"
-        },
-        {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/typescript-plugin.ts",
-          "type": "registry:lib"
         }
       ]
     },

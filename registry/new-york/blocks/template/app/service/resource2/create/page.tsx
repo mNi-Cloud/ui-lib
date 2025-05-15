@@ -2,7 +2,7 @@
 
 import { MultiStepResourceForm } from "@/registry/new-york/blocks/resource-form/resource-form";
 import { useTranslations } from 'next-intl'
-import { codeExamples, SupportedLanguage } from "@/registry/new-york/blocks/code-editor/language-plugins/language-plugins";
+import { SupportedLanguage } from "@/registry/new-york/blocks/code-editor/code-editor";
 
 const PostCreatePage = () => {
   const t = useTranslations('pages.resource2.create')
@@ -68,7 +68,6 @@ const PostCreatePage = () => {
           type: 'code' as const,
           language: 'yaml' as SupportedLanguage,
           height: '350px',
-          placeholder: codeExamples.yaml,
           description: t('config.description', { defaultValue: 'YAML形式で設定を記述してください。VSCode風エディタで編集できます。' }),
           validation: {
             codeValidation: true
@@ -80,7 +79,6 @@ const PostCreatePage = () => {
           type: 'code' as const,
           language: 'json' as SupportedLanguage,
           height: '300px',
-          placeholder: codeExamples.json,
           description: t('jsonConfig.description', { defaultValue: 'JSON形式で設定を記述してください。' }),
           validation: {
             codeValidation: true
