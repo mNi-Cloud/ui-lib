@@ -12,8 +12,7 @@
       "files": [
         {
           "path": "registry/new-york/blocks/actions/resource-actions.ts",
-          "type": "registry:file",
-          "target": "lib/actions/resource.ts"
+          "type": "registry:lib"
         }
       ]
     },
