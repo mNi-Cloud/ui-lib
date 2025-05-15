@@ -28,39 +28,32 @@
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/index.ts",
-          "type": "registry:lib",
-          "target": "lib/language-plugins/index.ts"
+          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins.ts",
+          "type": "registry:lib"
         },
         {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/types.ts",
-          "type": "registry:lib",
-          "target": "lib/language-plugins/types.ts"
+          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins-types.ts",
+          "type": "registry:lib"
         },
         {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/core.ts",
-          "type": "registry:lib",
-          "target": "lib/language-plugins/core.ts"
+          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins-core.ts",
+          "type": "registry:lib"
         },
         {
-          "path": "registry/new-york/blocks/code-editor/language-plugins/utils.ts",
-          "type": "registry:lib",
-          "target": "lib/language-plugins/utils.ts"
+          "path": "registry/new-york/blocks/code-editor/language-plugins/language-plugins-utils.ts",
+          "type": "registry:lib"
         },
         {
           "path": "registry/new-york/blocks/code-editor/language-plugins/yaml-plugin.ts",
-          "type": "registry:lib",
-          "target": "lib/language-plugins/yaml-plugin.ts"
+          "type": "registry:lib"
         },
         {
           "path": "registry/new-york/blocks/code-editor/language-plugins/json-plugin.ts",
-          "type": "registry:lib",
-          "target": "lib/language-plugins/json-plugin.ts"
+          "type": "registry:lib"
         },
         {
           "path": "registry/new-york/blocks/code-editor/language-plugins/typescript-plugin.ts",
-          "type": "registry:lib",
-          "target": "lib/language-plugins/typescript-plugin.ts"
+          "type": "registry:lib"
         }
       ]
     },

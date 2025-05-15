@@ -2,7 +2,7 @@
 
 import { MultiStepResourceForm } from "@/registry/new-york/blocks/resource-form/resource-form";
 import { useTranslations } from 'next-intl'
-import { codeExamples, SupportedLanguage } from "@/registry/new-york/blocks/code-editor/language-plugins";
+import { codeExamples, SupportedLanguage } from "@/registry/new-york/blocks/code-editor/language-plugins/language-plugins";
 
 const PostCreatePage = () => {
   const t = useTranslations('pages.resource2.create')

@@ -1,5 +1,5 @@
 // 型をエクスポート
-export type { SupportedLanguage } from './types';
+export type { SupportedLanguage } from './language-plugins-types';
 
 // コア機能をエクスポート
 export {
@@ -8,10 +8,10 @@ export {
   getValidator,
   applyMarkersToModel,
   initializeLanguagePlugins
-} from './core';
+} from './language-plugins-core';
 
 // コアの型をエクスポート
-export type { MonacoMarker, LanguagePlugin } from './core';
+export type { MonacoMarker, LanguagePlugin } from './language-plugins-core';
 
 // ユーティリティ関数をエクスポート
 export {
@@ -19,9 +19,9 @@ export {
   getLanguageExtension,
   createSimplePlugin,
   codeExamples
-} from './utils';
+} from './language-plugins-utils';
 
 // 言語プラグインモジュールをインポート（自動登録）
 import './yaml-plugin';
 import './json-plugin';
-import './typescript-plugin';
+import './typescript-plugin'; 

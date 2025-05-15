@@ -1,5 +1,5 @@
-import { SupportedLanguage } from './types';
-import type { LanguagePlugin } from './core';
+import { SupportedLanguage } from './language-plugins-types';
+import type { LanguagePlugin } from './language-plugins-core';
 
 // 各言語のサンプル
 export const codeExamples: Record<SupportedLanguage, string> = {

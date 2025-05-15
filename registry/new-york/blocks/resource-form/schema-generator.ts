@@ -7,7 +7,7 @@ import {
   handleNestedField,
   processNestedSchema
 } from './resource-form-utils';
-import { getValidator, SupportedLanguage } from '@/registry/new-york/blocks/code-editor/language-plugins';
+import { getValidator, SupportedLanguage } from '@/registry/new-york/blocks/code-editor/language-plugins/language-plugins';
 
 /**
  * フィールド定義からZodスキーマを生成する関数

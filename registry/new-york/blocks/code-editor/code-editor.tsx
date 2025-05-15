@@ -12,7 +12,7 @@ import {
   getLanguagePlugin,
   getLanguageLabel,
   initializeLanguagePlugins
-} from '@/registry/new-york/blocks/code-editor/language-plugins';
+} from '@/registry/new-york/blocks/code-editor/language-plugins/language-plugins';
 
 // 初期化時に言語プラグインをロード
 if (typeof window !== 'undefined') {

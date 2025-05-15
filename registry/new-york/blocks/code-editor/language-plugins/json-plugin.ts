@@ -1,5 +1,5 @@
-import { SupportedLanguage } from './types';
-import type { LanguagePlugin, MonacoMarker } from './core';
+import { SupportedLanguage } from './language-plugins-types';
+import type { LanguagePlugin, MonacoMarker } from './language-plugins-core';
 
 // JSONプラグイン - 標準的なJSON.parseを使用
 const jsonPlugin: LanguagePlugin = {
@@ -92,7 +92,7 @@ const jsonPlugin: LanguagePlugin = {
   }
 };
 
-import { registerLanguagePlugin } from './core';
+import { registerLanguagePlugin } from './language-plugins-core';
 registerLanguagePlugin(jsonPlugin);
 
 export default jsonPlugin; 

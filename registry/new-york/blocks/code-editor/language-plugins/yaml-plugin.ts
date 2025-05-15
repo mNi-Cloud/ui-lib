@@ -1,5 +1,5 @@
-import { SupportedLanguage } from './types';
-import type { LanguagePlugin, MonacoMarker } from './core';
+import { SupportedLanguage } from './language-plugins-types';
+import type { LanguagePlugin, MonacoMarker } from './language-plugins-core';
 
 // YAMLプラグイン - Monaco Editorの言語機能に依存
 const yamlPlugin: LanguagePlugin = {
@@ -99,7 +99,7 @@ const yamlPlugin: LanguagePlugin = {
   }
 };
 
-import { registerLanguagePlugin } from './core';
+import { registerLanguagePlugin } from './language-plugins-core';
 registerLanguagePlugin(yamlPlugin);
 
 export default yamlPlugin; 

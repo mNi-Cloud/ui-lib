@@ -17,7 +17,7 @@ import { CommonFieldDefinition, StepDefinition } from './resource-form-utils';
 import { generateSchema, generateDefaultValues } from './schema-generator';
 import FieldRenderer from './field-renderer';
 import CodeEditor from '@/registry/new-york/blocks/code-editor/code-editor';
-import { getValidator } from '@/registry/new-york/blocks/code-editor/language-plugins';
+import { getValidator } from '@/registry/new-york/blocks/code-editor/language-plugins/language-plugins';
 import { createResource, updateResource, fetchResource } from '@/registry/new-york/blocks/actions/resource-actions';
 
 // 単一ステップフォーム用の型定義

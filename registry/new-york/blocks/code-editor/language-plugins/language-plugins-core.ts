@@ -1,4 +1,4 @@
-import { SupportedLanguage } from './types';
+import { SupportedLanguage } from './language-plugins-types';
 
 // プラグインインターフェース
 export interface LanguagePlugin {
@@ -50,7 +50,7 @@ export function initializeLanguagePlugins() {
   
   // ここでプラグインを登録
   // コアモジュールでは各言語プラグインをインポートせず、
-  // index.tsで個別にimportしてregisterLanguagePluginを呼び出すことで
+  // language-plugins.tsで個別にimportしてregisterLanguagePluginを呼び出すことで
   // 循環参照を防止します
 }
 
