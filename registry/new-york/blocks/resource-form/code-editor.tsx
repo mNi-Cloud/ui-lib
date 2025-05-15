@@ -69,6 +69,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   // テーマの決定: プロパティで指定された場合はそれを使用、それ以外はアプリケーションのテーマに従う
   const theme = propTheme || (resolvedTheme === 'dark' ? 'vs-dark' : 'vs');
   
+  // システムテーマが変更された時にエディタのテーマも更新
+  useEffect(() => {
+    if (!propTheme && editorRef.current && monacoRef.current) {
+      const newTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'vs';
+      monacoRef.current.editor.setTheme(newTheme);
+    }
+  }, [resolvedTheme, propTheme]);
+  
   // バリデーターの取得 (カスタムバリデーターが渡されていればそれを使用、なければプラグインシステムから取得)
   const validator = customValidator || getValidator(language);
   
@@ -100,6 +108,10 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     editorRef.current = editor;
     monacoRef.current = monaco;
     modelRef.current = editor.getModel();
+
+    // 初期テーマを明示的に設定
+    const currentTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'vs';
+    monaco.editor.setTheme(currentTheme);
 
     // プレースホルダーテキストの設定
     if (!value && placeholder) {

@@ -245,6 +245,18 @@ const yamlPlugin: LanguagePlugin = {
       enableSchemaRequest: true,
       format: true
     });
+    
+    // エディタのテーマに合わせてYAML言語のハイライト設定を調整
+    const currentTheme = monaco.editor.getTheme();
+    if (currentTheme.includes('light')) {
+      // ライトテーマ向けの設定
+      monaco.editor.defineTheme('yaml-light', {
+        base: 'vs',
+        inherit: true,
+        rules: [],
+        colors: {}
+      });
+    }
   }
 };
 
@@ -324,6 +336,18 @@ const jsonPlugin: LanguagePlugin = {
       schemas: [],
       enableSchemaRequest: true
     });
+    
+    // エディタのテーマに合わせてJSON言語のハイライト設定を調整
+    const currentTheme = monaco.editor.getTheme();
+    if (currentTheme.includes('light')) {
+      // ライトテーマ向けの設定
+      monaco.editor.defineTheme('json-light', {
+        base: 'vs',
+        inherit: true,
+        rules: [],
+        colors: {}
+      });
+    }
   }
 };
 

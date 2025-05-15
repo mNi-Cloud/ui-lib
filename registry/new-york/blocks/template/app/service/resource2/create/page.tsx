@@ -69,7 +69,6 @@ const PostCreatePage = () => {
           type: 'code' as const,
           language: 'yaml' as SupportedLanguage,
           height: '350px',
-          theme: 'vs-dark' as const,
           placeholder: codeExamples.yaml,
           description: t('config.description', { defaultValue: 'YAML形式で設定を記述してください。VSCode風エディタで編集できます。' }),
           validation: {
@@ -82,7 +81,6 @@ const PostCreatePage = () => {
           type: 'code' as const,
           language: 'json' as SupportedLanguage,
           height: '300px',
-          theme: 'vs-dark' as const,
           placeholder: codeExamples.json,
           description: t('jsonConfig.description', { defaultValue: 'JSON形式で設定を記述してください。' }),
           validation: {
