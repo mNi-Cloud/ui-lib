@@ -1,6 +1,7 @@
 'use client';
 
 import { z } from 'zod';
+import { SupportedLanguage } from './code-editor';
 
 /**
  * 共通の型定義
@@ -25,7 +26,7 @@ export type BaseFieldValidation = {
   minLength?: number;
   maxLength?: number;
   pattern?: ValidationPattern;
-  yamlLint?: boolean;
+  codeValidation?: boolean;
 };
 
 export type BaseFieldDefinition = {
@@ -46,7 +47,7 @@ export type BaseFieldDefinition = {
  */
 export type CommonFieldType = 
   'text' | 'number' | 'email' | 'password' | 'select' | 
-  'array' | 'unit-input' | 'textarea' | 'yaml' | 'custom';
+  'array' | 'unit-input' | 'textarea' | 'yaml' | 'custom' | 'code';
 
 export type CommonFieldObjectDefinition = Omit<BaseFieldDefinition, 'onChange'> & {
   type: 'text' | 'number' | 'email' | 'password' | 'select';
@@ -60,9 +61,12 @@ export type CommonFieldDefinition = BaseFieldDefinition & {
   options?: SelectOption[];         // select用
   units?: UnitOption[];             // unit-input用
   defaultUnit?: string;             // unit-input用
-  itemType?: 'text' | 'object';     // array用
+  itemType?: 'text' | 'object';     // array+object用
   fields?: CommonFieldObjectDefinition[]; // array+object用
   render?: (props: { values: any; form: any }) => React.ReactNode; // custom用
+  language?: SupportedLanguage;     // code用
+  height?: string;                  // code用
+  theme?: 'vs' | 'vs-dark' | 'hc-black' | 'hc-light'; // code用
 };
 
 /**
@@ -157,7 +161,7 @@ export const addNumberValidation = (
 export const generateFieldSchemaByType = (
   field: CommonFieldDefinition,
   t: (key: string, params?: Record<string, any>) => string,
-  validateYaml?: (content: string) => { isValid: boolean; error?: string }
+  validators?: Record<SupportedLanguage, (content: string) => { isValid: boolean; error?: string }>
 ) => {
   let fieldSchema = generateFieldSchema(field, t);
 
@@ -165,18 +169,21 @@ export const generateFieldSchemaByType = (
     return addNumberValidation(fieldSchema, field, t);
   } 
   
-  if (field.type === 'yaml' && field.validation?.yamlLint && validateYaml) {
-    return fieldSchema.superRefine((val, ctx) => {
-      if (!val) return;
-      
-      const result = validateYaml(val);
-      if (!result.isValid) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: result.error || 'Invalid YAML format',
-        });
-      }
-    });
+  if (field.type === 'code' && field.validation?.codeValidation && validators && field.language) {
+    const validator = validators[field.language];
+    if (validator) {
+      return fieldSchema.superRefine((val, ctx) => {
+        if (!val) return;
+        
+        const result = validator(val);
+        if (!result.isValid) {
+          ctx.addIssue({
+            code: z.ZodIssueCode.custom,
+            message: result.error || 'Invalid code format',
+          });
+        }
+      });
+    }
   }
 
   return fieldSchema;

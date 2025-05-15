@@ -7,28 +7,30 @@ import {
   handleNestedField,
   processNestedSchema
 } from './resource-form-utils';
-import { validateYaml } from './yaml-utils';
+import { validators } from './code-utils';
+import { SupportedLanguage } from './code-editor';
 
 /**
  * フィールド定義からZodスキーマを生成する関数
  */
 export const generateSchema = (
   fields: CommonFieldDefinition[],
-  t: (key: string, params?: Record<string, any>) => string
+  t: (key: string, params?: Record<string, any>) => string,
+  codeValidators: Record<SupportedLanguage, (content: string) => { isValid: boolean; error?: string }> = validators
 ) => {
   const schemaObject: Record<string, any> = {};
 
   fields.forEach(field => {
     if (field.type === 'unit-input') {
       // ユニット入力には2つのフィールドが必要
-      const valueSchema = generateFieldSchemaByType(field, t, validateYaml);
+      const valueSchema = generateFieldSchemaByType(field, t, codeValidators);
       const unitSchema = z.string().min(1, t('unit'));
 
       schemaObject[`${field.name}Value`] = valueSchema;
       schemaObject[`${field.name}Unit`] = unitSchema;
     } else {
       // 通常のフィールド
-      const fieldSchema = generateFieldSchemaByType(field, t, validateYaml);
+      const fieldSchema = generateFieldSchemaByType(field, t, codeValidators);
 
       const fieldPath = field.name.split('.');
       if (fieldPath.length > 1) {

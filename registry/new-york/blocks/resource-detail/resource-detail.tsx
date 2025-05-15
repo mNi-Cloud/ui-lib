@@ -61,6 +61,7 @@ export type ResourceDetailProps<T extends { name: string }, R extends object> = 
     title: string
     columns: ColumnDef<R>[]
     apiUrl: string
+    resourceType?: string
     deleteUrl: (name: string) => string
     createPath?: string
     editPath?: (name: string) => string
@@ -82,6 +83,7 @@ export type ResourceDetailProps<T extends { name: string }, R extends object> = 
 
 export function ResourceDetail<T extends { name: string }, R extends { name: string }>({
   resourceType,
+  resourceId,
   apiUrl,
   editPath,
   deleteUrl,
@@ -109,20 +111,46 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // サーバーアクションを使用してリソースを取得
-        const jsonData = await fetchResource(apiUrl) as T;
+        // サーバーアクションを使用してリソースを取得 (新しいシグネチャに対応)
+        const jsonData = await fetchResource(apiUrl, resourceId) as T;
         setData(jsonData)
 
         if (relatedResource) {
           setIsLoadingRelated(true)
-          // サーバーアクションを使用して関連リソースを取得
-          const relatedJsonData = await fetchResource(relatedResource.apiUrl) as R[];
+          try {
+            // 関連リソースはリスト取得なので、resourceIdは不要
+            // API URLに関連リソースのリストを直接取得できるエンドポイントが必要
+            const baseUrl = relatedResource.apiUrl.split('?')[0];
+            const queryParams = relatedResource.apiUrl.includes('?') 
+              ? relatedResource.apiUrl.split('?')[1] 
+              : '';
+            
+            // リソースリスト取得のためのAPI呼び出し
+            const relatedResponse = await fetch(`${baseUrl}${queryParams ? `?${queryParams}` : ''}`, { 
+              next: { revalidate: 60 } 
+            });
+            
+            if (!relatedResponse.ok) {
+              throw new Error(`関連リソースの取得に失敗: ${relatedResponse.status}`);
+            }
+            
+            const relatedJsonData = await relatedResponse.json() as R[];
+            
+            const filteredData = relatedResource.filterData
+              ? relatedResource.filterData(relatedJsonData, jsonData)
+              : relatedJsonData
 
-          const filteredData = relatedResource.filterData
-            ? relatedResource.filterData(relatedJsonData, jsonData)
-            : relatedJsonData
-
-          setRelatedData(filteredData)
+            setRelatedData(filteredData)
+          } catch (relErr) {
+            console.error('関連リソースの取得エラー:', relErr);
+            if (relErr instanceof Error) {
+              setRelatedError(relErr);
+            } else {
+              setRelatedError(new Error('関連リソースの取得に失敗しました'));
+            }
+          } finally {
+            setIsLoadingRelated(false);
+          }
         }
       } catch (err) {
         if (err instanceof Error) {
@@ -132,12 +160,11 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
         }
       } finally {
         setIsLoading(false)
-        setIsLoadingRelated(false)
       }
     }
 
     fetchData()
-  }, [apiUrl, resourceType, relatedResource])
+  }, [apiUrl, resourceId, resourceType, relatedResource])
 
   useEffect(() => {
     const checkResourceDependencies = async () => {
@@ -186,7 +213,7 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     setIsDeleting(true)
     try {
-      // サーバーアクションを使用してリソースを削除
+      // deleteResourceを呼び出し (redirectPathはオプショナル)
       await deleteResource(deleteUrl, onDelete?.path);
 
       if (onDelete) {
@@ -214,8 +241,22 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     try {
       setIsLoadingRelated(true)
-      // サーバーアクションを使用して関連リソースを再取得
-      const newData = await fetchResource(relatedResource.apiUrl) as R[];
+      
+      // 関連リソースのリスト取得はfetchを使用
+      const baseUrl = relatedResource.apiUrl.split('?')[0]; 
+      const queryParams = relatedResource.apiUrl.includes('?') 
+        ? relatedResource.apiUrl.split('?')[1] 
+        : '';
+      
+      const relatedResponse = await fetch(`${baseUrl}${queryParams ? `?${queryParams}` : ''}`, { 
+        next: { revalidate: 60 } 
+      });
+      
+      if (!relatedResponse.ok) {
+        throw new Error(`関連リソースの再取得に失敗: ${relatedResponse.status}`);
+      }
+      
+      const newData = await relatedResponse.json() as R[];
 
       const filteredData = relatedResource.filterData
         ? relatedResource.filterData(newData, data)
@@ -236,7 +277,7 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     setIsDeleting(true)
     try {
-      // サーバーアクションを使用して複数リソースを削除
+      // Promise.allとdeleteResourceを使用して複数のリソースを削除
       await Promise.all(
         resources.map((resource) =>
           deleteResource(relatedResource.deleteUrl(resource.name))

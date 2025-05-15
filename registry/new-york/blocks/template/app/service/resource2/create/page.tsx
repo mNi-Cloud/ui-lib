@@ -2,6 +2,8 @@
 
 import { MultiStepResourceForm } from "@/registry/new-york/blocks/resource-form/resource-form";
 import { useTranslations } from 'next-intl'
+import { codeExamples } from "@/registry/new-york/blocks/resource-form/code-utils";
+import { SupportedLanguage } from "@/registry/new-york/blocks/resource-form/code-editor";
 
 const PostCreatePage = () => {
   const t = useTranslations('pages.resource2.create')
@@ -53,6 +55,38 @@ const PostCreatePage = () => {
           description: t('userId.description'),
           validation: {
             required: true
+          }
+        }
+      ]
+    },
+    {
+      title: t('step4.title', { defaultValue: '追加設定' }),
+      description: t('step4.description', { defaultValue: 'YAML形式で追加設定を入力してください' }),
+      fields: [
+        {
+          name: 'config',
+          label: t('config.label', { defaultValue: '詳細設定' }),
+          type: 'code' as const,
+          language: 'yaml' as SupportedLanguage,
+          height: '350px',
+          theme: 'vs-dark' as const,
+          placeholder: codeExamples.yaml,
+          description: t('config.description', { defaultValue: 'YAML形式で設定を記述してください。VSCode風エディタで編集できます。' }),
+          validation: {
+            codeValidation: true
+          }
+        },
+        {
+          name: 'jsonConfig',
+          label: t('jsonConfig.label', { defaultValue: 'JSON設定' }),
+          type: 'code' as const,
+          language: 'json' as SupportedLanguage,
+          height: '300px',
+          theme: 'vs-dark' as const,
+          placeholder: codeExamples.json,
+          description: t('jsonConfig.description', { defaultValue: 'JSON形式で設定を記述してください。' }),
+          validation: {
+            codeValidation: true
           }
         }
       ]

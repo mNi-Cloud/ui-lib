@@ -343,7 +343,7 @@
       "type": "registry:component",
       "title": "Resource Form",
       "description": "A resource create/edit form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "yaml"],
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "yaml", "@monaco-editor/react", "json5"],
       "registryDependencies": [
         "form",
         "card",
@@ -367,7 +367,7 @@
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/resource-form/yaml-editor.tsx",
+          "path": "registry/new-york/blocks/resource-form/code-editor.tsx",
           "type": "registry:component"
         },
         {
@@ -379,7 +379,7 @@
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/resource-form/yaml-utils.ts",
+          "path": "registry/new-york/blocks/resource-form/code-utils.ts",
           "type": "registry:component"
         },
         {

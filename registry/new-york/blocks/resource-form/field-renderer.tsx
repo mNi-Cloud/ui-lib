@@ -26,6 +26,8 @@ import {
   CommonFieldDefinition, 
   CommonFieldObjectDefinition 
 } from './resource-form-utils';
+import { SupportedLanguage } from './code-editor';
+import { validators } from './code-utils';
 
 interface ArrayItemRecord {
   [key: string]: string;
@@ -36,16 +38,18 @@ type FieldRendererProps = {
   form: any;
   fieldNamePrefix?: string;
   translationNamespace?: string;
-  yamlEditor?: React.ComponentType<{
+  codeEditor?: React.ComponentType<{
     value: string;
     onChange: (value: string) => void;
-    readOnly?: boolean;
+    language?: SupportedLanguage;
     height?: string;
     placeholder?: string;
     disabled?: boolean;
+    readOnly?: boolean;
     showValidation?: boolean;
+    validator?: (content: string) => { isValid: boolean; error?: string };
+    theme?: 'vs' | 'vs-dark' | 'hc-black' | 'hc-light';
   }>;
-  validateYaml?: (content: string) => { isValid: boolean; error?: string };
 };
 
 export const FieldRenderer: React.FC<FieldRendererProps> = ({
@@ -53,8 +57,7 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
   form,
   fieldNamePrefix = '',
   translationNamespace = 'components.resource-create',
-  yamlEditor: YamlEditor,
-  validateYaml
+  codeEditor: CodeEditor
 }) => {
   const t = useTranslations(translationNamespace);
   const fieldName = fieldNamePrefix ? `${fieldNamePrefix}.${field.name}` : field.name;
@@ -166,8 +169,11 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
     );
   }
 
-  // YAML入力の処理
-  if (field.type === 'yaml' && YamlEditor) {
+  // コードエディタの処理
+  if (field.type === 'code' && CodeEditor) {
+    const language = (field.language || 'plaintext') as SupportedLanguage;
+    const validator = validators[language];
+
     return (
       <FormField
         key={`form-field-${fieldName}`}
@@ -190,25 +196,22 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
               {renderReadOnlyMessage()}
             </div>
             <FormControl>
-              <YamlEditor
+              <CodeEditor
                 value={formField.value}
-                onChange={(value) => {
+                onChange={(value: string) => {
                   if (!field.readOnly) {
                     formField.onChange(value);
-                    if (field.validation?.yamlLint && validateYaml) {
-                      const { isValid, error } = validateYaml(value);
-                      if (!isValid) {
-                        form.setError(fieldName, {
-                          type: 'manual',
-                          message: error,
-                        });
-                      } else {
-                        form.clearErrors(fieldName);
-                      }
-                    }
+                    field.onChange?.(value);
                   }
                 }}
+                language={language}
                 readOnly={field.readOnly}
+                height={field.height || '300px'}
+                placeholder={field.placeholder}
+                disabled={field.disabled}
+                showValidation={field.validation?.codeValidation !== false}
+                validator={validator}
+                theme={field.theme || 'vs-dark'}
               />
             </FormControl>
             <FormMessage className="text-xs" />

@@ -5,8 +5,9 @@ import { revalidatePath } from 'next/cache';
 /**
  * リソースを取得するサーバーアクション
  */
-export async function fetchResource(url: string) {
+export async function fetchResource(endpoint: string, resourceId: string) {
   try {
+    const url = `${endpoint}/${resourceId}`;
     const response = await fetch(url, { 
       next: { revalidate: 60 } // 60秒間キャッシュする
     });
@@ -50,9 +51,13 @@ export async function fetchResources(url: string) {
 /**
  * リソースを作成するサーバーアクション
  */
-export async function createResource(url: string, data: any, redirectPath?: string) {
+export async function createResource(
+  endpoint: string, 
+  data: { type: string; data: any }, 
+  redirectPath?: string
+) {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -78,8 +83,14 @@ export async function createResource(url: string, data: any, redirectPath?: stri
 /**
  * リソースを更新するサーバーアクション
  */
-export async function updateResource(url: string, data: any, redirectPath?: string) {
+export async function updateResource(
+  endpoint: string, 
+  resourceId: string, 
+  data: { type: string; data: any }, 
+  redirectPath?: string
+) {
   try {
+    const url = `${endpoint}/${resourceId}`;
     const response = await fetch(url, {
       method: 'PUT',
       headers: {
