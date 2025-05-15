@@ -343,7 +343,7 @@
       "type": "registry:component",
       "title": "Resource Form",
       "description": "A resource create/edit form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "yaml", "@monaco-editor/react", "json5"],
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "@monaco-editor/react"],
       "registryDependencies": [
         "form",
         "card",
@@ -380,6 +380,22 @@
         },
         {
           "path": "registry/new-york/blocks/resource-form/code-utils.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/language-plugins/index.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/language-plugins/typescript-plugin.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/language-plugins/html-plugin.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/language-plugins/css-plugin.ts",
           "type": "registry:component"
         },
         {

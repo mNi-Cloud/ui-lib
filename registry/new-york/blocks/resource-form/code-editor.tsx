@@ -8,7 +8,8 @@ import {
   getValidator, 
   applyMarkersToModel,
   MonacoMarker,
-  getLanguagePlugin
+  getLanguagePlugin,
+  getLanguageLabel
 } from './code-utils';
 import { initializeLanguagePlugins } from './language-plugins';
 
@@ -168,11 +169,19 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     };
   }, [useMarkers]);
 
+  // 言語ラベルの取得
+  const languageLabel = getLanguageLabel(language);
+
   return (
     <div className="space-y-2">
       <div 
-        className={`border rounded-md overflow-hidden ${error ? 'border-destructive' : 'border-input'} ${readOnly ? 'bg-muted/30' : ''}`}
+        className={`border rounded-md overflow-hidden relative ${error ? 'border-destructive' : 'border-input'} ${readOnly ? 'bg-muted/30' : ''}`}
       >
+        {/* 言語ラベルバッジ */}
+        <div className="absolute top-1 right-1 z-10 px-2 py-0.5 rounded bg-primary/10 text-xs font-medium text-primary-foreground backdrop-blur-sm">
+          {languageLabel}
+        </div>
+
         <MonacoEditor
           value={value}
           onChange={handleEditorChange}
