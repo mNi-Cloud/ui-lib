@@ -343,7 +343,7 @@
       "type": "registry:component",
       "title": "Resource Form",
       "description": "A resource create/edit form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod"],
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "yaml"],
       "registryDependencies": [
         "form",
         "card",
@@ -352,6 +352,9 @@
         "button",
         "alert",
         "progress",
+        "textarea",
+        "sonner",
+        "alert",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/actions.json"
       ],
       "files": [
