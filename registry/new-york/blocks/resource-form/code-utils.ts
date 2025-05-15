@@ -1,5 +1,5 @@
 import { parse as parseYaml } from 'yaml';
-import { parse as parseJSON } from 'json5';
+import json5 from 'json5';
 import { SupportedLanguage } from './code-editor';
 
 // 各言語のサンプル
@@ -142,7 +142,7 @@ export const validateJson = (content: string): { isValid: boolean; error?: strin
   if (!content.trim()) return { isValid: true };
   
   try {
-    parseJSON(content);
+    json5.parse(content);
     return { isValid: true };
   } catch (e) {
     const error = e as Error;
