@@ -172,7 +172,7 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
                   key={`field-${field.name}`}
                   field={field} 
                   form={form}
-                  translationNamespace={isEditMode ? 'components.resource-edit' : 'components.resource-create'}
+                  translationNamespace="components.resource-form"
                   codeEditor={CodeEditor}
                 />
               ))}
@@ -372,7 +372,7 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
                   key={`field-${field.name}`}
                   field={field}
                   form={form}
-                  translationNamespace="components.resource-create-multiple"
+                  translationNamespace="components.resource-form"
                   codeEditor={CodeEditor}
                 />
               ))}
