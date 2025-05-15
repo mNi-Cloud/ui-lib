@@ -27,7 +27,7 @@ import {
   CommonFieldObjectDefinition 
 } from './resource-form-utils';
 import { SupportedLanguage } from './code-editor';
-import { validators } from './code-utils';
+import { getValidator } from './code-utils';
 
 interface ArrayItemRecord {
   [key: string]: string;
@@ -172,7 +172,7 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
   // コードエディタの処理
   if (field.type === 'code' && CodeEditor) {
     const language = (field.language || 'plaintext') as SupportedLanguage;
-    const validator = validators[language];
+    const validator = getValidator(language);
 
     return (
       <FormField

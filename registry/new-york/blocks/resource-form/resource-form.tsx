@@ -17,7 +17,7 @@ import { CommonFieldDefinition, StepDefinition } from './resource-form-utils';
 import { generateSchema, generateDefaultValues } from './schema-generator';
 import FieldRenderer from './field-renderer';
 import CodeEditor from './code-editor';
-import { validators } from './code-utils';
+import { getValidator } from './code-utils';
 import { createResource, updateResource, fetchResource } from '@/registry/new-york/blocks/actions/resource-actions';
 
 // 単一ステップフォーム用の型定義
@@ -75,7 +75,7 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
   const safeFields = Array.isArray(fields) ? fields : [];
 
   // フォームスキーマの生成
-  const formSchema = generateSchema(safeFields, t, validators);
+  const formSchema = generateSchema(safeFields, t, getValidator);
 
   // react-hook-formの設定
   const form = useForm<z.infer<typeof formSchema>>({
@@ -234,7 +234,7 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
   const currentStepData = safeSteps[currentStepIndex] || { fields: [] };
 
   // 現在のステップのスキーマ生成
-  const formSchema = generateSchema(currentStepData.fields, t, validators);
+  const formSchema = generateSchema(currentStepData.fields, t, getValidator);
 
   // react-hook-formの設定
   const form = useForm<z.infer<typeof formSchema>>({

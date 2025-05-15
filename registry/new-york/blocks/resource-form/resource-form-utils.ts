@@ -161,7 +161,7 @@ export const addNumberValidation = (
 export const generateFieldSchemaByType = (
   field: CommonFieldDefinition,
   t: (key: string, params?: Record<string, any>) => string,
-  validators?: Record<SupportedLanguage, (content: string) => { isValid: boolean; error?: string }>
+  getValidatorFn?: (language: SupportedLanguage) => (content: string) => { isValid: boolean; error?: string; markers?: any[] }
 ) => {
   let fieldSchema = generateFieldSchema(field, t);
 
@@ -169,8 +169,8 @@ export const generateFieldSchemaByType = (
     return addNumberValidation(fieldSchema, field, t);
   } 
   
-  if (field.type === 'code' && field.validation?.codeValidation && validators && field.language) {
-    const validator = validators[field.language];
+  if (field.type === 'code' && field.validation?.codeValidation && getValidatorFn && field.language) {
+    const validator = getValidatorFn(field.language);
     if (validator) {
       return fieldSchema.superRefine((val, ctx) => {
         if (!val) return;

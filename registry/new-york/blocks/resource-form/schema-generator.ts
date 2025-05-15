@@ -7,7 +7,7 @@ import {
   handleNestedField,
   processNestedSchema
 } from './resource-form-utils';
-import { validators } from './code-utils';
+import { getValidator } from './code-utils';
 import { SupportedLanguage } from './code-editor';
 
 /**
@@ -16,21 +16,24 @@ import { SupportedLanguage } from './code-editor';
 export const generateSchema = (
   fields: CommonFieldDefinition[],
   t: (key: string, params?: Record<string, any>) => string,
-  codeValidators: Record<SupportedLanguage, (content: string) => { isValid: boolean; error?: string }> = validators
+  codeValidator?: (language: SupportedLanguage) => (content: string) => { isValid: boolean; error?: string; markers?: any[] }
 ) => {
   const schemaObject: Record<string, any> = {};
+
+  // バリデータの取得関数（指定されていなければデフォルトのgetValidatorを使用）
+  const getValidatorFn = codeValidator || getValidator;
 
   fields.forEach(field => {
     if (field.type === 'unit-input') {
       // ユニット入力には2つのフィールドが必要
-      const valueSchema = generateFieldSchemaByType(field, t, codeValidators);
+      const valueSchema = generateFieldSchemaByType(field, t, getValidatorFn);
       const unitSchema = z.string().min(1, t('unit'));
 
       schemaObject[`${field.name}Value`] = valueSchema;
       schemaObject[`${field.name}Unit`] = unitSchema;
     } else {
       // 通常のフィールド
-      const fieldSchema = generateFieldSchemaByType(field, t, codeValidators);
+      const fieldSchema = generateFieldSchemaByType(field, t, getValidatorFn);
 
       const fieldPath = field.name.split('.');
       if (fieldPath.length > 1) {
