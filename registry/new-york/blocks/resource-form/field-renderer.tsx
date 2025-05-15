@@ -39,6 +39,11 @@ type FieldRendererProps = {
   yamlEditor?: React.ComponentType<{
     value: string;
     onChange: (value: string) => void;
+    readOnly?: boolean;
+    height?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    showValidation?: boolean;
   }>;
   validateYaml?: (content: string) => { isValid: boolean; error?: string };
 };
@@ -53,6 +58,18 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
 }) => {
   const t = useTranslations(translationNamespace);
   const fieldName = fieldNamePrefix ? `${fieldNamePrefix}.${field.name}` : field.name;
+
+  // readOnlyメッセージの表示
+  const renderReadOnlyMessage = () => {
+    if (field.readOnly && field.readOnlyMessage) {
+      return (
+        <FormDescription className="text-amber-500 dark:text-amber-400 mt-1">
+          {field.readOnlyMessage}
+        </FormDescription>
+      );
+    }
+    return null;
+  };
 
   // カスタムコンポーネントの処理
   if (field.type === 'custom' && field.render) {
@@ -82,6 +99,7 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
               {field.description}
             </FormDescription>
           )}
+          {renderReadOnlyMessage()}
         </div>
 
         <div className="flex flex-col md:flex-row gap-2 w-full">
@@ -94,13 +112,14 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
                   <Input
                     type="number"
                     placeholder={field.placeholder}
-                    className="h-10"
+                    className={field.readOnly ? 'bg-muted' : 'h-10'}
                     value={formField.value}
                     onChange={(e) => {
                       formField.onChange(e);
                       const unit = form.getValues(`${fieldName}Unit`);
                       form.setValue(fieldName, `${e.target.value}${unit}`);
                     }}
+                    readOnly={field.readOnly}
                   />
                 </FormControl>
               )}
@@ -120,9 +139,10 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
                     const numValue = form.getValues(`${fieldName}Value`);
                     form.setValue(fieldName, `${numValue}${value}`);
                   }}
+                  disabled={field.disabled || field.readOnly}
                 >
                   <FormControl>
-                    <SelectTrigger className="h-10">
+                    <SelectTrigger className={field.readOnly ? 'bg-muted h-10' : 'h-10'}>
                       <SelectValue />
                     </SelectTrigger>
                   </FormControl>
@@ -167,24 +187,28 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
                   {field.description}
                 </FormDescription>
               )}
+              {renderReadOnlyMessage()}
             </div>
             <FormControl>
               <YamlEditor
                 value={formField.value}
                 onChange={(value) => {
-                  formField.onChange(value);
-                  if (field.validation?.yamlLint && validateYaml) {
-                    const { isValid, error } = validateYaml(value);
-                    if (!isValid) {
-                      form.setError(fieldName, {
-                        type: 'manual',
-                        message: error,
-                      });
-                    } else {
-                      form.clearErrors(fieldName);
+                  if (!field.readOnly) {
+                    formField.onChange(value);
+                    if (field.validation?.yamlLint && validateYaml) {
+                      const { isValid, error } = validateYaml(value);
+                      if (!isValid) {
+                        form.setError(fieldName, {
+                          type: 'manual',
+                          message: error,
+                        });
+                      } else {
+                        form.clearErrors(fieldName);
+                      }
                     }
                   }
                 }}
+                readOnly={field.readOnly}
               />
             </FormControl>
             <FormMessage className="text-xs" />
@@ -219,18 +243,21 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
                 {field.description}
               </FormDescription>
             )}
+            {renderReadOnlyMessage()}
           </div>
           <FormControl>
             {field.type === 'select' ? (
               <Select
                 value={formField.value || ''}
                 onValueChange={(value) => {
-                  formField.onChange(value);
-                  field.onChange?.(value);
+                  if (!field.readOnly) {
+                    formField.onChange(value);
+                    field.onChange?.(value);
+                  }
                 }}
-                disabled={field.disabled}
+                disabled={field.disabled || field.readOnly}
               >
-                <SelectTrigger className="h-10">
+                <SelectTrigger className={field.readOnly ? 'bg-muted h-10' : 'h-10'}>
                   <SelectValue placeholder={field.placeholder} />
                 </SelectTrigger>
                 <SelectContent>
@@ -248,11 +275,14 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
               <Textarea
                 placeholder={field.placeholder}
                 disabled={field.disabled}
-                className="min-h-[200px] font-mono h-auto"
+                readOnly={field.readOnly}
+                className={field.readOnly ? 'bg-muted' : ''}
                 {...formField}
                 onChange={(e) => {
-                  formField.onChange(e);
-                  field.onChange?.(e.target.value);
+                  if (!field.readOnly) {
+                    formField.onChange(e);
+                    field.onChange?.(e.target.value);
+                  }
                 }}
               />
             ) : (
@@ -260,11 +290,14 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
                 type={field.type}
                 placeholder={field.placeholder}
                 disabled={field.disabled}
-                className="h-10"
+                readOnly={field.readOnly}
+                className={field.readOnly ? 'bg-muted' : ''}
                 {...formField}
                 onChange={(e) => {
-                  formField.onChange(e);
-                  field.onChange?.(e.target.value);
+                  if (!field.readOnly) {
+                    formField.onChange(e);
+                    field.onChange?.(e.target.value);
+                  }
                 }}
               />
             )}
@@ -283,15 +316,17 @@ const ArrayFieldRenderer: React.FC<{
   fieldName: string;
   t: (key: string, params?: any) => string;
 }> = ({ field, form, fieldName, t }) => {
-  const { fields = [], append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: fieldName,
   });
 
   const addNewItem = () => {
+    if (field.readOnly) return;
+
     if (field.itemType === 'object' && field.fields) {
-      const newItem = field.fields.reduce<ArrayItemRecord>((acc, fieldItem) => {
-        acc[fieldItem.name] = '';
+      const newItem = field.fields.reduce<Record<string, any>>((acc, fieldItem) => {
+        acc[fieldItem.name] = fieldItem.type === 'number' ? null : '';
         return acc;
       }, {});
       append(newItem);
@@ -314,16 +349,27 @@ const ArrayFieldRenderer: React.FC<{
           variant="outline"
           size="sm"
           onClick={addNewItem}
+          disabled={field.readOnly}
         >
           {t('add')}
         </Button>
       </div>
+      {field.description && (
+        <FormDescription className="text-xs">
+          {field.description}
+        </FormDescription>
+      )}
+      {field.readOnly && field.readOnlyMessage && (
+        <FormDescription className="text-amber-500 dark:text-amber-400 mt-1">
+          {field.readOnlyMessage}
+        </FormDescription>
+      )}
 
       {fields.map((arrayField, index) => (
         <div key={arrayField.id} className="relative">
           {field.itemType === 'object' ? (
             <div className="flex gap-4 items-start">
-              {field.fields?.map((subField: CommonFieldObjectDefinition) => (
+              {field.fields?.map((subField) => (
                 <FormField
                   key={`${arrayField.id}-${subField.name}`}
                   control={form.control}
@@ -334,18 +380,18 @@ const ArrayFieldRenderer: React.FC<{
                       <FormControl>
                         {subField.type === 'select' ? (
                           <Select
-                            value={formField.value || ''}
+                            value={formField.value?.toString() || ''}
                             onValueChange={(value) => {
-                              formField.onChange(value);
-                              if (subField.onChange) {
-                                subField.onChange(value);
+                              if (!field.readOnly) {
+                                formField.onChange(value);
+                                if (subField.onChange) {
+                                  subField.onChange(value);
+                                }
                               }
                             }}
-                            disabled={subField.disabled}
+                            disabled={subField.disabled || field.readOnly}
                           >
-                            <SelectTrigger
-                                className="w-full"
-                            >
+                            <SelectTrigger className={field.readOnly ? 'bg-muted' : ''}>
                               <SelectValue
                                 placeholder={subField.placeholder || t('select', { label: subField.label })}
                               />
@@ -365,8 +411,21 @@ const ArrayFieldRenderer: React.FC<{
                           <Input
                             type={subField.type}
                             placeholder={subField.placeholder}
-                            disabled={subField.disabled}
-                            {...formField}
+                            className={field.readOnly ? 'bg-muted' : ''}
+                            disabled={subField.disabled || field.readOnly}
+                            readOnly={field.readOnly}
+                            value={formField.value ?? ''}
+                            onChange={(e) => {
+                              if (!field.readOnly) {
+                                const value = subField.type === 'number'
+                                  ? e.target.value === '' ? null : Number(e.target.value)
+                                  : e.target.value;
+                                formField.onChange(value);
+                                if (subField.onChange) {
+                                  subField.onChange(value);
+                                }
+                              }
+                            }}
                           />
                         )}
                       </FormControl>
@@ -378,15 +437,17 @@ const ArrayFieldRenderer: React.FC<{
                   )}
                 />
               ))}
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                className="mt-8"
-                onClick={() => remove(index)}
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              {!field.readOnly && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="mt-8"
+                  onClick={() => remove(index)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           ) : (
             <div className="flex gap-2">
@@ -396,29 +457,36 @@ const ArrayFieldRenderer: React.FC<{
                 render={({ field: formField }) => (
                   <FormItem className="flex-1">
                     <FormControl>
-                      <Input {...formField} />
+                      <Input
+                        className={field.readOnly ? 'bg-muted' : ''}
+                        readOnly={field.readOnly}
+                        disabled={field.readOnly}
+                        {...formField}
+                        onChange={(e) => {
+                          if (!field.readOnly) {
+                            formField.onChange(e);
+                          }
+                        }}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={() => remove(index)}
-              >
-                <X className="h-4 w-4" />
-              </Button>
+              {!field.readOnly && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => remove(index)}
+                >
+                  <X className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           )}
         </div>
       ))}
-      {field.description && (
-        <p className="text-sm text-muted-foreground">
-          {field.description}
-        </p>
-      )}
     </div>
   );
 };

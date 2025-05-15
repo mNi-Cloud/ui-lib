@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,6 +11,8 @@ import { Card, CardContent } from '@/registry/new-york/ui/card';
 import { Button } from '@/registry/new-york/ui/button';
 import { Form } from '@/registry/new-york/ui/form';
 import { Progress } from '@/registry/new-york/ui/progress';
+import { Alert, AlertDescription } from '@/registry/new-york/ui/alert';
+import { AlertCircle } from 'lucide-react';
 import { CommonFieldDefinition, StepDefinition } from './resource-form-utils';
 import { generateSchema, generateDefaultValues } from './schema-generator';
 import FieldRenderer from './field-renderer';
@@ -28,6 +30,8 @@ export type ResourceFormProps = {
   errorMessage?: string;
   formatFormData?: (data: any) => any;
   defaultValues?: Record<string, any>;
+  resourceId?: string;
+  isEditMode?: boolean;
 };
 
 // 複数ステップフォーム用の型定義
@@ -41,10 +45,12 @@ export type MultiStepResourceFormProps = {
   errorMessage?: string;
   formatFormData?: (data: any) => any;
   defaultValues?: Record<string, any>;
+  resourceId?: string;
+  isEditMode?: boolean;
 };
 
 /**
- * 単一ステップリソース作成フォーム
+ * リソース作成・編集フォーム
  */
 export const ResourceForm: React.FC<ResourceFormProps> = ({
   title,
@@ -55,11 +61,15 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
   successMessage,
   errorMessage,
   formatFormData,
-  defaultValues = {}
+  defaultValues = {},
+  resourceId,
+  isEditMode = false
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const t = useTranslations('components.resource-create');
+  const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(isEditMode && !!resourceId);
+  const t = useTranslations(isEditMode ? 'components.resource-edit' : 'components.resource-create');
 
   const messages = {
     success: successMessage || t('successmessage'),
@@ -78,14 +88,59 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
     defaultValues: generateDefaultValues(safeFields, defaultValues)
   });
 
+  // 編集モードの場合、リソースデータを取得
+  useEffect(() => {
+    const fetchResource = async () => {
+      if (isEditMode && resourceId) {
+        setIsLoading(true);
+        try {
+          const response = await fetch(`${apiEndpoint}/${resourceId}`);
+          if (!response.ok) {
+            throw new Error(t('fetcherror'));
+          }
+          const data = await response.json();
+          
+          // ネストしたフィールドの値を設定
+          safeFields.forEach(field => {
+            const parts = field.name.split('.');
+            if (parts.length > 1) {
+              let value = data;
+              for (const part of parts) {
+                value = value?.[part];
+                if (value === undefined) break;
+              }
+              if (value !== undefined) {
+                form.setValue(field.name, value);
+              }
+            } else {
+              if (data[field.name] !== undefined) {
+                form.setValue(field.name, data[field.name]);
+              }
+            }
+          });
+        } catch (err) {
+          console.error('Failed to fetch resource:', err);
+          setError(t('fetcherror'));
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    fetchResource();
+  }, [apiEndpoint, resourceId, isEditMode, form, safeFields, t]);
+
   // フォーム送信処理
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
     try {
       const formattedData = formatFormData ? formatFormData(values) : values;
       
-      const response = await fetch(apiEndpoint, {
-        method: 'POST',
+      const url = isEditMode && resourceId ? `${apiEndpoint}/${resourceId}` : apiEndpoint;
+      const method = isEditMode ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json',
@@ -108,7 +163,9 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
       }
 
       toast.success(messages.success, {
-        description: t('created', { resourceName: resourceName || resourceType }),
+        description: isEditMode 
+          ? t('updated', { resourceName: resourceName || resourceType })
+          : t('created', { resourceName: resourceName || resourceType }),
         duration: 5000,
       });
       
@@ -125,10 +182,43 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
 
   const onCancel = () => {
     router.push(redirectPath);
-    toast.info(t('cancelcreate'), {
+    toast.info(isEditMode ? t('canceledit') : t('cancelcreate'), {
       duration: 3000,
     });
   };
+
+  if (isLoading) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            <h1 className="text-2xl font-semibold mb-2">{title}</h1>
+            <div className="space-y-2">
+              <div className="text-sm text-muted-foreground">{t('loading')}</div>
+              <Progress value={undefined} className="h-2" />
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (error) {
+    return (
+      <Card>
+        <CardContent className="p-6">
+          <div className="space-y-4">
+            <h1 className="text-2xl font-semibold mb-2">{title}</h1>
+            <Alert variant="destructive">
+              <AlertCircle className="h-4 w-4" />
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+            <Button onClick={() => router.push(redirectPath)}>{t('back')}</Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card>
@@ -144,7 +234,7 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
                   key={`field-${field.name}`}
                   field={field} 
                   form={form}
-                  translationNamespace="components.resource-create"
+                  translationNamespace={isEditMode ? 'components.resource-edit' : 'components.resource-create'}
                   yamlEditor={YamlEditor}
                   validateYaml={validateYaml}
                 />
@@ -164,10 +254,10 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
                   {loading ? (
                     <div className="flex items-center">
                       <div className="w-4 h-4 mr-2 border-t-2 border-b-2 border-current rounded-full animate-spin" />
-                      {t('creating')}
+                      {isEditMode ? t('updating') : t('creating')}
                     </div>
                   ) : (
-                    t('create')
+                    isEditMode ? t('update') : t('create')
                   )}
                 </Button>
               </div>

@@ -11,6 +11,7 @@ type YamlEditorProps = {
   placeholder?: string;
   disabled?: boolean;
   showValidation?: boolean;
+  readOnly?: boolean;
 };
 
 export const YamlEditor: React.FC<YamlEditorProps> = ({
@@ -19,11 +20,14 @@ export const YamlEditor: React.FC<YamlEditorProps> = ({
   height = '300px',
   placeholder = 'YAMLを入力してください',
   disabled = false,
-  showValidation = false
+  showValidation = false,
+  readOnly = false
 }) => {
   const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (readOnly) return;
+    
     const newValue = e.target.value;
     onChange(newValue);
 
@@ -55,7 +59,8 @@ export const YamlEditor: React.FC<YamlEditorProps> = ({
         onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
-        className={`font-mono text-sm leading-relaxed ${error ? 'border-destructive' : ''}`}
+        readOnly={readOnly}
+        className={`font-mono text-sm leading-relaxed ${error ? 'border-destructive' : ''} ${readOnly ? 'bg-muted' : ''}`}
         style={{ minHeight: height, height: 'auto' }}
       />
       {showValidation && error && (

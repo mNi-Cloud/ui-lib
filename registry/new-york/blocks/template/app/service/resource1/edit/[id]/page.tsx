@@ -1,6 +1,6 @@
 'use client'
 
-import ResourceEdit from "@/registry/new-york/blocks/resource-edit/resource-edit"
+import { ResourceForm } from "@/registry/new-york/blocks/resource-form/resource-form"
 import { useTranslations } from 'next-intl'
 import { use } from "react"
 
@@ -82,13 +82,14 @@ const ResourceEditPage = (props: { params: Promise<{ id: string }> }) => {
   ];
 
   return (
-    <ResourceEdit
+    <ResourceForm
       title={t('title')}
       resourceType={t('resourcetype')}
       fields={resourceFields}
       apiEndpoint="https://jsonplaceholder.typicode.com/users"
       redirectPath="/service/resource1"
       resourceId={params.id}
+      isEditMode={true}
       successMessage={t('successmessage')}
       errorMessage={t('errormessage')}
     />

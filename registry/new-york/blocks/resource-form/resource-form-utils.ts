@@ -37,6 +37,8 @@ export type BaseFieldDefinition = {
   disabled?: boolean;
   onChange?: (value: any) => void;
   defaultValue?: string | number;
+  readOnly?: boolean;
+  readOnlyMessage?: string;
 };
 
 /**

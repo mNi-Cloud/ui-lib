@@ -324,15 +324,15 @@
       "name": "resource-form",
       "type": "registry:component",
       "title": "Resource Form",
-      "description": "A resource creation and multi-step form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "yaml"],
+      "description": "A resource create/edit form component.",
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod"],
       "registryDependencies": [
         "form",
         "card",
         "input",
         "select",
-        "textarea",
         "button",
+        "alert",
         "progress"
       ],
       "files": [
@@ -350,15 +350,15 @@
         },
         {
           "path": "registry/new-york/blocks/resource-form/resource-form-utils.ts",
-          "type": "registry:component"
+          "type": "registry:file"
         },
         {
           "path": "registry/new-york/blocks/resource-form/schema-generator.ts",
-          "type": "registry:component"
+          "type": "registry:file"
         },
         {
           "path": "registry/new-york/blocks/resource-form/yaml-utils.ts",
-          "type": "registry:component"
+          "type": "registry:file"
         },
         {
           "path": "registry/new-york/blocks/resource-form/messages/en.json",
@@ -369,37 +369,6 @@
           "path": "registry/new-york/blocks/resource-form/messages/ja.json",
           "type": "registry:file",
           "target": "messages/components/resource-form/ja.json"
-        }
-      ]
-    },
-    {
-      "name": "resource-edit",
-      "type": "registry:component",
-      "title": "Resource Edit",
-      "description": "A resource editing form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod"],
-      "registryDependencies": [
-        "form",
-        "card",
-        "input",
-        "select",
-        "button",
-        "alert"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york/blocks/resource-edit/resource-edit.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-edit/messages/en.json",
-          "type": "registry:file",
-          "target": "messages/components/resource-edit/en.json"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-edit/messages/ja.json",
-          "type": "registry:file",
-          "target": "messages/components/resource-edit/ja.json"
         }
       ]
     },
@@ -419,8 +388,7 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-form.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-edit.json"
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-form.json"
       ],
       "files": [
         {
