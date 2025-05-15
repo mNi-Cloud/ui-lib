@@ -43,7 +43,7 @@ export function ResourceView<TData extends object>({
 }: ResourceViewProps<TData>) {
   const [selectedRows, setSelectedRows] = useState<TData[]>([])
   const [isRefreshing, setIsRefreshing] = useState(false)
-  const t = useTranslations('component.resource-view')
+  const t = useTranslations('components.resource-view')
 
   const handleRefresh = async () => {
     setIsRefreshing(true)

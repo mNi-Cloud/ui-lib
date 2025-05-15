@@ -105,7 +105,7 @@ const ArrayFieldComponent: React.FC<{
   form: any;
   field: ArrayFieldDefinition;
 }> = ({ form, field }) => {
-  const t = useTranslations('component.resource-edit');
+  const t = useTranslations('components.resource-edit');
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -279,7 +279,7 @@ const ResourceEdit: React.FC<ResourceEditProps> = ({
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [initialLoading, setInitialLoading] = useState(true);
-  const t = useTranslations('component.resource-edit');
+  const t = useTranslations('components.resource-edit');
 
   const messages = {
     success: successMessage || t('successmessage'),

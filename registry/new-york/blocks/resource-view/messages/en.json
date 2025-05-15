@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "data-table": {
       "noresults": "No results",
       "rowselect": "{selected} of {total} row(s) selected."

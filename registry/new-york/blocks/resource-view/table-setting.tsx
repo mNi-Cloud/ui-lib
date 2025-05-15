@@ -33,7 +33,7 @@ export function TableSetting({
   const [tempPageSize, setTempPageSize] = useState<number | 'custom'>(pageSize)
   const [tempColumnVisibility, setTempColumnVisibility] = useState(columnVisibility)
   const [customPageSize, setCustomPageSize] = useState('')
-  const t = useTranslations('component.table-setting')
+  const t = useTranslations('components.table-setting')
 
   const handleApply = () => {
     const newPageSize = tempPageSize === 'custom' ? parseInt(customPageSize, 10) : tempPageSize

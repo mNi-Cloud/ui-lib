@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "resource-edit": {
       "successmessage": "Resource update completed successfully",
       "errormessage": "An error occurred while updating the resource",

@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({
   const [pageSize, setPageSize] = useState(10)
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [globalFilter, setGlobalFilter] = useState("")
-  const t = useTranslations('component.data-table')
+  const t = useTranslations('components.data-table')
 
   const table = useReactTable({
     data,

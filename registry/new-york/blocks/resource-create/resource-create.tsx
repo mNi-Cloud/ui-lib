@@ -101,7 +101,7 @@ const ArrayFieldComponent: React.FC<{
   form: any;
   field: ArrayFieldDefinition;
 }> = ({ form, field }) => {
-  const t = useTranslations('component.resource-create')
+  const t = useTranslations('components.resource-create')
 
   const { fields = [], append, remove } = useFieldArray({
     control: form.control,
@@ -256,7 +256,7 @@ const ResourceCreate: React.FC<ResourceCreateProps> = ({
 }) => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const t = useTranslations('component.resource-create')
+  const t = useTranslations('components.resource-create')
 
   const messages = {
     success: successMessage || t('successmessage'),

@@ -67,7 +67,7 @@ export default function ResourceDashboard<T extends Record<string, any>>({
   const router = useRouter()
   const { data, error: fetchError, isLoading, mutate } = useSWR<T[]>(apiUrl, fetcher)
   const [dependencyChecks, setDependencyChecks] = useState<Record<string, DependencyCheck>>({})
-  const t = useTranslations('component.resource-dashboard')
+  const t = useTranslations('components.resource-dashboard')
   
   const getResourceId = useMemo(() => {
     return getResourceIdentifier || 

@@ -100,7 +100,7 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
   const [selectedResources, setSelectedResources] = useState<{ name: string }[]>([])
   const [deleteTarget, setDeleteTarget] = useState<'main' | 'related'>('main')
   const [dependencyCheck, setDependencyCheck] = useState<{ hasDependencies: boolean; message?: string } | null>(null)
-  const t = useTranslations('component.resource-detail')
+  const t = useTranslations('components.resource-detail')
 
   useEffect(() => {
     const fetchData = async () => {

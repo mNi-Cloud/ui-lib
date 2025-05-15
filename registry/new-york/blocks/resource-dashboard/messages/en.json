@@ -1,5 +1,5 @@
 {
-  "component": {
+  "components": {
     "resource-dashboard": {
       "error": "Error",
       "dependencyerror": "An error occurred while checking dependencies",
