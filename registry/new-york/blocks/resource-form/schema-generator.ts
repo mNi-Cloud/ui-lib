@@ -7,7 +7,7 @@ import {
   handleNestedField,
   processNestedSchema
 } from './resource-form-utils';
-import { getValidator, SupportedLanguage } from '@/registry/new-york/blocks/code-editor/language-plugins/language-plugins';
+import { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/code-editor';
 
 /**
  * フィールド定義からZodスキーマを生成する関数
@@ -19,8 +19,8 @@ export const generateSchema = (
 ) => {
   const schemaObject: Record<string, any> = {};
 
-  // バリデータの取得関数（指定されていなければデフォルトのgetValidatorを使用）
-  const getValidatorFn = codeValidator || getValidator;
+  // バリデータの取得関数（指定されていればそれを使用）
+  const getValidatorFn = codeValidator;
 
   fields.forEach(field => {
     if (field.type === 'unit-input') {
