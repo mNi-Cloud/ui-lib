@@ -55,7 +55,7 @@
     },
     {
       "path": "registry/new-york/blocks/resource-view/messages/ja.json",
-      "content": "{\n  \"component\": {\n    \"data-table\": {\n      \"noresults\": \"結果がありません\",\n      \"rowselect\": \"{selected} / {total} 行選択\"\n    },\n    \"resource-view\": {\n      \"error\": \"エラー\",\n      \"fetcherror\": \"リソースの取得に失敗しました\",\n      \"action\": \"アクション\",\n      \"create\": \"作成\"\n    },\n    \"table-setting\": {\n      \"title\": \"テーブル設定\",\n      \"pagesize\": \"ページサイズ\",\n      \"row\": \"行\",\n      \"custom\": \"カスタム\",\n      \"column\": \"表示列\",\n      \"cancel\": \"キャンセル\",\n      \"apply\": \"適用\"\n    }\n  }\n}\n",
+      "content": "{\n  \"components\": {\n    \"data-table\": {\n      \"noresults\": \"結果がありません\",\n      \"rowselect\": \"{selected} / {total} 行選択\"\n    },\n    \"resource-view\": {\n      \"error\": \"エラー\",\n      \"fetcherror\": \"リソースの取得に失敗しました\",\n      \"action\": \"アクション\",\n      \"create\": \"作成\"\n    },\n    \"table-setting\": {\n      \"title\": \"テーブル設定\",\n      \"pagesize\": \"ページサイズ\",\n      \"row\": \"行\",\n      \"custom\": \"カスタム\",\n      \"column\": \"表示列\",\n      \"cancel\": \"キャンセル\",\n      \"apply\": \"適用\"\n    }\n  }\n}\n",
       "type": "registry:file",
       "target": "messages/components/resource-view/ja.json"
     }

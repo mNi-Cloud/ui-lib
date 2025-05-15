@@ -321,69 +321,54 @@
       ]
     },
     {
-      "name": "resource-create",
+      "name": "resource-form",
       "type": "registry:component",
-      "title": "Resource Create",
-      "description": "A resource creation form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod"],
+      "title": "Resource Form",
+      "description": "A resource creation and multi-step form component.",
+      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "sonner", "zod", "yaml"],
       "registryDependencies": [
         "form",
         "card",
-        "input",
-        "select",
-        "button"
-      ],
-      "files": [
-        {
-          "path": "registry/new-york/blocks/resource-create/resource-create.tsx",
-          "type": "registry:component"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-create/messages/en.json",
-          "type": "registry:file",
-          "target": "messages/components/resource-create/en.json"
-        },
-        {
-          "path": "registry/new-york/blocks/resource-create/messages/ja.json",
-          "type": "registry:file",
-          "target": "messages/components/resource-create/ja.json"
-        }
-      ]
-    },
-    {
-      "name": "resource-create-multiple",
-      "type": "registry:component",
-      "title": "Resource Create Multiple",
-      "description": "A resource creation form component.",
-      "dependencies": ["next-intl", "@hookform/resolvers", "react-hook-form", "zod", "yaml"],
-      "registryDependencies": [
-        "card",
-        "button",
         "input",
         "select",
         "textarea",
-        "form",
-        "progress",
-        "sonner"
+        "button",
+        "progress"
       ],
       "files": [
         {
-          "path": "registry/new-york/blocks/resource-create-multiple/resource-create-multiple.tsx",
+          "path": "registry/new-york/blocks/resource-form/resource-form.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/resource-create-multiple/yaml-editor.tsx",
+          "path": "registry/new-york/blocks/resource-form/field-renderer.tsx",
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/resource-create-multiple/messages/en.json",
-          "type": "registry:file",
-          "target": "messages/components/resource-create-multiple/en.json"
+          "path": "registry/new-york/blocks/resource-form/yaml-editor.tsx",
+          "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/resource-create-multiple/messages/ja.json",
+          "path": "registry/new-york/blocks/resource-form/resource-form-utils.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/schema-generator.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/yaml-utils.ts",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/messages/en.json",
           "type": "registry:file",
-          "target": "messages/components/resource-create-multiple/ja.json"
+          "target": "messages/components/resource-form/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-form/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-form/ja.json"
         }
       ]
     },
@@ -434,8 +419,7 @@
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-create.json",
-        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-create-multiple.json",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-form.json",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-edit.json"
       ],
       "files": [

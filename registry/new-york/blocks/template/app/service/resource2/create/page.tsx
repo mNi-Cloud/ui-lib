@@ -1,6 +1,6 @@
 'use client'
 
-import MultiStepResourceCreate from "@/registry/new-york/blocks/resource-create-multiple/resource-create-multiple";
+import { MultiStepResourceForm } from "@/registry/new-york/blocks/resource-form/resource-form";
 import { useTranslations } from 'next-intl'
 
 const PostCreatePage = () => {
@@ -60,7 +60,7 @@ const PostCreatePage = () => {
   ];
 
   return (
-    <MultiStepResourceCreate
+    <MultiStepResourceForm
       title={t('title')}
       resourceType={t('resourcetype')}
       steps={steps}

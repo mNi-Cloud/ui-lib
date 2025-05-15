@@ -1,4 +1,4 @@
-import ResourceCreate from "@/registry/new-york/blocks/resource-create/resource-create";
+import { ResourceForm } from "@/registry/new-york/blocks/resource-form/resource-form";
 import { useTranslations } from 'next-intl'
 
 const ResourceCreatePage = () => {
@@ -76,7 +76,7 @@ const ResourceCreatePage = () => {
   ];
 
   return (
-    <ResourceCreate
+    <ResourceForm
       title={t('title')}
       resourceType={t('resourcetype')}
       fields={resourceFields}

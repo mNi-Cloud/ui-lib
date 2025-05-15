@@ -31,7 +31,7 @@
     },
     {
       "path": "registry/new-york/blocks/resource-detail/messages/ja.json",
-      "content": "{\n  \"component\": {\n    \"resource-detail\": {\n      \"error\": \"エラー\",\n      \"dependencyerror\": \"依存関係のチェック中にエラーが発生しました\",\n      \"deleteerror\": \"依存するリソースが存在するため削除できません\",\n      \"deletesuccess\": \"削除成功\",\n      \"deleted1\": \"{resourceType}を削除しました\",\n      \"deletefailed1\": \"{resourceType}の削除に失敗しました\",\n      \"deleted2\": \"選択したリソースを削除しました\",\n      \"deletefailed2\": \"リソースの削除に失敗しました\",\n      \"edit\": \"編集\",\n      \"editerror\": \"編集するには1つのリソースを選択してください\",\n      \"delete\": \"削除\",\n      \"notfound\": \"見つかりません\",\n      \"notfounddetail\": \"{resourceType}が見つかりませんでした\",\n      \"action\": \"アクション\"\n    }\n  }\n}",
+      "content": "{\n  \"components\": {\n    \"resource-detail\": {\n      \"error\": \"エラー\",\n      \"dependencyerror\": \"依存関係のチェック中にエラーが発生しました\",\n      \"deleteerror\": \"依存するリソースが存在するため削除できません\",\n      \"deletesuccess\": \"削除成功\",\n      \"deleted1\": \"{resourceType}を削除しました\",\n      \"deletefailed1\": \"{resourceType}の削除に失敗しました\",\n      \"deleted2\": \"選択したリソースを削除しました\",\n      \"deletefailed2\": \"リソースの削除に失敗しました\",\n      \"edit\": \"編集\",\n      \"editerror\": \"編集するには1つのリソースを選択してください\",\n      \"delete\": \"削除\",\n      \"notfound\": \"見つかりません\",\n      \"notfounddetail\": \"{resourceType}が見つかりませんでした\",\n      \"action\": \"アクション\"\n    }\n  }\n}",
       "type": "registry:file",
       "target": "messages/components/resource-detail/ja.json"
     }
