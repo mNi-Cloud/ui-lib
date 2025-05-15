@@ -120,7 +120,7 @@ const MultiStepResourceCreate: React.FC<MultiStepResourceCreateProps> = ({
   const [currentStep, setCurrentStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState<{ [key: string]: any }>({});
-  const t = useTranslations('component.resource-create-multiple')
+  const t = useTranslations('components.resource-create-multiple')
 
   const messages = {
     success: successMessage || t('successmessage'),

@@ -374,6 +374,16 @@
         {
           "path": "registry/new-york/blocks/resource-create-multiple/yaml-editor.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-create-multiple/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-create-multiple/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/resource-create-multiple/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/resource-create-multiple/ja.json"
         }
       ]
     },
