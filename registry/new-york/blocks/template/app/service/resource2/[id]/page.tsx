@@ -36,7 +36,7 @@ export default function PostDetailPage(props: { params: Promise<{ id: string }> 
     <ResourceDetail<Resource, EmptyRelatedType>
       resourceType={t('resourcetype')}
       resourceId={params.id}
-      apiUrl={`https://jsonplaceholder.typicode.com/posts/${params.id}`}
+      apiUrl="https://jsonplaceholder.typicode.com/posts"
       editPath={`/service/resource2/edit/${params.id}`}
       deleteUrl={`/service/resource2/delete/${params.id}`}
       onDelete={{

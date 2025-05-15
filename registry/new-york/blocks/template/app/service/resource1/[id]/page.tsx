@@ -145,7 +145,7 @@ export default function UserDetailPage(
     <ResourceDetail<Resource, Post>
       resourceType={t('resourcetype', { defaultMessage: 'ユーザー' })}
       resourceId={userId}
-      apiUrl={`https://jsonplaceholder.typicode.com/users/${userId}`}
+      apiUrl="https://jsonplaceholder.typicode.com/users"
       editPath={`/resource/items/edit/${userId}`}
       deleteUrl={`/resource/items/delete/${userId}`}
       onDelete={{
