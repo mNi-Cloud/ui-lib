@@ -21,11 +21,76 @@
       "type": "registry:component",
       "title": "Code Editor",
       "description": "A code editor component with language support and validation based on Monaco Editor.",
-      "dependencies": ["@monaco-editor/react", "next-themes"],
+      "dependencies": ["@monaco-editor/react", "next-themes", "monaco-editor"],
       "files": [
         {
           "path": "registry/new-york/blocks/code-editor/code-editor.tsx",
           "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/index.ts",
+          "type": "registry:file",
+          "target": "lib/code-editor/language-plugin/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "code-editor-language-javascript",
+      "type": "registry:file",
+      "title": "JavaScript Language Plugin for Code Editor",
+      "description": "JavaScript language support for Monaco Code Editor.",
+      "dependencies": ["monaco-editor"],
+      "registryDependencies": ["code-editor"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/javascript.ts",
+          "type": "registry:file",
+          "target": "lib/code-editor/language-plugin/javascript.ts"
+        }
+      ]
+    },
+    {
+      "name": "code-editor-language-typescript",
+      "type": "registry:file",
+      "title": "TypeScript Language Plugin for Code Editor",
+      "description": "TypeScript language support for Monaco Code Editor.",
+      "dependencies": ["monaco-editor"],
+      "registryDependencies": ["code-editor"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/typescript.ts",
+          "type": "registry:file",
+          "target": "lib/code-editor/language-plugin/typescript.ts"
+        }
+      ]
+    },
+    {
+      "name": "code-editor-language-json",
+      "type": "registry:file",
+      "title": "JSON Language Plugin for Code Editor",
+      "description": "JSON language support for Monaco Code Editor.",
+      "dependencies": ["monaco-editor"],
+      "registryDependencies": ["code-editor"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/json.ts",
+          "type": "registry:file",
+          "target": "lib/code-editor/language-plugin/json.ts"
+        }
+      ]
+    },
+    {
+      "name": "code-editor-language-yaml",
+      "type": "registry:file",
+      "title": "YAML Language Plugin for Code Editor",
+      "description": "YAML language support for Monaco Code Editor.",
+      "dependencies": ["monaco-editor", "monaco-yaml"],
+      "registryDependencies": ["code-editor"],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/yaml.ts",
+          "type": "registry:file",
+          "target": "lib/code-editor/language-plugin/yaml.ts"
         }
       ]
     },

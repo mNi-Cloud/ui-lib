@@ -4,6 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { importLanguagePlugin } from '@/registry/new-york/blocks/code-editor/lib/language-plugin';
 
 // サポートされる言語タイプの定義
 export type SupportedLanguage = 'yaml' | 'json' | 'javascript' | 'typescript' | 'html' | 'css' | 'markdown' | 'plaintext';
@@ -27,30 +28,12 @@ export const getLanguageLabel = (language: SupportedLanguage): string => {
 // Monaco EditorのWindow拡張用型定義
 declare global {
   interface Window {
-    monaco?: {
-      languages: {
-        yaml?: {
-          yamlDefaults: {
-            setDiagnosticsOptions: (options: any) => void;
-          };
-        };
-      };
-    };
+    monaco?: any;
   }
 }
 
-// Monaco EditorをCDN経由でロードするための設定
-const MonacoEditor = dynamic(() => {
-  return import('@monaco-editor/react').then(mod => {
-    // CDNからMonacoをロードする設定
-    mod.loader.config({
-      paths: {
-        vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.36.1/min/vs'
-      }
-    });
-    return mod;
-  });
-}, {
+// Monaco Editorを動的インポート
+const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center min-h-[300px] border rounded-md bg-muted/30">
@@ -76,39 +59,24 @@ type CodeEditorProps = {
 const setupLanguageSupport = async (monaco: any, language: SupportedLanguage) => {
   if (!monaco) return;
 
-  // YAMLだけはCDNから追加の言語サポートを読み込む必要がある
-  if (language === 'yaml' && !monaco.languages.yaml) {
-    try {
-      // YAMLサポートをCDNから読み込み
-      if (typeof document !== 'undefined') {
-        const script = document.createElement('script');
-        script.src = 'https://cdn.jsdelivr.net/npm/monaco-yaml@4.0.2/lib/umd/monaco-yaml.min.js';
-        script.async = true;
-        
-        // スクリプトの読み込みを待機する
-        await new Promise((resolve, reject) => {
-          script.onload = resolve;
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-        
-        // monaco-yamlがグローバルにフックするのを待機
-        if (window && window.monaco && window.monaco.languages && window.monaco.languages.yaml) {
-          window.monaco.languages.yaml.yamlDefaults.setDiagnosticsOptions({
-            validate: true,
-            enableSchemaRequest: true,
-            hover: true,
-            completion: true,
-            format: true
-          });
-        }
+  try {
+    // 言語プラグインを動的にインポート
+    const plugin = await importLanguagePlugin(language);
+    
+    if (plugin) {
+      // プラグインのロード処理を実行
+      await plugin.load();
+      
+      // 言語固有の設定があれば適用
+      if (plugin.configure) {
+        plugin.configure(monaco);
       }
-    } catch (err) {
-      console.warn('YAML言語サポートの読み込み中にエラーが発生しました:', err);
+    } else {
+      console.warn(`言語 '${language}' のプラグインが見つかりません。基本的な構文ハイライトのみが利用可能です。`);
     }
+  } catch (error) {
+    console.error(`言語 '${language}' のサポート設定中にエラーが発生しました:`, error);
   }
-  
-  // JSONについてはMonacoの組み込み機能が使用される
 };
 
 export const CodeEditor: React.FC<CodeEditorProps> = ({
@@ -147,7 +115,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     const currentTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'vs';
     monaco.editor.setTheme(currentTheme);
 
-    // YAMLなど、特別な言語サポートの設定
+    // 言語サポートの設定
     await setupLanguageSupport(monaco, language);
 
     // プレースホルダーテキストの設定
@@ -165,6 +133,15 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       });
     }
   };
+
+  // 言語が変更されたときに言語サポートを再設定
+  useEffect(() => {
+    if (monacoRef.current) {
+      setupLanguageSupport(monacoRef.current, language).catch(err => {
+        console.error('言語サポートの再設定中にエラーが発生しました:', err);
+      });
+    }
+  }, [language]);
 
   // エディタの内容が変更されたときの処理
   const handleEditorChange = (newValue: string | undefined) => {

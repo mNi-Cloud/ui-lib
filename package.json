@@ -32,6 +32,8 @@
     "deepmerge": "^4.3.1",
     "json5": "^2.2.3",
     "lucide-react": "^0.487.0",
+    "monaco-editor": "^0.47.0",
+    "monaco-yaml": "^5.1.1",
     "next": "15.3.1",
     "next-auth": "^4.24.11",
     "next-intl": "^4.1.0",
