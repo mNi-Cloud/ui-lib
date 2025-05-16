@@ -1,4 +1,4 @@
-import type { SupportedLanguage } from '../../code-editor';
+import type { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/code-editor';
 
 // 言語プラグインの型定義
 export interface LanguagePlugin {

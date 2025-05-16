@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { importLanguagePlugin } from '@/registry/new-york/blocks/code-editor/lib/language-plugin';
+import { importLanguagePlugin } from '@/registry/new-york/blocks/code-editor/language-plugin';
 
 // サポートされる言語タイプの定義
 export type SupportedLanguage = 'yaml' | 'json' | 'javascript' | 'typescript' | 'html' | 'css' | 'markdown' | 'plaintext';
