@@ -9,12 +9,6 @@
     "next-themes",
     "monaco-editor"
   ],
-  "registryDependencies": [
-    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor-language-javascript.json",
-    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor-language-typescript.json",
-    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor-language-json.json",
-    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor-language-yaml.json"
-  ],
   "files": [
     {
       "path": "registry/new-york/blocks/code-editor/code-editor.tsx",

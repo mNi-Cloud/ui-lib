@@ -20,7 +20,9 @@
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/service-index.json",
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-dashboard.json",
     "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-detail.json",
-    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-form.json"
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/resource-form.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor-language-yaml.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor-language-json.json"
   ],
   "files": [
     {
