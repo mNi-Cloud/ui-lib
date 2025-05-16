@@ -73,12 +73,10 @@ export default async function RootLayout({
                 <SidebarInset>
                   <Header />
                   <Content>
-                    <div className="flex">
-                      <main className="flex-1">
-                        <Toaster richColors />
-                        {children}
-                      </main>
-                    </div>
+                    <main>
+                      <Toaster richColors />
+                      {children}
+                    </main>
                   </Content>
                 </SidebarInset>
               </SidebarProvider>
