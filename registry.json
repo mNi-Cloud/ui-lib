@@ -28,9 +28,9 @@
           "type": "registry:component"
         },
         {
-          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/index.ts",
+          "path": "registry/new-york/blocks/code-editor/language-plugin/index.ts",
           "type": "registry:file",
-          "target": "lib/code-editor/language-plugin/index.ts"
+          "target": "lib/language-plugin/index.ts"
         }
       ]
     },
@@ -45,9 +45,9 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/javascript.ts",
+          "path": "registry/new-york/blocks/code-editor/language-plugin/javascript.ts",
           "type": "registry:file",
-          "target": "lib/code-editor/language-plugin/javascript.ts"
+          "target": "lib/language-plugin/javascript.ts"
         }
       ]
     },
@@ -62,9 +62,9 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/typescript.ts",
+          "path": "registry/new-york/blocks/code-editor/language-plugin/typescript.ts",
           "type": "registry:file",
-          "target": "lib/code-editor/language-plugin/typescript.ts"
+          "target": "lib/language-plugin/typescript.ts"
         }
       ]
     },
@@ -79,9 +79,9 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/json.ts",
+          "path": "registry/new-york/blocks/code-editor/language-plugin/json.ts",
           "type": "registry:file",
-          "target": "lib/code-editor/language-plugin/json.ts"
+          "target": "lib/language-plugin/json.ts"
         }
       ]
     },
@@ -96,9 +96,9 @@
       ],
       "files": [
         {
-          "path": "registry/new-york/blocks/code-editor/lib/language-plugin/yaml.ts",
+          "path": "registry/new-york/blocks/code-editor/language-plugin/yaml.ts",
           "type": "registry:file",
-          "target": "lib/code-editor/language-plugin/yaml.ts"
+          "target": "lib/language-plugin/yaml.ts"
         }
       ]
     },
