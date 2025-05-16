@@ -8,7 +8,8 @@
     "monaco-editor"
   ],
   "registryDependencies": [
-    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor.json"
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor.json",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor-language-plugin.json"
   ],
   "files": [
     {
