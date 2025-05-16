@@ -9,6 +9,7 @@ const PostCreatePage = () => {
 
   const steps = [
     {
+      id: 'basic-info',
       title: t('step1.title'),
       description: t('step1.description'),
       fields: [
@@ -26,6 +27,7 @@ const PostCreatePage = () => {
       ]
     },
     {
+      id: 'content',
       title: t('step2.title'),
       description: t('step2.description'),
       fields: [
@@ -43,6 +45,7 @@ const PostCreatePage = () => {
       ]
     },
     {
+      id: 'user-info',
       title: t('step3.title'),
       description: t('step3.description'),
       fields: [
@@ -59,6 +62,7 @@ const PostCreatePage = () => {
       ]
     },
     {
+      id: 'additional-config',
       title: t('step4.title', { defaultValue: '追加設定' }),
       description: t('step4.description', { defaultValue: 'YAML形式で追加設定を入力してください' }),
       fields: [
