@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "code-editor-language-plugin",
+  "type": "registry:file",
+  "title": "Language Plugin for Code Editor",
+  "description": "Language plugin for Monaco Code Editor.",
+  "dependencies": [
+    "monaco-editor"
+  ],
+  "registryDependencies": [
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/code-editor.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/blocks/language-plugin/index.ts",
+      "content": "import type { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/code-editor';\n\n// 言語プラグインの型定義\nexport interface LanguagePlugin {\n  language: SupportedLanguage;\n  load: () => Promise<void>;\n  configure?: (monaco: any) => void;\n}\n\n// 使用可能な言語プラグインを保持するマップ\nconst plugins = new Map<SupportedLanguage, LanguagePlugin>();\n\n// 言語プラグインを登録する関数\nexport function registerLanguagePlugin(plugin: LanguagePlugin): void {\n  plugins.set(plugin.language, plugin);\n}\n\n// 特定の言語のプラグインを取得する関数\nexport function getLanguagePlugin(language: SupportedLanguage): LanguagePlugin | undefined {\n  return plugins.get(language);\n}\n\n// すべての登録済み言語プラグインを取得する関数\nexport function getAllLanguagePlugins(): LanguagePlugin[] {\n  return Array.from(plugins.values());\n}\n\n// 使用可能な言語のリストを取得する関数\nexport function getAvailableLanguages(): SupportedLanguage[] {\n  return Array.from(plugins.keys());\n}\n\n// 言語プラグインを動的にインポートする関数\nexport async function importLanguagePlugin(language: SupportedLanguage): Promise<LanguagePlugin | undefined> {\n  try {\n    // すでに登録されているかチェック\n    if (plugins.has(language)) {\n      return plugins.get(language);\n    }\n\n    // 言語プラグインの動的インポート\n    const module = await import(`./${language}`).catch(() => null);\n    \n    if (module && module.default) {\n      // プラグインを登録\n      registerLanguagePlugin(module.default);\n      return module.default;\n    }\n    \n    return undefined;\n  } catch (error) {\n    console.error(`言語プラグイン '${language}' のインポート中にエラーが発生しました:`, error);\n    return undefined;\n  }\n} ",
+      "type": "registry:file",
+      "target": "lib/language-plugin/index.ts"
+    }
+  ]
+}

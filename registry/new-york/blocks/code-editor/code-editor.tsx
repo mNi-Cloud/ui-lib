@@ -4,7 +4,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { importLanguagePlugin } from '@/registry/new-york/blocks/code-editor/language-plugin';
+import { importLanguagePlugin } from '@/registry/new-york/blocks/language-plugin';
 
 // サポートされる言語タイプの定義
 export type SupportedLanguage = 'yaml' | 'json' | 'javascript' | 'typescript' | 'html' | 'css' | 'markdown' | 'plaintext';
@@ -30,6 +30,37 @@ declare global {
   interface Window {
     monaco?: any;
   }
+}
+
+// Monaco Editorのワーカー設定を初期化
+if (typeof window !== 'undefined') {
+  // 型アサーションを使用して型エラーを回避
+  const env = window.MonacoEnvironment || {};
+  window.MonacoEnvironment = env;
+  
+  // 既存のワーカーゲッター関数の保存
+  const originalGetWorkerUrl = env.getWorkerUrl;
+  
+  env.getWorkerUrl = (moduleId: string, label: string): string => {
+    // 既存の設定関数があれば呼び出す
+    if (originalGetWorkerUrl) {
+      const url = originalGetWorkerUrl(moduleId, label);
+      if (url) return url;
+    }
+    
+    // 言語固有のワーカーをマッピング
+    // YAMLは独自実装するので除外
+    if (label === 'json') {
+      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/json/json.worker.js';
+    } else if (label === 'typescript' || label === 'javascript') {
+      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/typescript/ts.worker.js';
+    } else if (label === 'html' || label === 'css') {
+      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/html/html.worker.js';
+    }
+    
+    // デフォルトのエディタワーカー
+    return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/editor/editor.worker.js';
+  };
 }
 
 // Monaco Editorを動的インポート
