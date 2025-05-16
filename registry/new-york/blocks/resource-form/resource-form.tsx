@@ -292,8 +292,9 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ...generateDefaultValues(safeFields, defaultValues),
-      ...allStepsData[currentStep.id]
+      ...generateDefaultValues(safeFields, {}),  // 常に空のオブジェクトから始める
+      ...(allStepsData[currentStep.id] || {}),   // 現在のステップのデータがあれば追加
+      ...(defaultValues || {})                  // 提供されたデフォルト値があれば追加
     }
   }) as ExtendedFormProps;
 

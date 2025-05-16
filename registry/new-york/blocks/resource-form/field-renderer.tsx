@@ -250,9 +250,18 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
       key={`form-field-${fieldName}`}
       control={form.control}
       name={fieldName}
-      render={({ field: formField }) => (
-        <FormItem className="space-y-2">
-          <div className="space-y-1">
+      render={({ field: formField }) => {
+        // フォームフィールドの値を適切に処理
+        const formValue = typeof formField.value === 'undefined' ? '' : formField.value;
+        
+        // 文字列型に変換した値の処理
+        const handleSelectChange = (value: string) => {
+          formField.onChange(value);
+          field.onChange?.(value);
+        };
+        
+        return (
+          <FormItem>
             <FormLabel className="text-sm font-medium">
               {field.label}
               {field.validation?.required && (
@@ -265,67 +274,69 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
               </FormDescription>
             )}
             {renderReadOnlyMessage()}
-          </div>
-          <FormControl>
-            {field.type === 'select' ? (
-              <Select
-                value={formField.value || ''}
-                onValueChange={(value) => {
-                  if (!field.readOnly) {
-                    formField.onChange(value);
-                    field.onChange?.(value);
-                  }
-                }}
-                disabled={field.disabled || field.readOnly}
-              >
-                <SelectTrigger className={field.readOnly ? 'bg-muted h-10' : 'h-10'}>
-                  <SelectValue placeholder={field.placeholder} />
-                </SelectTrigger>
-                <SelectContent>
-                  {field.options?.map((option) => (
-                    <SelectItem
-                      key={`${fieldName}-option-${option.value}`}
-                      value={option.value}
-                    >
-                      {option.label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            ) : field.type === 'textarea' ? (
-              <Textarea
-                placeholder={field.placeholder}
-                disabled={field.disabled}
-                readOnly={field.readOnly}
-                className={field.readOnly ? 'bg-muted' : ''}
-                {...formField}
-                onChange={(e) => {
-                  if (!field.readOnly) {
+            <FormControl>
+              {field.type === 'select' ? (
+                // カスタム処理でSelectを使用
+                <div>
+                  <SelectTrigger 
+                    className={field.readOnly ? 'bg-muted' : ''}
+                    onClick={(e) => {
+                      if (field.readOnly || field.disabled) {
+                        e.preventDefault();
+                      }
+                    }}
+                  >
+                    <SelectValue placeholder={field.placeholder}>
+                      {/* 選択された値があれば表示 */}
+                      {formValue ? String(formValue) : (field.placeholder || '')}
+                    </SelectValue>
+                  </SelectTrigger>
+                  {!(field.readOnly || field.disabled) && (
+                    <SelectContent>
+                      {field.options?.map((option) => (
+                        <SelectItem
+                          key={`${fieldName}-option-${option.value}`}
+                          value={option.value}
+                          onClick={() => handleSelectChange(option.value)}
+                        >
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  )}
+                </div>
+              ) : field.type === 'textarea' ? (
+                <Textarea
+                  placeholder={field.placeholder}
+                  className={field.readOnly ? 'bg-muted' : ''}
+                  value={String(formValue)}
+                  onChange={(e) => {
                     formField.onChange(e);
                     field.onChange?.(e.target.value);
-                  }
-                }}
-              />
-            ) : (
-              <Input
-                type={field.type}
-                placeholder={field.placeholder}
-                disabled={field.disabled}
-                readOnly={field.readOnly}
-                className={field.readOnly ? 'bg-muted' : ''}
-                {...formField}
-                onChange={(e) => {
-                  if (!field.readOnly) {
+                  }}
+                  disabled={field.disabled}
+                  readOnly={field.readOnly}
+                  rows={4}
+                />
+              ) : (
+                <Input
+                  type={field.type === 'number' ? 'number' : field.type === 'email' ? 'email' : field.type === 'password' ? 'password' : 'text'}
+                  placeholder={field.placeholder}
+                  className={field.readOnly ? 'bg-muted' : ''}
+                  value={String(formValue)}
+                  onChange={(e) => {
                     formField.onChange(e);
                     field.onChange?.(e.target.value);
-                  }
-                }}
-              />
-            )}
-          </FormControl>
-          <FormMessage className="text-xs" />
-        </FormItem>
-      )}
+                  }}
+                  disabled={field.disabled}
+                  readOnly={field.readOnly}
+                />
+              )}
+            </FormControl>
+            <FormMessage className="text-xs" />
+          </FormItem>
+        );
+      }}
     />
   );
 };
