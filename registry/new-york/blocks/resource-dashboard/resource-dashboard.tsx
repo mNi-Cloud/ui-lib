@@ -74,7 +74,6 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         const checks = await Promise.all(
           data.map(async (resource) => {
             try {
-              // クライアント側で直接依存関係チェック関数を呼び出す
               const check = await checkDependencies(resource)
               const resourceKey = getResourceId(resource)
               return [resourceKey, check] as const

@@ -19,18 +19,14 @@ import FieldRenderer from './field-renderer';
 import CodeEditor from '@/registry/new-york/blocks/code-editor/code-editor';
 import { createResource, updateResource, fetchResource } from '@/registry/new-york/blocks/actions/resource-actions';
 
-// シンプルなバリデータ関数を提供
 const getValidator = () => {
-  // 全ての言語に対して単純なバリデータを返す
   return (content: string) => ({ isValid: true });
 };
 
-// フォーム型の拡張
 interface ExtendedFormProps extends UseFormReturn<any, any, any> {
   _syntaxErrors?: Record<string, boolean>;
 }
 
-// 単一ステップフォーム用の型定義
 export type ResourceFormProps = {
   title: string;
   resourceType: string;
@@ -45,7 +41,6 @@ export type ResourceFormProps = {
   isEditMode?: boolean;
 };
 
-// 複数ステップフォーム用の型定義
 export type MultiStepResourceFormProps = {
   title: string;
   resourceType: string;
@@ -60,9 +55,6 @@ export type MultiStepResourceFormProps = {
   isEditMode?: boolean;
 };
 
-/**
- * リソース作成・編集フォーム
- */
 export const ResourceForm: React.FC<ResourceFormProps> = ({
   title,
   resourceType,
@@ -82,34 +74,26 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [syntaxError, setSyntaxError] = useState<string | null>(null);
 
-  // 安全にフィールドを処理
   const safeFields = Array.isArray(fields) ? fields : [];
 
-  // フォームスキーマの生成
   const formSchema = generateSchema(safeFields, t, getValidator);
 
-  // react-hook-formの設定
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: generateDefaultValues(safeFields, defaultValues),
   }) as ExtendedFormProps;
 
-  // 構文エラーチェック関数
   const checkSyntaxErrors = (): boolean => {
     if (form._syntaxErrors) {
-      // いずれかのフィールドに構文エラーがあるかチェック
       const hasErrors = Object.entries(form._syntaxErrors).some(([fieldName, hasError]) => hasError === true);
       if (hasErrors) {
-        // エラーのあるフィールド名を抽出
         const errorFields = Object.entries(form._syntaxErrors)
           .filter(([_, hasError]) => hasError === true)
           .map(([fieldName, _]) => {
-            // フィールド名からラベルを取得
             const field = safeFields.find(f => f.name === fieldName);
             return field ? field.label : fieldName;
           });
         
-        // エラーメッセージを設定
         setSyntaxError(t('syntax-error-message'));
         return true;
       }
@@ -119,16 +103,13 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
     return false;
   };
 
-  // リソースの取得（編集モードの場合）
   useEffect(() => {
     if (isEditMode && resourceId) {
       const getResource = async () => {
         try {
           const data = await fetchResource(apiEndpoint, resourceId);
           if (data) {
-            // データを各フィールドにセット
             Object.entries(data).forEach(([key, value]) => {
-              // ネストされたオブジェクトも処理
               if (typeof value === 'object' && value !== null) {
                 form.setValue(key, value);
               } else {
@@ -146,21 +127,17 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
     }
   }, [isEditMode, resourceId, apiEndpoint, form, t]);
 
-  // フォーム送信処理
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // 送信前に構文エラーをチェック
     if (checkSyntaxErrors()) {
-      return; // 構文エラーがある場合は処理を中止
+      return;
     }
 
     try {
       setLoading(true);
       setError(null);
 
-      // 送信前のデータ整形
       const formattedData = formatFormData ? formatFormData(data) : data;
 
-      // リソースの作成または更新
       let result;
       if (isEditMode && resourceId) {
         result = await updateResource(apiEndpoint, resourceId, {
@@ -174,7 +151,6 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
         });
       }
 
-      // 成功時の処理
       if (result) {
         toast.success(
           successMessage || (isEditMode ? t('updated-success') : t('created-success')), 
@@ -194,7 +170,6 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
     }
   };
 
-  // キャンセルボタンのハンドラー
   const onCancel = () => {
     router.push(redirectPath);
   };
@@ -257,9 +232,6 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
   );
 };
 
-/**
- * 複数ステップリソース作成フォーム
- */
 export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
   title,
   resourceType,
@@ -281,39 +253,31 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [syntaxError, setSyntaxError] = useState<string | null>(null);
 
-  // 現在のステップの内容
   const currentStep = steps[currentStepIndex];
   const safeFields = Array.isArray(currentStep.fields) ? currentStep.fields : [];
 
-  // フォームスキーマの生成
   const formSchema = generateSchema(safeFields, t, getValidator);
 
-  // react-hook-formの設定
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ...generateDefaultValues(safeFields, {}),  // 常に空のオブジェクトから始める
-      ...(allStepsData[currentStep.id] || {}),   // 現在のステップのデータがあれば追加
-      ...(defaultValues || {})                  // 提供されたデフォルト値があれば追加
+      ...generateDefaultValues(safeFields, {}),
+      ...(allStepsData[currentStep.id] || {}),
+      ...(defaultValues || {})
     }
   }) as ExtendedFormProps;
 
-  // 構文エラーチェック関数
   const checkSyntaxErrors = (): boolean => {
     if (form._syntaxErrors) {
-      // いずれかのフィールドに構文エラーがあるかチェック
       const hasErrors = Object.entries(form._syntaxErrors).some(([fieldName, hasError]) => hasError === true);
       if (hasErrors) {
-        // エラーのあるフィールド名を抽出
         const errorFields = Object.entries(form._syntaxErrors)
           .filter(([_, hasError]) => hasError === true)
           .map(([fieldName, _]) => {
-            // フィールド名からラベルを取得
             const field = safeFields.find(f => f.name === fieldName);
             return field ? field.label : fieldName;
           });
         
-        // エラーメッセージを設定
         setSyntaxError(t('syntax-error-message'));
         return true;
       }
@@ -323,7 +287,6 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
     return false;
   };
 
-  // リソースの取得（編集モードの場合）
   useEffect(() => {
     if (isEditMode && resourceId && currentStepIndex === 0) {
       const getResource = async () => {
@@ -331,7 +294,6 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
           const data = await fetchResource(apiEndpoint, resourceId);
           if (data) {
             setAllStepsData(data);
-            // 現在のステップのデータだけをフォームにセット
             Object.entries(data).forEach(([key, value]) => {
               form.setValue(key, value);
             });
@@ -346,22 +308,18 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
     }
   }, [isEditMode, resourceId, apiEndpoint, form, currentStepIndex, t]);
 
-  // 次のステップに進む
   const handleNextStep = async () => {
-    // ステップ遷移前に構文エラーをチェック
     if (checkSyntaxErrors()) {
-      return; // 構文エラーがある場合は処理を中止
+      return;
     }
 
     const formData = form.getValues();
 
-    // 現在のステップのデータを保存
     setAllStepsData(prev => ({
       ...prev,
       [currentStep.id]: formData
     }));
 
-    // 最後のステップの場合は送信
     if (currentStepIndex === steps.length - 1) {
       const allFormData = {
         ...allStepsData,
@@ -369,12 +327,10 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
       };
       await handleSubmit(allFormData);
     } else {
-      // 次のステップに進む
       setCurrentStepIndex(prev => prev + 1);
     }
   };
 
-  // 前のステップに戻る
   const handlePrevStep = () => {
     if (currentStepIndex > 0) {
       const currentData = form.getValues();
@@ -383,21 +339,17 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
     }
   };
 
-  // フォーム送信処理
   const handleSubmit = async (data: Record<string, any>) => {
-    // 送信前に構文エラーをチェック
     if (checkSyntaxErrors()) {
-      return; // 構文エラーがある場合は処理を中止
+      return;
     }
 
     try {
       setLoading(true);
       setError(null);
 
-      // 送信前のデータ整形
       const formattedData = formatFormData ? formatFormData(data) : data;
 
-      // リソースの作成または更新
       let result;
       if (isEditMode && resourceId) {
         result = await updateResource(apiEndpoint, resourceId, {
@@ -411,7 +363,6 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
         });
       }
 
-      // 成功時の処理
       if (result) {
         toast.success(
           successMessage || (isEditMode ? t('updated-success') : t('created-success')), 
@@ -431,7 +382,6 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
     }
   };
 
-  // キャンセルボタンのハンドラー
   const onCancel = () => {
     router.push(redirectPath);
   };
@@ -534,4 +484,4 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
   );
 };
 
-export default ResourceForm; 
+export default ResourceForm;

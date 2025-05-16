@@ -6,17 +6,14 @@ import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { importLanguagePlugin } from '@/registry/new-york/blocks/language-plugin/index';
 
-// サポートされる言語タイプの定義
 export type SupportedLanguage = 'yaml' | 'json' | 'javascript' | 'typescript' | 'html' | 'css' | 'markdown' | 'plaintext';
 
-// 構文エラーの型定義
 export interface SyntaxError {
   message: string;
   line: number;
   column: number;
 }
 
-// 言語名の取得
 export const getLanguageLabel = (language: SupportedLanguage): string => {
   const labels: Record<SupportedLanguage, string> = {
     yaml: 'YAML',
@@ -26,37 +23,30 @@ export const getLanguageLabel = (language: SupportedLanguage): string => {
     html: 'HTML',
     css: 'CSS',
     markdown: 'Markdown',
-    plaintext: 'プレーンテキスト'
+    plaintext: 'Plain Text'
   };
   
   return labels[language] || language;
 };
 
-// Monaco EditorのWindow拡張用型定義
 declare global {
   interface Window {
     monaco?: any;
   }
 }
 
-// Monaco Editorのワーカー設定を初期化
 if (typeof window !== 'undefined') {
-  // 型アサーションを使用して型エラーを回避
   const env = window.MonacoEnvironment || {};
   window.MonacoEnvironment = env;
   
-  // 既存のワーカーゲッター関数の保存
   const originalGetWorkerUrl = env.getWorkerUrl;
   
   env.getWorkerUrl = (moduleId: string, label: string): string => {
-    // 既存の設定関数があれば呼び出す
     if (originalGetWorkerUrl) {
       const url = originalGetWorkerUrl(moduleId, label);
       if (url) return url;
     }
     
-    // 言語固有のワーカーをマッピング
-    // YAMLは独自実装するので除外
     if (label === 'json') {
       return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/json/json.worker.js';
     } else if (label === 'typescript' || label === 'javascript') {
@@ -65,12 +55,10 @@ if (typeof window !== 'undefined') {
       return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/html/html.worker.js';
     }
     
-    // デフォルトのエディタワーカー
     return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/editor/editor.worker.js';
   };
 }
 
-// Monaco Editorを動的インポート
 const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
   ssr: false,
   loading: () => (
@@ -80,7 +68,6 @@ const MonacoEditor = dynamic(() => import('@monaco-editor/react'), {
   ),
 });
 
-// プロパティの型定義
 type CodeEditorProps = {
   value: string;
   onChange: (value: string) => void;
@@ -94,27 +81,23 @@ type CodeEditorProps = {
   onValidationChange?: (hasErrors: boolean) => void;
 };
 
-// 言語サポートを設定する関数
 const setupLanguageSupport = async (monaco: any, language: SupportedLanguage) => {
   if (!monaco) return;
 
   try {
-    // 言語プラグインを動的にインポート
     const plugin = await importLanguagePlugin(language);
     
     if (plugin) {
-      // プラグインのロード処理を実行
       await plugin.load();
       
-      // 言語固有の設定があれば適用
       if (plugin.configure) {
         plugin.configure(monaco);
       }
     } else {
-      console.warn(`言語 '${language}' のプラグインが見つかりません。基本的な構文ハイライトのみが利用可能です。`);
+      console.warn(`Plugin for '${language}' language not found. Only basic syntax highlighting will be available.`);
     }
   } catch (error) {
-    console.error(`言語 '${language}' のサポート設定中にエラーが発生しました:`, error);
+    console.error(`Error setting up '${language}' language support:`, error);
   }
 };
 
@@ -123,7 +106,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   onChange,
   language = 'plaintext',
   height = '300px',
-  placeholder = 'コードを入力してください',
+  placeholder = 'Enter code here',
   disabled = false,
   readOnly = false,
   showValidation = true,
@@ -136,10 +119,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   const [hasErrors, setHasErrors] = useState<boolean>(false);
   const { resolvedTheme } = useTheme();
   
-  // テーマの決定: プロパティで指定された場合はそれを使用、それ以外はアプリケーションのテーマに従う
   const theme = propTheme || (resolvedTheme === 'dark' ? 'vs-dark' : 'vs');
   
-  // システムテーマが変更された時にエディタのテーマも更新
   useEffect(() => {
     if (!propTheme && editorRef.current && monacoRef.current) {
       const newTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'vs';
@@ -147,42 +128,34 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   }, [resolvedTheme, propTheme]);
   
-  // エディタが初期化されたときの処理
   const handleEditorDidMount = async (editor: any, monaco: any) => {
     editorRef.current = editor;
     monacoRef.current = monaco;
 
-    // 初期テーマを明示的に設定
     const currentTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'vs';
     monaco.editor.setTheme(currentTheme);
 
-    // 言語サポートの設定
     await setupLanguageSupport(monaco, language);
 
-    // エラーマーカーの変更を監視
     monaco.editor.onDidChangeMarkers(([resource]: any[]) => {
       if (editor.getModel() && editor.getModel().uri.toString() === resource.toString()) {
         const markers = monaco.editor.getModelMarkers({ resource });
         const errorMarkers = markers.filter((marker: any) => marker.severity === monaco.MarkerSeverity.Error);
         
-        // エラーの有無を状態に保存
         const newHasErrors = errorMarkers.length > 0;
         setHasErrors(newHasErrors);
         
-        // エラーがある場合はエラーメッセージを設定
         if (errorMarkers.length > 0) {
           const firstError = errorMarkers[0];
-          setError(`${firstError.message} (行 ${firstError.startLineNumber}, 列 ${firstError.startColumn})`);
+          setError(`${firstError.message} (line ${firstError.startLineNumber}, column ${firstError.startColumn})`);
         } else {
           setError(null);
         }
 
-        // 親コンポーネントにエラー状態を通知
         onValidationChange?.(newHasErrors);
       }
     });
 
-    // プレースホルダーテキストの設定
     if (!value && placeholder) {
       editor.getModel()?.setValue(placeholder);
       editor.onDidFocusEditorText(() => {
@@ -198,16 +171,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   };
 
-  // 言語が変更されたときに言語サポートを再設定
   useEffect(() => {
     if (monacoRef.current) {
       setupLanguageSupport(monacoRef.current, language).catch(err => {
-        console.error('言語サポートの再設定中にエラーが発生しました:', err);
+        console.error('Error resetting language support:', err);
       });
     }
   }, [language]);
 
-  // エディタの内容が変更されたときの処理
   const handleEditorChange = (newValue: string | undefined) => {
     if (readOnly || disabled) return;
     
@@ -215,7 +186,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     onChange(content);
   };
 
-  // 言語ラベルの取得
   const languageLabel = getLanguageLabel(language);
 
   return (
@@ -223,7 +193,6 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       <div 
         className={`border rounded-md overflow-hidden relative ${error ? 'border-destructive' : 'border-input'} ${readOnly ? 'bg-muted/30' : ''}`}
       >
-        {/* 言語ラベルバッジ */}
         <div className="absolute top-1 right-1 z-10 px-2 py-0.5 rounded bg-primary/10 text-xs font-medium text-primary-foreground backdrop-blur-sm">
           {languageLabel}
         </div>
@@ -248,18 +217,21 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
               horizontalScrollbarSize: 10,
               alwaysConsumeMouseWheel: false
             },
-            lineNumbersMinChars: 3,
             readOnly: readOnly || disabled,
-            renderLineHighlight: 'all',
+            domReadOnly: readOnly || disabled,
+            padding: { top: 12, bottom: 12 },
           }}
           onMount={handleEditorDidMount}
         />
       </div>
+      
       {showValidation && error && (
-        <div className="text-xs text-destructive">{error}</div>
+        <div className="text-sm text-destructive px-2">
+          {error}
+        </div>
       )}
     </div>
   );
 };
 
-export default CodeEditor; 
+export default CodeEditor;

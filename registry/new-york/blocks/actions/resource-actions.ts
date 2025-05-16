@@ -2,14 +2,11 @@
 
 import { revalidatePath } from 'next/cache';
 
-/**
- * リソースを取得するサーバーアクション
- */
 export async function fetchResource(endpoint: string, resourceId: string) {
   try {
     const url = `${endpoint}/${resourceId}`;
     const response = await fetch(url, { 
-      next: { revalidate: 60 } // 60秒間キャッシュする
+      next: { revalidate: 60 }
     });
     
     if (!response.ok) {
@@ -23,13 +20,10 @@ export async function fetchResource(endpoint: string, resourceId: string) {
   }
 }
 
-/**
- * リソース一覧を取得するサーバーアクション
- */
 export async function fetchResources(url: string) {
   try {
     const response = await fetch(url, { 
-      next: { revalidate: 60 } // 60秒間キャッシュする
+      next: { revalidate: 60 }
     });
     
     if (!response.ok) {
@@ -48,9 +42,6 @@ export async function fetchResources(url: string) {
   }
 }
 
-/**
- * リソースを作成するサーバーアクション
- */
 export async function createResource(
   endpoint: string, 
   data: { type: string; data: any }, 
@@ -80,9 +71,6 @@ export async function createResource(
   }
 }
 
-/**
- * リソースを更新するサーバーアクション
- */
 export async function updateResource(
   endpoint: string, 
   resourceId: string, 
@@ -114,9 +102,6 @@ export async function updateResource(
   }
 }
 
-/**
- * リソースを削除するサーバーアクション
- */
 export async function deleteResource(url: string, redirectPath?: string) {
   try {
     const response = await fetch(url, {
@@ -138,9 +123,6 @@ export async function deleteResource(url: string, redirectPath?: string) {
   }
 }
 
-/**
- * 複数のリソースを削除するサーバーアクション
- */
 export async function deleteResources(urls: string[]) {
   try {
     await Promise.all(
@@ -159,4 +141,4 @@ export async function deleteResources(urls: string[]) {
     console.error('Error deleting resources:', error);
     throw error;
   }
-} 
+}

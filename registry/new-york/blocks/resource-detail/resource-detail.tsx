@@ -111,27 +111,23 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // サーバーアクションを使用してリソースを取得 (新しいシグネチャに対応)
         const jsonData = await fetchResource(apiUrl, resourceId) as T;
         setData(jsonData)
 
         if (relatedResource) {
           setIsLoadingRelated(true)
           try {
-            // 関連リソースはリスト取得なので、resourceIdは不要
-            // API URLに関連リソースのリストを直接取得できるエンドポイントが必要
             const baseUrl = relatedResource.apiUrl.split('?')[0];
             const queryParams = relatedResource.apiUrl.includes('?') 
               ? relatedResource.apiUrl.split('?')[1] 
               : '';
             
-            // リソースリスト取得のためのAPI呼び出し
             const relatedResponse = await fetch(`${baseUrl}${queryParams ? `?${queryParams}` : ''}`, { 
               next: { revalidate: 60 } 
             });
             
             if (!relatedResponse.ok) {
-              throw new Error(`関連リソースの取得に失敗: ${relatedResponse.status}`);
+              throw new Error(`Failed to fetch related resource: ${relatedResponse.status}`);
             }
             
             const relatedJsonData = await relatedResponse.json() as R[];
@@ -142,11 +138,11 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
             setRelatedData(filteredData)
           } catch (relErr) {
-            console.error('関連リソースの取得エラー:', relErr);
+            console.error('Error fetching related resource:', relErr);
             if (relErr instanceof Error) {
               setRelatedError(relErr);
             } else {
-              setRelatedError(new Error('関連リソースの取得に失敗しました'));
+              setRelatedError(new Error('Failed to fetch related resource'));
             }
           } finally {
             setIsLoadingRelated(false);
@@ -171,7 +167,6 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
       if (!data || !checkDependencies) return
 
       try {
-        // クライアント側で直接依存関係をチェック
         const check = await checkDependencies(data);
         setDependencyCheck(check)
       } catch (error) {
@@ -213,7 +208,6 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     setIsDeleting(true)
     try {
-      // deleteResourceを呼び出し (redirectPathはオプショナル)
       await deleteResource(deleteUrl, onDelete?.path);
 
       if (onDelete) {
@@ -242,7 +236,6 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
     try {
       setIsLoadingRelated(true)
       
-      // 関連リソースのリスト取得はfetchを使用
       const baseUrl = relatedResource.apiUrl.split('?')[0]; 
       const queryParams = relatedResource.apiUrl.includes('?') 
         ? relatedResource.apiUrl.split('?')[1] 
@@ -253,7 +246,7 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
       });
       
       if (!relatedResponse.ok) {
-        throw new Error(`関連リソースの再取得に失敗: ${relatedResponse.status}`);
+        throw new Error(`Failed to refresh related resource: ${relatedResponse.status}`);
       }
       
       const newData = await relatedResponse.json() as R[];
@@ -277,7 +270,6 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
     setIsDeleting(true)
     try {
-      // Promise.allとdeleteResourceを使用して複数のリソースを削除
       await Promise.all(
         resources.map((resource) =>
           deleteResource(relatedResource.deleteUrl(resource.name))
@@ -335,7 +327,6 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
           if (relatedResource.checkDependencies) {
             const hasBlockingDependencies = await Promise.all(
               selectedRows.map(async (resource) => {
-                // クライアント側で直接依存関係をチェック
                 const check = await relatedResource.checkDependencies!(resource);
                 if (check.hasDependencies) {
                   toast.error(t('error'), {

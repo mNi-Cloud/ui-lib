@@ -98,9 +98,7 @@ export function useResourceDeletion<T extends Resource>({
     setError(null);
     setSuccessMessage(null);
     try {
-      // 削除URL配列を生成
       const deleteUrls = selectedResources.map(resource => deleteUrl(getResourceId(resource)));
-      // サーバーアクションを使用して複数リソースを削除
       await deleteResources(deleteUrls);
       
       await mutate();
