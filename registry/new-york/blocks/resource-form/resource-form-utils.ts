@@ -73,6 +73,7 @@ export type CommonFieldDefinition = BaseFieldDefinition & {
  * 複数ステップフォーム用の定義
  */
 export type StepDefinition = {
+  id: string;
   title: string;
   description?: string;
   fields: CommonFieldDefinition[];

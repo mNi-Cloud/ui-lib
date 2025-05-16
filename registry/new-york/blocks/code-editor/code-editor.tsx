@@ -4,10 +4,17 @@ import React, { useRef, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
-import { importLanguagePlugin } from '@/registry/new-york/blocks/language-plugin';
+import { importLanguagePlugin } from '@/registry/new-york/blocks/language-plugin/index';
 
 // サポートされる言語タイプの定義
 export type SupportedLanguage = 'yaml' | 'json' | 'javascript' | 'typescript' | 'html' | 'css' | 'markdown' | 'plaintext';
+
+// 構文エラーの型定義
+export interface SyntaxError {
+  message: string;
+  line: number;
+  column: number;
+}
 
 // 言語名の取得
 export const getLanguageLabel = (language: SupportedLanguage): string => {
@@ -84,6 +91,7 @@ type CodeEditorProps = {
   readOnly?: boolean;
   showValidation?: boolean;
   theme?: 'vs' | 'vs-dark' | 'hc-black' | 'hc-light';
+  onValidationChange?: (hasErrors: boolean) => void;
 };
 
 // 言語サポートを設定する関数
@@ -120,10 +128,12 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   readOnly = false,
   showValidation = true,
   theme: propTheme,
+  onValidationChange,
 }) => {
   const editorRef = useRef<any>(null);
   const monacoRef = useRef<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [hasErrors, setHasErrors] = useState<boolean>(false);
   const { resolvedTheme } = useTheme();
   
   // テーマの決定: プロパティで指定された場合はそれを使用、それ以外はアプリケーションのテーマに従う
@@ -148,6 +158,29 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
 
     // 言語サポートの設定
     await setupLanguageSupport(monaco, language);
+
+    // エラーマーカーの変更を監視
+    monaco.editor.onDidChangeMarkers(([resource]: any[]) => {
+      if (editor.getModel() && editor.getModel().uri.toString() === resource.toString()) {
+        const markers = monaco.editor.getModelMarkers({ resource });
+        const errorMarkers = markers.filter((marker: any) => marker.severity === monaco.MarkerSeverity.Error);
+        
+        // エラーの有無を状態に保存
+        const newHasErrors = errorMarkers.length > 0;
+        setHasErrors(newHasErrors);
+        
+        // エラーがある場合はエラーメッセージを設定
+        if (errorMarkers.length > 0) {
+          const firstError = errorMarkers[0];
+          setError(`${firstError.message} (行 ${firstError.startLineNumber}, 列 ${firstError.startColumn})`);
+        } else {
+          setError(null);
+        }
+
+        // 親コンポーネントにエラー状態を通知
+        onValidationChange?.(newHasErrors);
+      }
+    });
 
     // プレースホルダーテキストの設定
     if (!value && placeholder) {

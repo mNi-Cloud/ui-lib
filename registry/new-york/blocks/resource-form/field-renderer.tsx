@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { useFieldArray } from 'react-hook-form';
+import { useFieldArray, UseFormReturn } from 'react-hook-form';
 import { Input } from '@/registry/new-york/ui/input';
 import { Textarea } from '@/registry/new-york/ui/textarea';
 import {
@@ -24,9 +24,13 @@ import { X } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 import { 
   CommonFieldDefinition, 
-  CommonFieldObjectDefinition 
 } from './resource-form-utils';
 import { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/code-editor';
+
+// フォーム型の拡張
+interface ExtendedFormProps extends UseFormReturn<any, any, any> {
+  _syntaxErrors?: Record<string, boolean>;
+}
 
 // シンプルなバリデータ関数を提供
 const getValidator = (language: SupportedLanguage) => {
@@ -40,7 +44,7 @@ interface ArrayItemRecord {
 
 type FieldRendererProps = {
   field: CommonFieldDefinition;
-  form: any;
+  form: ExtendedFormProps;
   fieldNamePrefix?: string;
   translationNamespace?: string;
   codeEditor?: React.ComponentType<{
@@ -54,6 +58,7 @@ type FieldRendererProps = {
     showValidation?: boolean;
     validator?: (content: string) => { isValid: boolean; error?: string };
     theme?: 'vs' | 'vs-dark' | 'hc-black' | 'hc-light';
+    onValidationChange?: (hasErrors: boolean) => void;
   }>;
 };
 
@@ -217,6 +222,14 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
                 showValidation={field.validation?.codeValidation !== false}
                 validator={validator}
                 theme={field.theme || 'vs-dark'}
+                onValidationChange={(hasErrors) => {
+                  // フォームのコンテキストにエラー状態を保存
+                  if (form._syntaxErrors) {
+                    form._syntaxErrors[fieldName] = hasErrors;
+                  } else {
+                    form._syntaxErrors = { [fieldName]: hasErrors };
+                  }
+                }}
               />
             </FormControl>
             <FormMessage className="text-xs" />
@@ -320,7 +333,7 @@ export const FieldRenderer: React.FC<FieldRendererProps> = ({
 // 配列フィールドのレンダリングを処理する内部コンポーネント
 const ArrayFieldRenderer: React.FC<{
   field: CommonFieldDefinition;
-  form: any;
+  form: ExtendedFormProps;
   fieldName: string;
   t: (key: string, params?: any) => string;
 }> = ({ field, form, fieldName, t }) => {

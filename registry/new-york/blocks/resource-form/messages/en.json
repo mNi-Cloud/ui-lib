@@ -3,8 +3,8 @@
     "resource-form": {
       "created-success": "Resource created successfully",
       "updated-success": "Resource updated successfully",
-      "created-error": "An error occurred while creating the resource",
-      "updated-error": "An error occurred while updating the resource",
+      "created-error": "Error creating resource",
+      "updated-error": "Error updating resource",
       "fetch-error": "Failed to fetch resource",
       "cancel": "Cancel",
       "creating": "Creating...",
@@ -15,15 +15,16 @@
       "next": "Next",
       "step": "Step",
       "need": "{label} is required",
-      "textlesser": "{label} must be {maxLength} characters or less",
-      "number": "Please enter a number",
+      "textlesser": "{label} must be less than {maxLength} characters",
+      "number": "Must be a number",
       "greater": "{label} must be greater than or equal to {min}",
       "lesser": "{label} must be less than or equal to {max}",
       "select": "Select {label}",
       "add": "Add",
       "unit": "Please select a unit",
       "error": "An error occurred",
-      "loading": "Loading resource data..."
+      "loading": "Loading resource data...",
+      "syntax-error-message": "There are syntax errors. Please fix them before submitting."
     }
   }
 } 
