@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "session",
+  "type": "registry:component",
+  "title": "Session",
+  "description": "A session component.",
+  "dependencies": [
+    "next-auth/react",
+    "next-intl"
+  ],
+  "registryDependencies": [
+    "alert-dialog",
+    "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/session-provider.json"
+  ],
+  "files": [
+    {
+      "path": "registry/new-york/blocks/session/session.tsx",
+      "content": "'use client'\n\nimport { useEffect, useState } from 'react'\nimport { useSession, signIn } from 'next-auth/react'\nimport { useRouter } from 'next/navigation'\nimport { useTranslations } from 'next-intl'\nimport {\n  AlertDialog,\n  AlertDialogAction,\n  AlertDialogCancel,\n  AlertDialogContent,\n  AlertDialogDescription,\n  AlertDialogFooter,\n  AlertDialogHeader,\n  AlertDialogTitle,\n} from '@/registry/new-york/ui/alert-dialog'\n\nexport function Session() {\n  const { data: session, status } = useSession()\n  const [isDialogOpen, setIsDialogOpen] = useState(false)\n  const router = useRouter()\n  const t = useTranslations('components.session')\n\n  useEffect(() => {\n    if (status === 'unauthenticated') {\n      setIsDialogOpen(true)\n    } else if (session && 'error' in session && session.error === 'RefreshAccessTokenError') {\n      setIsDialogOpen(true)\n    }\n  }, [status, session])\n\n  const handleLogin = () => {\n    setIsDialogOpen(false)\n    signIn('keycloak')\n  }\n\n  const handleHome = () => {\n    setIsDialogOpen(false)\n    router.push('/')\n  }\n\n  return (\n    <AlertDialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>\n      <AlertDialogContent>\n        <AlertDialogHeader>\n          <AlertDialogTitle>{t('title')}</AlertDialogTitle>\n          <AlertDialogDescription>\n            {t('description')}\n          </AlertDialogDescription>\n        </AlertDialogHeader>\n        <AlertDialogFooter>\n          <AlertDialogCancel onClick={handleHome}>\n            {t('home')}\n          </AlertDialogCancel>\n          <AlertDialogAction onClick={handleLogin}>\n            {t('login')}\n          </AlertDialogAction>\n        </AlertDialogFooter>\n      </AlertDialogContent>\n    </AlertDialog>\n  )\n}",
+      "type": "registry:component"
+    },
+    {
+      "path": "registry/new-york/blocks/session/messages/en.json",
+      "content": "{\n  \"components\": {\n    \"session\": {\n      \"title\": \"Session Required\",\n      \"description\": \"You need to be logged in to access this page.\",\n      \"home\": \"Go to Home\",\n      \"login\": \"Login\"\n    }\n  }\n} ",
+      "type": "registry:file",
+      "target": "messages/components/session/en.json"
+    },
+    {
+      "path": "registry/new-york/blocks/session/messages/ja.json",
+      "content": "{\n  \"components\": {\n    \"session\": {\n      \"title\": \"セッションが必要です\",\n      \"description\": \"このページへアクセスするには、ログインが必要です。\",\n      \"home\": \"ホームへ戻る\",\n      \"login\": \"ログイン\"\n    }\n  }\n} ",
+      "type": "registry:file",
+      "target": "messages/components/session/ja.json"
+    }
+  ]
+}
