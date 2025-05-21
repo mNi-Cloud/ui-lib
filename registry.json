@@ -265,6 +265,33 @@
       ]
     },
     {
+      "name": "session",
+      "type": "registry:component",
+      "title": "Session",
+      "description": "A session component.",
+      "dependencies": ["next-auth/react", "next-intl"],
+      "registryDependencies": [
+        "alert-dialog",
+        "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/session-provider.json"
+      ],
+      "files": [
+        {
+          "path": "registry/new-york/blocks/session/session.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/new-york/blocks/session/messages/en.json",
+          "type": "registry:file",
+          "target": "messages/components/session/en.json"
+        },
+        {
+          "path": "registry/new-york/blocks/session/messages/ja.json",
+          "type": "registry:file",
+          "target": "messages/components/session/ja.json"
+        }
+      ]
+    },
+    {
       "name": "delete-confirmation",
       "type": "registry:component",
       "title": "Delete Confirmation",

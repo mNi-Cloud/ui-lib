@@ -19,7 +19,7 @@ export function Session() {
   const { data: session, status } = useSession()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const router = useRouter()
-  const t = useTranslations('component.session')
+  const t = useTranslations('components.session')
 
   useEffect(() => {
     if (status === 'unauthenticated') {

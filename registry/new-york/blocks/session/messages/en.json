@@ -1,0 +1,10 @@
+{
+  "components": {
+    "session": {
+      "title": "Session Required",
+      "description": "You need to be logged in to access this page.",
+      "home": "Go to Home",
+      "login": "Login"
+    }
+  }
+} 
