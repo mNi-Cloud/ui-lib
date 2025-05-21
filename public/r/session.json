@@ -5,7 +5,7 @@
   "title": "Session",
   "description": "A session component.",
   "dependencies": [
-    "next-auth/react",
+    "next-auth",
     "next-intl"
   ],
   "registryDependencies": [
