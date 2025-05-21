@@ -269,7 +269,7 @@
       "type": "registry:component",
       "title": "Session",
       "description": "A session component.",
-      "dependencies": ["next-auth/react", "next-intl"],
+      "dependencies": ["next-auth", "next-intl"],
       "registryDependencies": [
         "alert-dialog",
         "https://raw.github.com/mNi-Cloud/ui-lib/main/public/r/session-provider.json"
