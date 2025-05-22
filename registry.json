@@ -548,6 +548,11 @@
           "target": "next.config.ts"
         },
         {
+          "path": "registry/new-york/blocks/template/Dockerfile",
+          "type": "registry:file",
+          "target": "Dockerfile"
+        },
+        {
           "path": "registry/new-york/blocks/template/app/service/layout.tsx",
           "type": "registry:file",
           "target": "app/service/layout.tsx"
