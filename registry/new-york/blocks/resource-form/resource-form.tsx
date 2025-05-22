@@ -13,17 +13,21 @@ import { Form } from '@/registry/new-york/ui/form';
 import { Progress } from '@/registry/new-york/ui/progress';
 import { Alert, AlertDescription } from '@/registry/new-york/ui/alert';
 import { AlertCircle } from 'lucide-react';
-import { CommonFieldDefinition, StepDefinition } from './resource-form-utils';
+import { CommonFieldDefinition, StepDefinition, FormValues } from './resource-form-utils';
 import { generateSchema, generateDefaultValues } from './schema-generator';
 import FieldRenderer from './field-renderer';
 import CodeEditor from '@/registry/new-york/blocks/code-editor/code-editor';
 import { createResource, updateResource, fetchResource } from '@/registry/new-york/blocks/actions/resource-actions';
 
 const getValidator = () => {
-  return (content: string) => ({ isValid: true });
+  return () => ({ 
+    isValid: true,
+    error: undefined,
+    markers: [] as Array<{ message: string; line: number; column: number }>
+  });
 };
 
-interface ExtendedFormProps extends UseFormReturn<any, any, any> {
+interface ExtendedFormProps extends UseFormReturn<FormValues, unknown, FormValues> {
   _syntaxErrors?: Record<string, boolean>;
 }
 
@@ -35,8 +39,8 @@ export type ResourceFormProps = {
   redirectPath: string;
   successMessage?: string;
   errorMessage?: string;
-  formatFormData?: (data: any) => any;
-  defaultValues?: Record<string, any>;
+  formatFormData?: (data: FormValues) => Record<string, unknown>;
+  defaultValues?: Record<string, unknown>;
   resourceId?: string;
   isEditMode?: boolean;
 };
@@ -49,8 +53,8 @@ export type MultiStepResourceFormProps = {
   redirectPath: string;
   successMessage?: string;
   errorMessage?: string;
-  formatFormData?: (data: any) => any;
-  defaultValues?: Record<string, any>;
+  formatFormData?: (data: FormValues) => Record<string, unknown>;
+  defaultValues?: Record<string, unknown>;
   resourceId?: string;
   isEditMode?: boolean;
 };
@@ -85,15 +89,8 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
 
   const checkSyntaxErrors = (): boolean => {
     if (form._syntaxErrors) {
-      const hasErrors = Object.entries(form._syntaxErrors).some(([fieldName, hasError]) => hasError === true);
+      const hasErrors = Object.entries(form._syntaxErrors).some(([, hasError]) => hasError === true);
       if (hasErrors) {
-        const errorFields = Object.entries(form._syntaxErrors)
-          .filter(([_, hasError]) => hasError === true)
-          .map(([fieldName, _]) => {
-            const field = safeFields.find(f => f.name === fieldName);
-            return field ? field.label : fieldName;
-          });
-        
         setSyntaxError(t('syntax-error-message'));
         return true;
       }
@@ -110,15 +107,18 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
           const data = await fetchResource(apiEndpoint, resourceId);
           if (data) {
             Object.entries(data).forEach(([key, value]) => {
-              if (typeof value === 'object' && value !== null) {
-                form.setValue(key, value);
-              } else {
-                form.setValue(key, value);
+              try {
+                form.setValue(key, value, {
+                  shouldValidate: false,
+                  shouldDirty: false
+                });
+              } catch (error) {
+                console.warn(`Failed to set form value for key: ${key}`, error);
               }
             });
           }
-        } catch (error) {
-          console.error('Failed to fetch resource:', error);
+        } catch (err) {
+          console.error('Failed to fetch resource:', err);
           setError(t('fetch-error'));
         }
       };
@@ -136,7 +136,7 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
       setLoading(true);
       setError(null);
 
-      const formattedData = formatFormData ? formatFormData(data) : data;
+      const formattedData = formatFormData ? formatFormData(data as FormValues) : data;
 
       let result;
       if (isEditMode && resourceId) {
@@ -202,6 +202,15 @@ export const ResourceForm: React.FC<ResourceFormProps> = ({
                 </Alert>
               )}
               
+              {error && (
+                <Alert variant="destructive" className="mt-4">
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    {error}
+                  </AlertDescription>
+                </Alert>
+              )}
+              
               <div className="flex justify-end gap-2">
                 <Button
                   type="button"
@@ -248,7 +257,7 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
   const router = useRouter();
   const t = useTranslations('components.resource-form');
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  const [allStepsData, setAllStepsData] = useState<Record<string, any>>({});
+  const [allStepsData, setAllStepsData] = useState<Record<string, unknown>>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [syntaxError, setSyntaxError] = useState<string | null>(null);
@@ -269,15 +278,8 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
 
   const checkSyntaxErrors = (): boolean => {
     if (form._syntaxErrors) {
-      const hasErrors = Object.entries(form._syntaxErrors).some(([fieldName, hasError]) => hasError === true);
+      const hasErrors = Object.entries(form._syntaxErrors).some(([, hasError]) => hasError === true);
       if (hasErrors) {
-        const errorFields = Object.entries(form._syntaxErrors)
-          .filter(([_, hasError]) => hasError === true)
-          .map(([fieldName, _]) => {
-            const field = safeFields.find(f => f.name === fieldName);
-            return field ? field.label : fieldName;
-          });
-        
         setSyntaxError(t('syntax-error-message'));
         return true;
       }
@@ -295,7 +297,14 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
           if (data) {
             setAllStepsData(data);
             Object.entries(data).forEach(([key, value]) => {
-              form.setValue(key, value);
+              try {
+                form.setValue(key, value, {
+                  shouldValidate: false,
+                  shouldDirty: false
+                });
+              } catch (error) {
+                console.warn(`Failed to set form value for key: ${key}`, error);
+              }
             });
           }
         } catch (error) {
@@ -339,7 +348,7 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
     }
   };
 
-  const handleSubmit = async (data: Record<string, any>) => {
+  const handleSubmit = async (data: Record<string, unknown>) => {
     if (checkSyntaxErrors()) {
       return;
     }
@@ -348,7 +357,7 @@ export const MultiStepResourceForm: React.FC<MultiStepResourceFormProps> = ({
       setLoading(true);
       setError(null);
 
-      const formattedData = formatFormData ? formatFormData(data) : data;
+      const formattedData = formatFormData ? formatFormData(data as FormValues) : data;
 
       let result;
       if (isEditMode && resourceId) {

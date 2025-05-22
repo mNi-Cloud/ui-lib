@@ -169,8 +169,8 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
       try {
         const check = await checkDependencies(data);
         setDependencyCheck(check)
-      } catch (error) {
-        console.error('Error checking dependencies:', error)
+      } catch {
+        console.error('Error checking dependencies:')
         toast.error(t('error'), {
           description: t('dependencyerror'),
           duration: 5000,
@@ -179,13 +179,7 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
     }
 
     checkResourceDependencies()
-  }, [data, checkDependencies])
-
-  const handleEdit = editPath ? () => {
-    if (data?.name) {
-      router.push(editPath)
-    }
-  } : undefined
+  }, [data, checkDependencies, t])
 
   const handleDeleteClick = async () => {
     if (!data || !deleteUrl) return
@@ -219,7 +213,7 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
         description: t('deleted1', { resourceType }),
         duration: 3000,
       })
-    } catch (error) {
+    } catch {
       toast.error(t('error'), {
         description: t('deletefailed1', { resourceType }),
         duration: 5000,
@@ -257,9 +251,9 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
 
       setRelatedData(filteredData)
       return filteredData
-    } catch (err) {
-      setRelatedError(err instanceof Error ? err : new Error("Failed to refresh"))
-      throw err
+    } catch (error) {
+      setRelatedError(error instanceof Error ? error : new Error("Failed to refresh"))
+      throw error
     } finally {
       setIsLoadingRelated(false)
     }
@@ -358,12 +352,18 @@ export function ResourceDetail<T extends { name: string }, R extends { name: str
     return !!dependencyCheck?.hasDependencies
   }
 
-  const defaultActions: Action<T>[] = useMemo(() => [
-    ...(editPath ? [{
+  const defaultActions: Action<T>[] = useMemo(() => {
+    const editAction = editPath ? [{
       label: t('edit'),
-      handler: handleEdit!
-    }] : []),
-  ], [editPath, handleEdit])
+      handler: () => {
+        if (data?.name) {
+          router.push(editPath)
+        }
+      }
+    }] : [];
+    
+    return [...editAction];
+  }, [editPath, router, t, data])
 
   const actions = disableDefaultActions ? customActions : [...defaultActions, ...customActions]
 

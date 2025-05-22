@@ -1,19 +1,19 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { ResourceView } from '@/registry/new-york/blocks/resource-view/resource-view'
 import useSWR from 'swr'
 import { DeleteConfirmationDialog } from '@/registry/new-york/blocks/delete-confirmation/delete-confirmation'
 import { 
   useResourceDeletion, 
   getDefaultResourceIdentifier, 
-  getResourceDisplayName,
   ResourceIdentifierConfig 
 } from '@/registry/new-york/blocks/resource-delete/resource-delete'
 import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { fetchResources } from '@/registry/new-york/blocks/actions/resource-actions'
+import { ColumnDef } from '@tanstack/react-table'
 
 interface Action<T> {
   label: string
@@ -28,7 +28,7 @@ interface DependencyCheck {
 
 interface ResourceDashboardProps<T> {
   resourceType: string
-  columns: any[]
+  columns: ColumnDef<T>[]
   apiUrl: string
   deleteUrl: (id: string) => string
   createPath?: string
@@ -43,7 +43,7 @@ interface ResourceDashboardProps<T> {
 // サーバーアクションを使用するためのfetcher
 const fetcher = (url: string) => fetchResources(url)
 
-export default function ResourceDashboard<T extends Record<string, any>>({
+export default function ResourceDashboard<T extends Record<string, unknown>>({
   resourceType,
   columns,
   apiUrl,
@@ -77,15 +77,15 @@ export default function ResourceDashboard<T extends Record<string, any>>({
               const check = await checkDependencies(resource)
               const resourceKey = getResourceId(resource)
               return [resourceKey, check] as const
-            } catch (error) {
-              console.error(`Error checking dependencies for resource:`, error)
+            } catch {
+              console.error(`Error checking dependencies for resource:`)
               return [getResourceId(resource), { hasDependencies: false }] as const
             }
           })
         )
 
         setDependencyChecks(Object.fromEntries(checks))
-      } catch (error) {
+      } catch {
         toast.error(t('error'), {
           description: t('dependencyerror'),
           duration: 5000,
@@ -94,7 +94,7 @@ export default function ResourceDashboard<T extends Record<string, any>>({
     }
 
     checkAllDependencies()
-  }, [data, checkDependencies, getResourceId])
+  }, [data, checkDependencies, getResourceId, t])
 
   const {
     selectedResources,
@@ -104,7 +104,7 @@ export default function ResourceDashboard<T extends Record<string, any>>({
     openDeleteDialog,
     handleDelete,
     closeDeleteDialog,
-    getResourceDisplayName: getDisplayName
+    getResourceDisplayName
   } = useResourceDeletion<T>({
     resourceType,
     mutate,
@@ -120,7 +120,7 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         duration: 3000,
       })
     }
-  }, [successMessage])
+  }, [successMessage, t])
 
   useEffect(() => {
     if (fetchError) {
@@ -130,7 +130,7 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         duration: 5000,
       })
     }
-  }, [fetchError])
+  }, [fetchError, t])
 
   useEffect(() => {
     if (deleteError) {
@@ -139,12 +139,12 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         duration: 5000,
       })
     }
-  }, [deleteError])
+  }, [deleteError, t])
 
   const handleCreate = createPath ? () => router.push(createPath) : undefined
 
-  const handleEdit = editPath ? (selectedRows: T[]) => {
-    if (selectedRows.length === 1) {
+  const editFunction = useCallback((selectedRows: T[]) => {
+    if (selectedRows.length === 1 && editPath) {
       const resourceId = getResourceId(selectedRows[0])
       router.push(editPath(resourceId))
     } else {
@@ -153,16 +153,18 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         duration: 3000,
       })
     }
-  } : undefined
+  }, [editPath, getResourceId, router, t]);
 
-  const isDeleteDisabled = (selectedRows: T[]) => {
+  const handleEdit = editPath ? editFunction : undefined;
+
+  const isDeleteDisabled = useCallback((selectedRows: T[]) => {
     return selectedRows.some(resource => {
       const resourceKey = getResourceId(resource)
       return dependencyChecks[resourceKey]?.hasDependencies
     })
-  }
+  }, [dependencyChecks, getResourceId])
 
-  const handleDeleteWithCheck = (selectedRows: T[]) => {
+  const handleDeleteWithCheck = useCallback((selectedRows: T[]) => {
     const hasBlockingDependencies = isDeleteDisabled(selectedRows)
     if (hasBlockingDependencies) {
       const messages = selectedRows
@@ -178,7 +180,7 @@ export default function ResourceDashboard<T extends Record<string, any>>({
       return
     }
     openDeleteDialog(selectedRows)
-  }
+  }, [dependencyChecks, getResourceId, isDeleteDisabled, openDeleteDialog, t])
 
   const defaultActions: Action<T>[] = useMemo(() => [
     ...(handleEdit ? [{ label: t('edit'), handler: handleEdit }] : []),
@@ -187,7 +189,7 @@ export default function ResourceDashboard<T extends Record<string, any>>({
       handler: handleDeleteWithCheck,
       isDisabled: isDeleteDisabled
     },
-  ], [handleEdit, handleDeleteWithCheck, isDeleteDisabled])
+  ], [handleEdit, handleDeleteWithCheck, isDeleteDisabled, t])
 
   const actions = disableDefaultActions ? customActions : [...defaultActions, ...customActions]
 
@@ -203,13 +205,13 @@ export default function ResourceDashboard<T extends Record<string, any>>({
         onCreate={handleCreate}
         actions={actions}
         isLoading={isLoading}
-        error={fetchError}
+        error={undefined}
       />
       <DeleteConfirmationDialog
         isOpen={isDeleteDialogOpen}
         onClose={closeDeleteDialog}
         onConfirm={handleDelete}
-        resourceNames={selectedResources.map(resource => getDisplayName(resource))}
+        resourceNames={selectedResources.map(resource => getResourceDisplayName(resource))}
       />
     </>
   )

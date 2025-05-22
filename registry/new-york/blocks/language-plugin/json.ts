@@ -1,4 +1,12 @@
 import type { LanguagePlugin } from './index';
+import type { Monaco } from '@monaco-editor/react';
+import type * as monaco from 'monaco-editor';
+
+declare global {
+  interface Window {
+    monaco: typeof monaco;
+  }
+}
 
 const JsonPlugin: LanguagePlugin = {
   language: 'json',
@@ -11,7 +19,7 @@ const JsonPlugin: LanguagePlugin = {
       console.error('Error loading JSON language support:', error);
     }
   },
-  configure: (monaco) => {
+  configure: (monaco: Monaco) => {
     if (monaco.languages.json) {
       try {
         monaco.languages.json.jsonDefaults.setDiagnosticsOptions({

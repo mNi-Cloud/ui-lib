@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic';
 import { Loader2 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { importLanguagePlugin } from '@/registry/new-york/blocks/language-plugin/index';
+import type { Monaco as MonacoType, OnMount } from '@monaco-editor/react';
+import type { editor } from 'monaco-editor';
 
 export type SupportedLanguage = 'yaml' | 'json' | 'javascript' | 'typescript' | 'html' | 'css' | 'markdown' | 'plaintext';
 
@@ -29,33 +31,44 @@ export const getLanguageLabel = (language: SupportedLanguage): string => {
   return labels[language] || language;
 };
 
-declare global {
-  interface Window {
-    monaco?: any;
-  }
+interface MonacoEditorType extends editor.IStandaloneCodeEditor {
+  getValue(): string;
+  getModel(): editor.ITextModel | null;
+}
+
+interface MarkerData {
+  message: string;
+  severity: number;
+  startLineNumber: number;
+  startColumn: number;
+}
+
+interface MonacoEnvType {
+  getWorkerUrl?: (moduleId: string, label: string) => string;
 }
 
 if (typeof window !== 'undefined') {
-  const env = window.MonacoEnvironment || {};
-  window.MonacoEnvironment = env;
-  
+  const win = window as unknown as { MonacoEnvironment?: MonacoEnvType };
+  const env = win.MonacoEnvironment || {};
   const originalGetWorkerUrl = env.getWorkerUrl;
   
-  env.getWorkerUrl = (moduleId: string, label: string): string => {
-    if (originalGetWorkerUrl) {
-      const url = originalGetWorkerUrl(moduleId, label);
-      if (url) return url;
+  win.MonacoEnvironment = {
+    getWorkerUrl: (moduleId: string, label: string): string => {
+      if (originalGetWorkerUrl) {
+        const url = originalGetWorkerUrl(moduleId, label);
+        if (url) return url;
+      }
+      
+      if (label === 'json') {
+        return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/json/json.worker.js';
+      } else if (label === 'typescript' || label === 'javascript') {
+        return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/typescript/ts.worker.js';
+      } else if (label === 'html' || label === 'css') {
+        return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/html/html.worker.js';
+      }
+      
+      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/editor/editor.worker.js';
     }
-    
-    if (label === 'json') {
-      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/json/json.worker.js';
-    } else if (label === 'typescript' || label === 'javascript') {
-      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/typescript/ts.worker.js';
-    } else if (label === 'html' || label === 'css') {
-      return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/language/html/html.worker.js';
-    }
-    
-    return 'https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/editor/editor.worker.js';
   };
 }
 
@@ -81,7 +94,7 @@ type CodeEditorProps = {
   onValidationChange?: (hasErrors: boolean) => void;
 };
 
-const setupLanguageSupport = async (monaco: any, language: SupportedLanguage) => {
+const setupLanguageSupport = async (monaco: MonacoType, language: SupportedLanguage): Promise<void> => {
   if (!monaco) return;
 
   try {
@@ -113,10 +126,9 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   theme: propTheme,
   onValidationChange,
 }) => {
-  const editorRef = useRef<any>(null);
-  const monacoRef = useRef<any>(null);
+  const editorRef = useRef<MonacoEditorType | null>(null);
+  const monacoRef = useRef<MonacoType | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [hasErrors, setHasErrors] = useState<boolean>(false);
   const { resolvedTheme } = useTheme();
   
   const theme = propTheme || (resolvedTheme === 'dark' ? 'vs-dark' : 'vs');
@@ -128,22 +140,32 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
     }
   }, [resolvedTheme, propTheme]);
   
-  const handleEditorDidMount = async (editor: any, monaco: any) => {
-    editorRef.current = editor;
+  const handleEditorDidMount: OnMount = (editor, monaco) => {
+    editorRef.current = editor as unknown as MonacoEditorType;
     monacoRef.current = monaco;
 
     const currentTheme = resolvedTheme === 'dark' ? 'vs-dark' : 'vs';
     monaco.editor.setTheme(currentTheme);
 
-    await setupLanguageSupport(monaco, language);
+    if (monaco) {
+      setupLanguageSupport(monaco, language).catch(err => {
+        console.error('Error setting up language support:', err);
+      });
+    }
 
-    monaco.editor.onDidChangeMarkers(([resource]: any[]) => {
-      if (editor.getModel() && editor.getModel().uri.toString() === resource.toString()) {
-        const markers = monaco.editor.getModelMarkers({ resource });
-        const errorMarkers = markers.filter((marker: any) => marker.severity === monaco.MarkerSeverity.Error);
+    monaco.editor.onDidChangeMarkers((resources) => {
+      if (!resources || resources.length === 0 || !editor.getModel()) return;
+      
+      const resource = resources[0];
+      const model = editor.getModel();
+      
+      if (model && model.uri.toString() === resource.toString()) {
+        const markers = monaco.editor.getModelMarkers({ resource }) as MarkerData[];
+        const errorMarkers = markers.filter(marker => 
+          marker.severity === monaco.MarkerSeverity.Error
+        );
         
         const newHasErrors = errorMarkers.length > 0;
-        setHasErrors(newHasErrors);
         
         if (errorMarkers.length > 0) {
           const firstError = errorMarkers[0];
@@ -152,20 +174,29 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
           setError(null);
         }
 
-        onValidationChange?.(newHasErrors);
+        if (onValidationChange) {
+          onValidationChange(newHasErrors);
+        }
       }
     });
 
     if (!value && placeholder) {
-      editor.getModel()?.setValue(placeholder);
+      const model = editor.getModel();
+      if (!model) return;
+      
+      model.setValue(placeholder);
+      
       editor.onDidFocusEditorText(() => {
-        if (editor.getValue() === placeholder) {
-          editor.getModel()?.setValue('');
+        const currentModel = editor.getModel();
+        if (editor.getValue() === placeholder && currentModel) {
+          currentModel.setValue('');
         }
       });
+      
       editor.onDidBlurEditorText(() => {
-        if (editor.getValue() === '') {
-          editor.getModel()?.setValue(placeholder);
+        const currentModel = editor.getModel();
+        if (editor.getValue() === '' && currentModel) {
+          currentModel.setValue(placeholder);
         }
       });
     }

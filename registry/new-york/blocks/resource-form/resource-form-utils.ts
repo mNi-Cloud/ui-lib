@@ -2,10 +2,8 @@
 
 import { z } from 'zod';
 import { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/code-editor';
+import { UseFormReturn } from 'react-hook-form';
 
-/**
- * 共通の型定義
- */
 export type SelectOption = {
   value: string;
   label: string;
@@ -29,6 +27,8 @@ export type BaseFieldValidation = {
   codeValidation?: boolean;
 };
 
+export type FormValues = Record<string, unknown>;
+
 export type BaseFieldDefinition = {
   name: string;
   label: string;
@@ -36,15 +36,12 @@ export type BaseFieldDefinition = {
   description?: string;
   validation?: BaseFieldValidation;
   disabled?: boolean;
-  onChange?: (value: any) => void;
+  onChange?: (value: string | number | readonly string[] | boolean) => void;
   defaultValue?: string | number;
   readOnly?: boolean;
   readOnlyMessage?: string;
 };
 
-/**
- * すべてのフィールドタイプの共通定義
- */
 export type CommonFieldType = 
   'text' | 'number' | 'email' | 'password' | 'select' | 
   'array' | 'unit-input' | 'textarea' | 'yaml' | 'custom' | 'code';
@@ -52,26 +49,27 @@ export type CommonFieldType =
 export type CommonFieldObjectDefinition = Omit<BaseFieldDefinition, 'onChange'> & {
   type: 'text' | 'number' | 'email' | 'password' | 'select';
   options?: SelectOption[];
-  onChange?: (value: any) => void;
+  onChange?: (value: string | number | readonly string[]) => void;
+};
+
+export type RenderFunctionProps = { 
+  values: FormValues; 
+  form: UseFormReturn<FormValues, unknown, FormValues>
 };
 
 export type CommonFieldDefinition = BaseFieldDefinition & {
   type: CommonFieldType;
-  // 各タイプに必要な追加プロパティ
-  options?: SelectOption[];         // select用
-  units?: UnitOption[];             // unit-input用
-  defaultUnit?: string;             // unit-input用
-  itemType?: 'text' | 'object';     // array+object用
-  fields?: CommonFieldObjectDefinition[]; // array+object用
-  render?: (props: { values: any; form: any }) => React.ReactNode; // custom用
-  language?: SupportedLanguage;     // code用
-  height?: string;                  // code用
-  theme?: 'vs' | 'vs-dark' | 'hc-black' | 'hc-light'; // code用
+  options?: SelectOption[];
+  units?: UnitOption[];
+  defaultUnit?: string;
+  itemType?: 'text' | 'object';
+  fields?: CommonFieldObjectDefinition[]; 
+  render?: (props: RenderFunctionProps) => React.ReactNode; 
+  language?: SupportedLanguage;     
+  height?: string;                  
+  theme?: 'vs' | 'vs-dark' | 'hc-black' | 'hc-light';
 };
 
-/**
- * 複数ステップフォーム用の定義
- */
 export type StepDefinition = {
   id: string;
   title: string;
@@ -79,9 +77,6 @@ export type StepDefinition = {
   fields: CommonFieldDefinition[];
 };
 
-/**
- * 共通のスキーマ生成関数
- */
 export const generateFieldSchema = (
   field: {
     name: string;
@@ -89,44 +84,60 @@ export const generateFieldSchema = (
     type?: string;
     validation?: BaseFieldValidation;
   },
-  t: (key: string, params?: Record<string, any>) => string
+  t: (key: string, params?: Record<string, string | number | Date>) => string
 ) => {
-  let fieldSchema = z.string();
-
-  if (field.validation) {
-    if (field.validation.required) {
-      fieldSchema = fieldSchema.min(1, t('need', { label: field.label }));
-    }
-
-    if (field.validation.maxLength) {
-      fieldSchema = fieldSchema.max(
-        field.validation.maxLength,
-        t('textlesser', { label: field.label, maxLength: field.validation.maxLength })
-      );
-    }
-
-    if (field.validation.pattern) {
-      const regex = new RegExp(
-        field.validation.pattern.value,
-        field.validation.pattern.flags
-      );
-      fieldSchema = fieldSchema.regex(regex, field.validation.pattern.message);
-    }
+  const baseSchema = z.string();
+  
+  if (!field.validation) {
+    return baseSchema;
   }
-
-  return fieldSchema;
+  
+  const withValidation = applyValidationRules(baseSchema, field, t);
+  
+  return withValidation;
 };
 
-/**
- * 数値フィールド用の検証
- */
+function applyValidationRules(
+  schema: z.ZodString,
+  field: {
+    name: string;
+    label: string;
+    type?: string;
+    validation?: BaseFieldValidation;
+  },
+  t: (key: string, params?: Record<string, string | number | Date>) => string
+): z.ZodString {
+  let result = schema;
+  
+  if (field.validation?.required) {
+    result = result.min(1, t('need', { label: field.label }));
+  }
+  
+  if (field.validation?.maxLength) {
+    result = result.max(
+      field.validation.maxLength,
+      t('textlesser', { label: field.label, maxLength: field.validation.maxLength })
+    );
+  }
+  
+  if (field.validation?.pattern) {
+    const regex = new RegExp(
+      field.validation.pattern.value,
+      field.validation.pattern.flags
+    );
+    result = result.regex(regex, field.validation.pattern.message);
+  }
+  
+  return result;
+}
+
 export const addNumberValidation = (
   fieldSchema: z.ZodString,
   field: {
     label: string;
     validation?: BaseFieldValidation;
   },
-  t: (key: string, params?: Record<string, any>) => string
+  t: (key: string, params?: Record<string, string | number | Date>) => string
 ) => {
   return fieldSchema.superRefine((val, ctx) => {
     if (val === '') return;
@@ -156,15 +167,20 @@ export const addNumberValidation = (
   });
 };
 
-/**
- * ZODスキーマをフィールドタイプに基づいて生成
- */
+export interface ValidationResult {
+  isValid: boolean;
+  error?: string;
+  markers?: Array<{ message: string; line: number; column: number }>;
+}
+
+export type ValidatorFunction = (content: string) => ValidationResult;
+
 export const generateFieldSchemaByType = (
   field: CommonFieldDefinition,
-  t: (key: string, params?: Record<string, any>) => string,
-  getValidatorFn?: (language: SupportedLanguage) => (content: string) => { isValid: boolean; error?: string; markers?: any[] }
+  t: (key: string, params?: Record<string, string | number | Date>) => string,
+  getValidatorFn?: (language: SupportedLanguage) => ValidatorFunction
 ) => {
-  let fieldSchema = generateFieldSchema(field, t);
+  const fieldSchema = generateFieldSchema(field, t);
 
   if (field.type === 'number') {
     return addNumberValidation(fieldSchema, field, t);
@@ -190,32 +206,27 @@ export const generateFieldSchemaByType = (
   return fieldSchema;
 };
 
-/**
- * ネストしたオブジェクトのスキーマを処理する関数
- */
-export const processNestedSchema = (obj: any): any => {
-  const processed: { [key: string]: any } = {};
+export const processNestedSchema = (obj: Record<string, unknown>): Record<string, z.ZodTypeAny> => {
+  const processed: Record<string, z.ZodTypeAny> = {};
 
   for (const [key, value] of Object.entries(obj)) {
     if (value instanceof z.ZodType) {
       processed[key] = value;
-    } else if (typeof value === 'object') {
-      processed[key] = z.object(processNestedSchema(value));
+    } else if (typeof value === 'object' && value !== null) {
+      const nestedSchema = processNestedSchema(value as Record<string, unknown>);
+      processed[key] = z.object(nestedSchema);
     }
   }
 
   return processed;
 };
 
-/**
- * ネストしたフィールドのパスを処理する関数
- */
 export const handleNestedField = (
-  obj: Record<string, any>,
+  obj: Record<string, unknown>,
   paths: string[],
   schema: z.ZodType,
   fieldType?: string,
-  fieldConfig?: any
+  fieldConfig?: Record<string, unknown>
 ) => {
   const [first, ...rest] = paths;
   if (!first) return;
@@ -224,7 +235,7 @@ export const handleNestedField = (
     if (fieldType === 'array') {
       if (fieldConfig?.itemType === 'object' && fieldConfig?.fields) {
         const objectSchema: Record<string, z.ZodType> = {};
-        fieldConfig.fields.forEach((subField: any) => {
+        (fieldConfig.fields as Array<{name: string}>).forEach((subField) => {
           objectSchema[subField.name] = z.string();
         });
         obj[first] = z.array(z.object(objectSchema));
@@ -236,14 +247,11 @@ export const handleNestedField = (
     }
   } else {
     obj[first] = obj[first] || {};
-    handleNestedField(obj[first] as Record<string, any>, rest, schema, fieldType, fieldConfig);
+    handleNestedField(obj[first] as Record<string, unknown>, rest, schema, fieldType, fieldConfig);
   }
 };
 
-/**
- * ネストした値を設定するヘルパー関数
- */
-export const setNestedValue = (obj: Record<string, any>, path: string[], value: any) => {
+export const setNestedValue = (obj: Record<string, unknown>, path: string[], value: unknown): Record<string, unknown> => {
   if (path.length === 0) return obj;
 
   let current = obj;
@@ -252,8 +260,10 @@ export const setNestedValue = (obj: Record<string, any>, path: string[], value: 
   for (let i = 0; i < lastIndex; i++) {
     const key = path[i];
     if (key) {
-      current[key] = current[key] || {};
-      current = current[key];
+      if (!current[key] || typeof current[key] !== 'object' || current[key] === null) {
+        current[key] = {};
+      }
+      current = current[key] as Record<string, unknown>;
     }
   }
 

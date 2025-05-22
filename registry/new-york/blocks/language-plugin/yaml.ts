@@ -1,5 +1,15 @@
 import type { LanguagePlugin } from './index';
 import * as yaml from 'yaml';
+import type { Monaco } from '@monaco-editor/react';
+import type { editor } from 'monaco-editor';
+
+interface YamlError extends Error {
+  linePos?: {
+    start?: { line: number; col: number };
+    end?: { line: number; col: number };
+  };
+  message: string;
+}
 
 const YamlPlugin: LanguagePlugin = {
   language: 'yaml',
@@ -8,28 +18,29 @@ const YamlPlugin: LanguagePlugin = {
     return Promise.resolve();
   },
   
-  configure: (monaco: any) => {
+  configure: (monaco: Monaco) => {
     try {
       const yamlDiagnosticsOwner = 'yaml-validator';
       
-      const validateYaml = (code: string, model: any) => {
+      const validateYaml = (code: string, model: editor.ITextModel) => {
         monaco.editor.setModelMarkers(model, yamlDiagnosticsOwner, []);
         
         if (!code.trim()) return;
         
         try {
           yaml.parse(code);
-        } catch (error: any) {
-          if (error.linePos && error.linePos.start) {
-            const { line, col } = error.linePos.start;
+        } catch (error) {
+          const yamlError = error as YamlError;
+          if (yamlError.linePos?.start) {
+            const { line, col } = yamlError.linePos.start;
             const startLineNumber = line;
             const startColumn = col;
-            const endLineNumber = error.linePos.end?.line || startLineNumber;
-            const endColumn = error.linePos.end?.col || (startColumn + 1);
+            const endLineNumber = yamlError.linePos.end?.line || startLineNumber;
+            const endColumn = yamlError.linePos.end?.col || (startColumn + 1);
             
             monaco.editor.setModelMarkers(model, yamlDiagnosticsOwner, [{
               severity: monaco.MarkerSeverity.Error,
-              message: error.message || 'YAML syntax error',
+              message: yamlError.message || 'YAML syntax error',
               startLineNumber,
               startColumn,
               endLineNumber,
@@ -38,7 +49,7 @@ const YamlPlugin: LanguagePlugin = {
           } else {
             monaco.editor.setModelMarkers(model, yamlDiagnosticsOwner, [{
               severity: monaco.MarkerSeverity.Error,
-              message: error.message || 'YAML syntax error',
+              message: yamlError.message || 'YAML syntax error',
               startLineNumber: 1,
               startColumn: 1,
               endLineNumber: 1,
@@ -48,7 +59,7 @@ const YamlPlugin: LanguagePlugin = {
         }
       };
       
-      const setupModelChangeListener = (model: any) => {
+      const setupModelChangeListener = (model: editor.ITextModel) => {
         if (model.getLanguageId() === 'yaml') {
           validateYaml(model.getValue(), model);
           
@@ -58,9 +69,17 @@ const YamlPlugin: LanguagePlugin = {
         }
       };
       
-      monaco.editor.getModels().forEach(setupModelChangeListener);
+      monaco.editor.getModels().forEach(model => {
+        if (model.getLanguageId() === 'yaml') {
+          setupModelChangeListener(model);
+        }
+      });
       
-      monaco.editor.onDidCreateModel(setupModelChangeListener);
+      monaco.editor.onDidCreateModel(model => {
+        if (model.getLanguageId() === 'yaml') {
+          setupModelChangeListener(model);
+        }
+      });
       
     } catch (error) {
       console.error('Error configuring YAML:', error);

@@ -150,7 +150,7 @@ export function DataTable<TData, TValue>({
         </TableCell>
       </TableRow>
     )
-  }, [isLoading, columns, table])
+  }, [isLoading, columns, table, t])
 
   return (
     <div className="space-y-4">
@@ -162,7 +162,7 @@ export function DataTable<TData, TValue>({
         <div className="flex items-center gap-2">
           {renderPagination()}
           <Separator orientation="vertical" className="h-4" />
-          <TableSetting
+          <TableSetting<TData>
             columns={table.getAllColumns()}
             pageSize={pageSize}
             columnVisibility={columnVisibility}

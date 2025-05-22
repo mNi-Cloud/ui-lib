@@ -16,19 +16,19 @@ import { Label } from "@/registry/new-york/ui/label"
 import { Settings } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-interface TableSettingProps {
-  columns: Column<any, unknown>[]
+interface TableSettingProps<TData> {
+  columns: Column<TData, unknown>[]
   pageSize: number
   columnVisibility: Record<string, boolean>
   onApplySettings: (newPageSize: number, newColumnVisibility: Record<string, boolean>) => void
 }
 
-export function TableSetting({
+export function TableSetting<TData>({
   columns,
   pageSize,
   columnVisibility,
   onApplySettings
-}: TableSettingProps) {
+}: TableSettingProps<TData>) {
   const [isOpen, setIsOpen] = useState(false)
   const [tempPageSize, setTempPageSize] = useState<number | 'custom'>(pageSize)
   const [tempColumnVisibility, setTempColumnVisibility] = useState(columnVisibility)

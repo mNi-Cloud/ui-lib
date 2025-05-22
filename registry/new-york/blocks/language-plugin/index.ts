@@ -1,9 +1,10 @@
 import type { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/code-editor';
+import type { Monaco } from '@monaco-editor/react';
 
 export interface LanguagePlugin {
   language: SupportedLanguage;
   load: () => Promise<void>;
-  configure?: (monaco: any) => void;
+  configure?: (monaco: Monaco) => void;
 }
 
 const plugins = new Map<SupportedLanguage, LanguagePlugin>();
@@ -30,11 +31,16 @@ export async function importLanguagePlugin(language: SupportedLanguage): Promise
       return plugins.get(language);
     }
 
-    const module = await import(`./${language}`).catch(() => null);
+    let moduleImport: { default?: LanguagePlugin } | null = null;
+    try {
+      moduleImport = await import(`./${language}`);
+    } catch {
+      moduleImport = null;
+    }
     
-    if (module && module.default) {
-      registerLanguagePlugin(module.default);
-      return module.default;
+    if (moduleImport && moduleImport.default) {
+      registerLanguagePlugin(moduleImport.default);
+      return moduleImport.default;
     }
     
     return undefined;

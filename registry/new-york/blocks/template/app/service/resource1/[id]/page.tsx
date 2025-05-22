@@ -1,13 +1,11 @@
 "use client"
 
 import { ResourceDetail } from "@/registry/new-york/blocks/resource-detail/resource-detail"
-import ResourceColumns from "../columns"
 import { useTranslations } from "next-intl"
 import { use } from "react"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "@/registry/new-york/blocks/link/link"
 
-// リソースの型定義
 type Resource = {
   id: number
   name: string
@@ -32,16 +30,14 @@ type Resource = {
   }
 }
 
-// 投稿の型定義
 type Post = {
   id: number
   userId: number
   title: string
   body: string
-  name: string // ResourceDetailコンポーネントの制約を満たすために追加
+  name: string
 }
 
-// PostColumns実装
 const PostColumns = () => {
   const t = useTranslations('pages.resource1.detail')
 
@@ -75,7 +71,6 @@ const PostColumns = () => {
   return postColumns
 }
 
-// リソース詳細項目コンポーネント
 const ResourceDetailItem = ({ label, value }: { label: string, value: React.ReactNode }) => (
   <div className="py-3">
     <dt className="text-sm font-medium text-muted-foreground">{label}</dt>
@@ -92,7 +87,6 @@ export default function UserDetailPage(
   const postColumns = PostColumns()
   const t = useTranslations('pages.resource1.detail')
   
-  // パラメータとしてユーザーIDを直接取得
   const userId = params.id
 
   const renderUserDetails = (user: Resource) => (

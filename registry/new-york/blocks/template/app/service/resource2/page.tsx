@@ -8,7 +8,7 @@ export default function ResourcePage() {
   const columns = ResourceColumns()
   const t = useTranslations('pages.resource2.dashboard')
 
-  const checkDependencies = (resource: Resource) => {
+  const checkDependencies = () => {
     return Promise.resolve({
       hasDependencies: false,
       message: undefined

@@ -9,37 +9,33 @@ import {
 } from './resource-form-utils';
 import { SupportedLanguage } from '@/registry/new-york/blocks/code-editor/code-editor';
 
-/**
- * フィールド定義からZodスキーマを生成する関数
- */
 export const generateSchema = (
   fields: CommonFieldDefinition[],
-  t: (key: string, params?: Record<string, any>) => string,
-  codeValidator?: (language: SupportedLanguage) => (content: string) => { isValid: boolean; error?: string; markers?: any[] }
+  t: (key: string, params?: Record<string, string | number | Date>) => string,
+  codeValidator?: (language: SupportedLanguage) => (content: string) => { 
+    isValid: boolean; 
+    error?: string; 
+    markers?: Array<{ message: string; line: number; column: number }> 
+  }
 ) => {
-  const schemaObject: Record<string, any> = {};
+  const schemaObject: Record<string, z.ZodType> = {};
 
-  // バリデータの取得関数（指定されていればそれを使用）
   const getValidatorFn = codeValidator;
 
   fields.forEach(field => {
     if (field.type === 'unit-input') {
-      // ユニット入力には2つのフィールドが必要
       const valueSchema = generateFieldSchemaByType(field, t, getValidatorFn);
       const unitSchema = z.string().min(1, t('unit'));
 
       schemaObject[`${field.name}Value`] = valueSchema;
       schemaObject[`${field.name}Unit`] = unitSchema;
     } else {
-      // 通常のフィールド
       const fieldSchema = generateFieldSchemaByType(field, t, getValidatorFn);
 
       const fieldPath = field.name.split('.');
       if (fieldPath.length > 1) {
-        // ネストされたフィールド
         handleNestedField(schemaObject, fieldPath, fieldSchema, field.type, field);
       } else {
-        // トップレベルフィールド
         if (field.type === 'array') {
           if (field.itemType === 'object' && field.fields) {
             const objectSchema: Record<string, z.ZodType> = {};
@@ -60,14 +56,11 @@ export const generateSchema = (
   return z.object(processNestedSchema(schemaObject));
 };
 
-/**
- * デフォルト値を生成する関数
- */
 export const generateDefaultValues = (
   fields: CommonFieldDefinition[],
-  existingValues: Record<string, any> = {}
-): Record<string, any> => {
-  return fields.reduce((acc: Record<string, any>, field) => {
+  existingValues: Record<string, unknown> = {}
+): Record<string, unknown> => {
+  return fields.reduce((acc: Record<string, unknown>, field) => {
     if (field.type === 'unit-input') {
       const defaultUnit = field.defaultUnit || field.units?.[0]?.value || '';
       acc[`${field.name}Value`] = field.defaultValue?.toString() || '';

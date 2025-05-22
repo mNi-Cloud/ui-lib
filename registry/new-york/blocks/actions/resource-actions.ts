@@ -2,17 +2,22 @@
 
 import { revalidatePath } from 'next/cache';
 
+export type ResourceData = Record<string, unknown>;
+
 export async function fetchResource(endpoint: string, resourceId: string) {
   try {
     const url = `${endpoint}/${resourceId}`;
-    const response = await fetch(url, { 
-      next: { revalidate: 60 }
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
     });
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch resource: ${response.status}`);
     }
-    
+
     return await response.json();
   } catch (error) {
     console.error('Error fetching resource:', error);
@@ -22,10 +27,13 @@ export async function fetchResource(endpoint: string, resourceId: string) {
 
 export async function fetchResources(url: string) {
   try {
-    const response = await fetch(url, { 
-      next: { revalidate: 60 }
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      cache: 'no-store',
     });
-    
+
     if (!response.ok) {
       throw new Error(`Failed to fetch resources: ${response.status}`);
     }
@@ -44,7 +52,7 @@ export async function fetchResources(url: string) {
 
 export async function createResource(
   endpoint: string, 
-  data: { type: string; data: any }, 
+  data: { type: string; data: ResourceData }, 
   redirectPath?: string
 ) {
   try {
@@ -74,7 +82,7 @@ export async function createResource(
 export async function updateResource(
   endpoint: string, 
   resourceId: string, 
-  data: { type: string; data: any }, 
+  data: { type: string; data: ResourceData }, 
   redirectPath?: string
 ) {
   try {

@@ -42,7 +42,7 @@ export default function PostDetailPage(props: { params: Promise<{ id: string }> 
       onDelete={{
         path: "/service/resource2",
       }}
-      checkDependencies={(post: Resource) => {
+      checkDependencies={() => {
         return Promise.resolve({
           hasDependencies: false
         })
