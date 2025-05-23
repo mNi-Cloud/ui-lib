@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/registry/new-york/ui/card'
 import { Button } from "@/registry/new-york/ui/button"
 import { LucideIcon } from 'lucide-react'
-import Link from 'next/link'
+import Link from '@/registry/new-york/blocks/link/link'
 
 interface Resource {
   title: string;
