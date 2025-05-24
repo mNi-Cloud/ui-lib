@@ -11,7 +11,6 @@ import {
   Settings,
   GlobeIcon,
   JapaneseYen,
-  Menu,
   Moon,
   Sun,
   Laptop,
@@ -32,7 +31,6 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuPortal,
 } from '@/registry/new-york/ui/dropdown-menu'
-import { Sheet, SheetContent, SheetTrigger } from '@/registry/new-york/ui/sheet'
 import { SearchService } from './header-search'
 import { SidebarTrigger } from '@/registry/new-york/ui/sidebar'
 import { Separator } from '@/registry/new-york/ui/separator'
@@ -69,7 +67,7 @@ export function Header() {
                 )}
               </div>
               <div className="flex md:hidden">
-                <MobileMenu />
+                <MobileActions />
               </div>
             </nav>
           </div>
@@ -199,89 +197,22 @@ function LanguageToggle() {
   )
 }
 
-function MobileMenu() {
+function MobileActions() {
   const t = useTranslations('components.header')
-  const { setTheme } = useTheme()
   const { data: session } = useSession()
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="md:hidden">
-          <Menu className="h-5 w-5" />
-          <span className="sr-only">{t('openMenu')}</span>
-        </Button>
-      </SheetTrigger>
-      <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-        <div className="flex flex-col h-full">
-          <div className="flex-1">
-            <h2 className="text-lg font-semibold mb-4">{t('menu')}</h2>
-            <nav className="space-y-4">
-              <Button variant="ghost" className="w-full justify-start">
-                <Bell className="mr-2 h-5 w-5" />
-                {t('notifications')}
-              </Button>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="w-full justify-start">
-                    <Sun className="mr-2 h-5 w-5" />
-                    {t('theme')}
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuItem onClick={() => setTheme("light")}>
-                    <Sun className="mr-2 h-4 w-4" />
-                    <span>{t('light')}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme("dark")}>
-                    <Moon className="mr-2 h-4 w-4" />
-                    <span>{t('dark')}</span>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => setTheme("system")}>
-                    <Laptop className="mr-2 h-4 w-4" />
-                    <span>{t('system')}</span>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              {session ? (
-                <>
-                  <Button variant="ghost" className="w-full justify-start">
-                    <UserPen className="mr-2 h-5 w-5" />
-                    {t('profile')}
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start" asChild>
-                    <Link href="/bap" className="flex items-center">
-                      <JapaneseYen className="mr-2 h-5 w-5" />
-                      <span>{t('billing')}</span>
-                    </Link>
-                  </Button>
-                  <Button variant="ghost" className="w-full justify-start">
-                    <Settings className="mr-2 h-5 w-5" />
-                    {t('settings')}
-                  </Button>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="w-full justify-start">
-                        <GlobeIcon className="mr-2 h-5 w-5" />
-                        {t('language')}
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                      <LanguageToggle />
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  <Button variant="ghost" className="w-full justify-start" onClick={() => signOut()}>
-                    <LogOut className="mr-2 h-5 w-5" />
-                    {t('logout')}
-                  </Button>
-                </>
-              ) : (
-                <Button className="w-full" onClick={() => signIn()}>{t('login')}</Button>
-              )}
-            </nav>
-          </div>
-        </div>
-      </SheetContent>
-    </Sheet>
+    <div className="flex items-center space-x-2">
+      <Button size="sm" variant="ghost">
+        <Bell className="h-4 w-4" />
+        <span className="sr-only">{t('notifications')}</span>
+      </Button>
+      <ThemeToggle />
+      {session ? (
+        <UserDropdown />
+      ) : (
+        <Button size="sm" onClick={() => signIn()}>{t('login')}</Button>
+      )}
+    </div>
   )
 }
