@@ -555,14 +555,14 @@
           "target": "Dockerfile"
         },
         {
-          "path": "registry/new-york/blocks/template/app/layout.tsx",
+          "path": "registry/new-york/blocks/template/app/service/layout.tsx",
           "type": "registry:file",
-          "target": "app/layout.tsx"
+          "target": "app/service/layout.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/page.tsx",
           "type": "registry:file",
-          "target": "app/page.tsx"
+          "target": "app/service/page.tsx"
         },
         {
           "path": "registry/new-york/blocks/template/app/service/resource1/columns.tsx",
