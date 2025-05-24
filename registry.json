@@ -545,11 +545,6 @@
           "target": "app/globals.css"
         },
         {
-          "path": "registry/new-york/blocks/template/app/favicon.ico",
-          "type": "registry:file",
-          "target": "app/favicon.ico"
-        },
-        {
           "path": "registry/new-york/blocks/template/next.config.ts",
           "type": "registry:file",
           "target": "next.config.ts"
