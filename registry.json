@@ -565,54 +565,54 @@
           "target": "app/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource1/columns.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource1/columns.tsx",
           "type": "registry:file",
-          "target": "app/resource1/columns.tsx"
+          "target": "app/service/resource1/columns.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource1/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource1/page.tsx",
           "type": "registry:file",
-          "target": "app/resource1/page.tsx"
+          "target": "app/service/resource1/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource1/create/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource1/create/page.tsx",
           "type": "registry:file",
-          "target": "app/resource1/create/page.tsx"
+          "target": "app/service/resource1/create/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource1/edit/[id]/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource1/edit/[id]/page.tsx",
           "type": "registry:file",
-          "target": "app/resource1/edit/[id]/page.tsx"
+          "target": "app/service/resource1/edit/[id]/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource1/[id]/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource1/[id]/page.tsx",
           "type": "registry:file",
-          "target": "app/resource1/[id]/page.tsx"
+          "target": "app/service/resource1/[id]/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource2/columns.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource2/columns.tsx",
           "type": "registry:file",
-          "target": "app/resource2/columns.tsx"
+          "target": "app/service/resource2/columns.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource2/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource2/page.tsx",
           "type": "registry:file",
-          "target": "app/resource2/page.tsx"
+          "target": "app/service/resource2/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource2/create/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource2/create/page.tsx",
           "type": "registry:file",
-          "target": "app/resource2/create/page.tsx"
+          "target": "app/service/resource2/create/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource2/edit/[id]/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource2/edit/[id]/page.tsx",
           "type": "registry:file",
-          "target": "app/resource2/edit/[id]/page.tsx"
+          "target": "app/service/resource2/edit/[id]/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/resource2/[id]/page.tsx",
+          "path": "registry/new-york/blocks/template/app/service/resource2/[id]/page.tsx",
           "type": "registry:file",
-          "target": "app/resource2/[id]/page.tsx"
+          "target": "app/service/resource2/[id]/page.tsx"
         },
         {
           "path": "registry/new-york/blocks/template/messages/pages/index/en.json",
