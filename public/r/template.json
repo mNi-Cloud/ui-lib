@@ -33,12 +33,6 @@
       "target": "app/globals.css"
     },
     {
-      "path": "registry/new-york/blocks/template/app/favicon.ico",
-      "content": "�PNG\r\n\u001a\n\u0000\u0000\u0000\rIHDR\u0000\u0000\u0000=\u0000\u0000\u0000>\b\u0006\u0000\u0000\u0000��\u0013G\u0000\u0000\u0000\u0001sRGB\u0000��\u001c�\u0000\u0000\u0000\u0004gAMA\u0000\u0000��\u000b�a\u0005\u0000\u0000\u0000\tpHYs\u0000\u0000\u000e�\u0000\u0000\u000e�\u0001�o�d\u0000\u0000\u0002�IDAThC��?h\u0013q\u0014\u0007�R���!\u001d\u0002\u001d<q(\u0014ih\u0017�fiK��`+\u000e\r.�:$f�S�\"R\"H\u0017\u0013;h��E�\u000e�\u0019Ā`�`ۥ���!��2\u0004\r\bf(�楹�Ԅ�\u001e��\t!���\u001d�w�{dȱ�Γ���q�dEBs!����\\Hh.$4\u0017\u0012�\u000b\tͅ��BBs!�����w�J��\u0016�IZا��8�V��>���/\u0010�����N{0\u0012��GU������L̠�=\\��5x'�\b���\u0005�����ӕ���H��AZ\u000em�S�� �דX�`�K\u001bH�\u001b���\b<^E�@kůȿK\"0@���\b��S�ܑ��\u0013��<\u0018��[�\u0019E7�\u000b?A*<�ٷ)�^遮�Z�\u0006�W�?o~BU��i<\u001d��a�Bk]\u001e�\u00106��\u0017I��g�\u0018V]��\u001c�q#?�(�\u001000|�=M���.gӈ��C\u001f\b�ܮ�*4M]�\u0012��\u0002������TU��\u0017�Q\u0003_�H��}��;�h���f/��&\u0016.��X�\u0001�ELe�i�������\"r�eFLlXS��/Dg���P�.߅\u001b��Q�\u0014{��߰����?,w����\u0005\u001a��2�[iu1�v�ڳ֛Z+�.\u0015`Ұ��;eϫ��xS�B�\fM�w�\n\u0007�����\b���ZS�0`t��\u0001.\r\r�b�Ꚛ�\\\u001bZ�F􎉏��*��8���&�֦�\u0010w�V�75'�>�ߦ�p��\u0007�aɿ����\\Hh.$4\u0017\u0012�\u000b\tͅ��BBs!����\\Hh.$4\u000f�\u001f�/��:��\u0014\u0000\u0000\u0000\u000eeXIfMM\u0000*\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000�S�\u0000\u0000\u0000\u0000IEND�B`�",
-      "type": "registry:file",
-      "target": "app/favicon.ico"
-    },
-    {
       "path": "registry/new-york/blocks/template/next.config.ts",
       "content": "import { NextConfig } from 'next';\nimport createNextIntlPlugin from 'next-intl/plugin';\n \nconst nextConfig: NextConfig = {\n    basePath: \"/service\",\n    assetPrefix: \"/service-static\",\n    output: 'standalone',\n}; \nconst withNextIntl = createNextIntlPlugin();\n\nexport default withNextIntl(nextConfig);",
       "type": "registry:file",
