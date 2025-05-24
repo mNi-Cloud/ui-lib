@@ -245,6 +245,7 @@
       "type": "registry:component",
       "title": "Theme Provider",
       "description": "A theme provider component.",
+      "dependencies": ["next-themes"],
       "files": [
         {
           "path": "registry/new-york/blocks/theme-provider/theme-provider.tsx",
@@ -544,6 +545,11 @@
           "target": "app/globals.css"
         },
         {
+          "path": "registry/new-york/blocks/template/app/favicon.ico",
+          "type": "registry:file",
+          "target": "app/favicon.ico"
+        },
+        {
           "path": "registry/new-york/blocks/template/next.config.ts",
           "type": "registry:file",
           "target": "next.config.ts"
@@ -614,92 +620,92 @@
           "target": "app/resource2/[id]/page.tsx"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/index/en.json",
           "type": "registry:file",
           "target": "messages/pages/index/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/index/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/index/ja.json",
           "type": "registry:file",
           "target": "messages/pages/index/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/dashboard/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/dashboard/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/dashboard/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/dashboard/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/dashboard/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/dashboard/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/detail/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/detail/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/detail/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/detail/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/detail/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/detail/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/create/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/create/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/create/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/create/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/create/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/create/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/edit/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/edit/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/edit/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource1/edit/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource1/edit/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource1/edit/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/dashboard/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/dashboard/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/dashboard/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/dashboard/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/dashboard/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/dashboard/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/detail/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/detail/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/detail/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/detail/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/detail/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/detail/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/create/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/create/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/create/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/create/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/create/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/create/ja.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/edit/en.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/edit/en.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/edit/en.json"
         },
         {
-          "path": "registry/new-york/blocks/template/app/messages/pages/resource2/edit/ja.json",
+          "path": "registry/new-york/blocks/template/messages/pages/resource2/edit/ja.json",
           "type": "registry:file",
           "target": "messages/pages/resource2/edit/ja.json"
         }
