@@ -4,6 +4,9 @@
   "type": "registry:component",
   "title": "Theme Provider",
   "description": "A theme provider component.",
+  "dependencies": [
+    "next-themes"
+  ],
   "files": [
     {
       "path": "registry/new-york/blocks/theme-provider/theme-provider.tsx",

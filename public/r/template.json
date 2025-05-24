@@ -33,6 +33,12 @@
       "target": "app/globals.css"
     },
     {
+      "path": "registry/new-york/blocks/template/app/favicon.ico",
+      "content": "�PNG\r\n\u001a\n\u0000\u0000\u0000\rIHDR\u0000\u0000\u0000=\u0000\u0000\u0000>\b\u0006\u0000\u0000\u0000��\u0013G\u0000\u0000\u0000\u0001sRGB\u0000��\u001c�\u0000\u0000\u0000\u0004gAMA\u0000\u0000��\u000b�a\u0005\u0000\u0000\u0000\tpHYs\u0000\u0000\u000e�\u0000\u0000\u000e�\u0001�o�d\u0000\u0000\u0002�IDAThC��?h\u0013q\u0014\u0007�R���!\u001d\u0002\u001d<q(\u0014ih\u0017�fiK��`+\u000e\r.�:$f�S�\"R\"H\u0017\u0013;h��E�\u000e�\u0019Ā`�`ۥ���!��2\u0004\r\bf(�楹�Ԅ�\u001e��\t!���\u001d�w�{dȱ�Γ���q�dEBs!����\\Hh.$4\u0017\u0012�\u000b\tͅ��BBs!�����w�J��\u0016�IZا��8�V��>���/\u0010�����N{0\u0012��GU������L̠�=\\��5x'�\b���\u0005�����ӕ���H��AZ\u000em�S�� �דX�`�K\u001bH�\u001b���\b<^E�@kůȿK\"0@���\b��S�ܑ��\u0013��<\u0018��[�\u0019E7�\u000b?A*<�ٷ)�^遮�Z�\u0006�W�?o~BU��i<\u001d��a�Bk]\u001e�\u00106��\u0017I��g�\u0018V]��\u001c�q#?�(�\u001000|�=M���.gӈ��C\u001f\b�ܮ�*4M]�\u0012��\u0002������TU��\u0017�Q\u0003_�H��}��;�h���f/��&\u0016.��X�\u0001�ELe�i�������\"r�eFLlXS��/Dg���P�.߅\u001b��Q�\u0014{��߰����?,w����\u0005\u001a��2�[iu1�v�ڳ֛Z+�.\u0015`Ұ��;eϫ��xS�B�\fM�w�\n\u0007�����\b���ZS�0`t��\u0001.\r\r�b�Ꚛ�\\\u001bZ�F􎉏��*��8���&�֦�\u0010w�V�75'�>�ߦ�p��\u0007�aɿ����\\Hh.$4\u0017\u0012�\u000b\tͅ��BBs!����\\Hh.$4\u000f�\u001f�/��:��\u0014\u0000\u0000\u0000\u000eeXIfMM\u0000*\u0000\u0000\u0000\b\u0000\u0000\u0000\u0000\u0000\u0000\u0000�S�\u0000\u0000\u0000\u0000IEND�B`�",
+      "type": "registry:file",
+      "target": "app/favicon.ico"
+    },
+    {
       "path": "registry/new-york/blocks/template/next.config.ts",
       "content": "import { NextConfig } from 'next';\nimport createNextIntlPlugin from 'next-intl/plugin';\n \nconst nextConfig: NextConfig = {\n    basePath: \"/service\",\n    assetPrefix: \"/service-static\",\n    output: 'standalone',\n}; \nconst withNextIntl = createNextIntlPlugin();\n\nexport default withNextIntl(nextConfig);",
       "type": "registry:file",
@@ -117,109 +123,109 @@
       "target": "app/resource2/[id]/page.tsx"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/index/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/index/en.json",
       "content": "{\n  \"pages\": {\n    \"index\": {\n      \"title\": \"Service Title\",\n      \"description\": \"Description of your service and its purpose in your application.\",\n      \"primaryButton\": \"Get Started\",\n      \"secondaryButton\": \"Learn More\",\n      \"resources\": {\n        \"item1\": {\n          \"title\": \"Resource Type 1\",\n          \"description\": \"Description of the first resource type\",\n          \"detail\": \"Learn More\"\n        },\n        \"item2\": {\n          \"title\": \"Resource Type 2\",\n          \"description\": \"Description of the second resource type\",\n          \"detail\": \"Learn More\"\n        }\n      }\n    }\n  }\n}",
       "type": "registry:file",
       "target": "messages/pages/index/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/index/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/index/ja.json",
       "content": "{\n  \"pages\": {\n    \"index\": {\n      \"title\": \"サービス タイトル\",\n      \"description\": \"アプリケーションにおけるサービスとその目的の説明。\",\n      \"primaryButton\": \"今すぐ始める\",\n      \"secondaryButton\": \"詳細を見る\",\n      \"resources\": {\n        \"item1\": {\n          \"title\": \"リソースタイプ 1\",\n          \"description\": \"最初のリソースタイプの説明\",\n          \"detail\": \"詳細を表示\"\n        },\n        \"item2\": {\n          \"title\": \"リソースタイプ 2\",\n          \"description\": \"2番目のリソースタイプの説明\",\n          \"detail\": \"詳細を表示\"\n        }\n      }\n    }\n  }\n}",
       "type": "registry:file",
       "target": "messages/pages/index/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/dashboard/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/dashboard/en.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"dashboard\": {\n        \"resourcetype\": \"Users\",\n        \"deletionError\": \"User {name} is associated with {company} and cannot be deleted.\"\n      },\n      \"columns\": {\n        \"name\": \"Name\",\n        \"username\": \"Username\",\n        \"email\": \"Email\",\n        \"website\": \"Website\",\n        \"company\": \"Company\",\n        \"city\": \"City\"\n      }\n    }\n  }\n}",
       "type": "registry:file",
       "target": "messages/pages/resource1/dashboard/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/dashboard/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/dashboard/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"dashboard\": {\n        \"resourcetype\": \"ユーザー\",\n        \"deletionError\": \"ユーザー {name} は {company} に関連付けられているため、削除できません。\"\n      },\n      \"columns\": {\n        \"name\": \"名前\",\n        \"username\": \"ユーザー名\",\n        \"email\": \"メールアドレス\",\n        \"website\": \"ウェブサイト\",\n        \"company\": \"会社名\",\n        \"city\": \"都市\"\n      }\n    }\n  }\n}",
       "type": "registry:file",
       "target": "messages/pages/resource1/dashboard/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/detail/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/detail/en.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"detail\": {\n        \"resourcetype\": \"User Details\",\n        \"name\": \"Name\",\n        \"username\": \"Username\",\n        \"email\": \"Email\",\n        \"phone\": \"Phone\",\n        \"website\": \"Website\",\n        \"company\": \"Company\",\n        \"address\": \"Address\",\n        \"geo\": \"Coordinates\",\n        \"relatedtitle\": \"User's Posts\",\n        \"deletionError\": \"User {name} is associated with {company} and cannot be deleted.\",\n        \"postcolumns\": {\n          \"id\": \"ID\",\n          \"title\": \"Title\",\n          \"body\": \"Content\"\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource1/detail/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/detail/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/detail/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"detail\": {\n        \"resourcetype\": \"ユーザー詳細\",\n        \"name\": \"名前\",\n        \"username\": \"ユーザー名\",\n        \"email\": \"メールアドレス\",\n        \"phone\": \"電話番号\",\n        \"website\": \"ウェブサイト\",\n        \"company\": \"会社\",\n        \"address\": \"住所\",\n        \"geo\": \"座標\",\n        \"relatedtitle\": \"ユーザーの投稿\",\n        \"deletionError\": \"ユーザー {name} は {company} に関連付けられているため、削除できません。\",\n        \"postcolumns\": {\n          \"id\": \"ID\",\n          \"title\": \"タイトル\",\n          \"body\": \"内容\"\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource1/detail/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/create/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/create/en.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"create\": {\n        \"title\": \"Create Resource\",\n        \"resourcetype\": \"Resource\",\n        \"successmessage\": \"Resource successfully created\",\n        \"errormessage\": \"Error occurred while creating resource\",\n        \"name\": {\n          \"label\": \"Name\",\n          \"placeholder\": \"Enter resource name\",\n          \"description\": \"The display name of the resource\"\n        },\n        \"username\": {\n          \"label\": \"Username\",\n          \"placeholder\": \"Enter username\",\n          \"description\": \"Username used in the system (alphanumeric and underscore only)\",\n          \"validation\": \"Username can only contain alphanumeric characters and underscores\"\n        },\n        \"email\": {\n          \"label\": \"Email\",\n          \"placeholder\": \"example@example.com\",\n          \"description\": \"Contact email address\"\n        },\n        \"website\": {\n          \"label\": \"Website\",\n          \"placeholder\": \"https://example.com\",\n          \"description\": \"URL of the website\"\n        },\n        \"company\": {\n          \"name\": {\n            \"label\": \"Company Name\",\n            \"placeholder\": \"Enter company name\",\n            \"description\": \"Name of the company or organization\"\n          },\n          \"catchPhrase\": {\n            \"label\": \"Catch Phrase\",\n            \"placeholder\": \"Enter company catch phrase\"\n          }\n        },\n        \"address\": {\n          \"city\": {\n            \"label\": \"City\",\n            \"placeholder\": \"Enter city\"\n          },\n          \"zipcode\": {\n            \"label\": \"Zip Code\",\n            \"placeholder\": \"123-4567\"\n          }\n        }\n      }\n    }\n  }\n}",
       "type": "registry:file",
       "target": "messages/pages/resource1/create/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/create/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/create/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"create\": {\n        \"title\": \"リソースの作成\",\n        \"resourcetype\": \"リソース\",\n        \"successmessage\": \"リソースが正常に作成されました\",\n        \"errormessage\": \"リソースの作成中にエラーが発生しました\",\n        \"name\": {\n          \"label\": \"名前\",\n          \"placeholder\": \"リソース名を入力してください\",\n          \"description\": \"リソースの名前（表示名）\"\n        },\n        \"username\": {\n          \"label\": \"ユーザー名\",\n          \"placeholder\": \"ユーザー名を入力してください\",\n          \"description\": \"システム内で使用されるユーザー名（英数字とアンダースコアのみ）\",\n          \"validation\": \"ユーザー名には英数字とアンダースコアのみ使用できます\"\n        },\n        \"email\": {\n          \"label\": \"メールアドレス\",\n          \"placeholder\": \"example@example.com\",\n          \"description\": \"連絡先のメールアドレス\"\n        },\n        \"website\": {\n          \"label\": \"Webサイト\",\n          \"placeholder\": \"https://example.com\",\n          \"description\": \"ウェブサイトのURL\"\n        },\n        \"company\": {\n          \"name\": {\n            \"label\": \"会社名\",\n            \"placeholder\": \"会社名を入力してください\",\n            \"description\": \"所属する会社や組織の名前\"\n          },\n          \"catchPhrase\": {\n            \"label\": \"キャッチフレーズ\",\n            \"placeholder\": \"会社のキャッチフレーズを入力してください\"\n          }\n        },\n        \"address\": {\n          \"city\": {\n            \"label\": \"市区町村\",\n            \"placeholder\": \"市区町村を入力してください\"\n          },\n          \"zipcode\": {\n            \"label\": \"郵便番号\",\n            \"placeholder\": \"123-4567\"\n          }\n        }\n      }\n    }\n  }\n}",
       "type": "registry:file",
       "target": "messages/pages/resource1/create/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/edit/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/edit/en.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"edit\": {\n        \"title\": \"Edit Resource\",\n        \"resourcetype\": \"Resource\",\n        \"successmessage\": \"Resource updated successfully\",\n        \"errormessage\": \"Error occurred while updating resource\",\n        \"name\": {\n          \"label\": \"Name\",\n          \"placeholder\": \"Enter resource name\",\n          \"description\": \"The display name of the resource\"\n        },\n        \"username\": {\n          \"label\": \"Username\",\n          \"placeholder\": \"Enter username\",\n          \"description\": \"Username used in the system (alphanumeric and underscore only)\",\n          \"validation\": \"Username can only contain alphanumeric characters and underscores\",\n          \"readonlymessage\": \"Username cannot be changed\"\n        },\n        \"email\": {\n          \"label\": \"Email\",\n          \"placeholder\": \"example@example.com\",\n          \"description\": \"Contact email address\"\n        },\n        \"website\": {\n          \"label\": \"Website\",\n          \"placeholder\": \"https://example.com\",\n          \"description\": \"URL of the website\"\n        },\n        \"company\": {\n          \"name\": {\n            \"label\": \"Company Name\",\n            \"placeholder\": \"Enter company name\",\n            \"description\": \"Name of the company or organization\"\n          },\n          \"catchPhrase\": {\n            \"label\": \"Catch Phrase\",\n            \"placeholder\": \"Enter company catch phrase\"\n          }\n        },\n        \"address\": {\n          \"city\": {\n            \"label\": \"City\",\n            \"placeholder\": \"Enter city\"\n          },\n          \"zipcode\": {\n            \"label\": \"Zip Code\",\n            \"placeholder\": \"123-4567\"\n          }\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource1/edit/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource1/edit/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource1/edit/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource1\": {\n      \"edit\": {\n        \"title\": \"リソースの編集\",\n        \"resourcetype\": \"リソース\",\n        \"successmessage\": \"リソースが正常に更新されました\",\n        \"errormessage\": \"リソースの更新中にエラーが発生しました\",\n        \"name\": {\n          \"label\": \"名前\",\n          \"placeholder\": \"リソース名を入力してください\",\n          \"description\": \"リソースの名前（表示名）\"\n        },\n        \"username\": {\n          \"label\": \"ユーザー名\",\n          \"placeholder\": \"ユーザー名を入力してください\",\n          \"description\": \"システム内で使用されるユーザー名（英数字とアンダースコアのみ）\",\n          \"validation\": \"ユーザー名には英数字とアンダースコアのみ使用できます\",\n          \"readonlymessage\": \"ユーザー名は変更できません\"\n        },\n        \"email\": {\n          \"label\": \"メールアドレス\",\n          \"placeholder\": \"example@example.com\",\n          \"description\": \"連絡先のメールアドレス\"\n        },\n        \"website\": {\n          \"label\": \"Webサイト\",\n          \"placeholder\": \"https://example.com\",\n          \"description\": \"ウェブサイトのURL\"\n        },\n        \"company\": {\n          \"name\": {\n            \"label\": \"会社名\",\n            \"placeholder\": \"会社名を入力してください\",\n            \"description\": \"所属する会社や組織の名前\"\n          },\n          \"catchPhrase\": {\n            \"label\": \"キャッチフレーズ\",\n            \"placeholder\": \"会社のキャッチフレーズを入力してください\"\n          }\n        },\n        \"address\": {\n          \"city\": {\n            \"label\": \"市区町村\",\n            \"placeholder\": \"市区町村を入力してください\"\n          },\n          \"zipcode\": {\n            \"label\": \"郵便番号\",\n            \"placeholder\": \"123-4567\"\n          }\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource1/edit/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/dashboard/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/dashboard/en.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"dashboard\": {\n        \"resourcetype\": \"Post\",\n        \"deletionError\": \"'{name}' cannot be deleted due to dependencies with '{company}'\"\n      },\n      \"columns\": {\n        \"id\": \"ID\",\n        \"title\": \"Title\",\n        \"body\": \"Content\",\n        \"author\": \"Author\",\n        \"user\": \"User\"\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/dashboard/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/dashboard/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/dashboard/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"dashboard\": {\n        \"resourcetype\": \"投稿\",\n        \"deletionError\": \"'{name}'は'{company}'に依存関係があるため削除できません\"\n      },\n      \"columns\": {\n        \"id\": \"ID\",\n        \"title\": \"タイトル\",\n        \"body\": \"本文\",\n        \"author\": \"作成者\",\n        \"user\": \"ユーザー\"\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/dashboard/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/detail/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/detail/en.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"detail\": {\n        \"resourcetype\": \"Post\",\n        \"title\": \"Title\",\n        \"content\": \"Content\",\n        \"author\": \"Author\",\n        \"user\": \"User\"\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/detail/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/detail/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/detail/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"detail\": {\n        \"resourcetype\": \"投稿\",\n        \"title\": \"タイトル\",\n        \"content\": \"コンテンツ\",\n        \"author\": \"作成者\",\n        \"user\": \"ユーザー\"\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/detail/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/create/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/create/en.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"create\": {\n        \"title\": \"Create Resource\",\n        \"resourcetype\": \"Resource\",\n        \"successmessage\": \"Resource created successfully\",\n        \"errormessage\": \"Failed to create resource\",\n        \"step1\": {\n          \"title\": \"Basic Information\",\n          \"description\": \"Enter the basic information for the resource\"\n        },\n        \"step2\": {\n          \"title\": \"Detailed Information\",\n          \"description\": \"Enter the detailed content for the resource\"\n        },\n        \"step3\": {\n          \"title\": \"User Information\",\n          \"description\": \"Enter the creator information for the resource\"\n        },\n        \"step4\": {\n          \"title\": \"Additional Settings\",\n          \"description\": \"Enter additional settings in YAML format\"\n        },\n        \"titleField\": {\n          \"label\": \"Title\",\n          \"placeholder\": \"Enter title\",\n          \"description\": \"Resource title\"\n        },\n        \"body\": {\n          \"label\": \"Body\",\n          \"placeholder\": \"Enter content\",\n          \"description\": \"Resource content\"\n        },\n        \"userId\": {\n          \"label\": \"User ID\",\n          \"placeholder\": \"Enter user ID\",\n          \"description\": \"User ID of the creator (1-10)\"\n        },\n        \"config\": {\n          \"label\": \"Detailed Settings\",\n          \"placeholder\": \"Enter settings in YAML format\",\n          \"description\": \"Describe settings in YAML format. You can edit in a VSCode-like editor.\"\n        },\n        \"jsonConfig\": {\n          \"label\": \"JSON Settings\",\n          \"placeholder\": \"Enter settings in JSON format\",\n          \"description\": \"Describe settings in JSON format.\"\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/create/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/create/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/create/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"create\": {\n        \"title\": \"投稿の作成\",\n        \"resourcetype\": \"投稿\",\n        \"successmessage\": \"投稿が正常に作成されました\",\n        \"errormessage\": \"投稿の作成中にエラーが発生しました\",\n        \"step1\": {\n          \"title\": \"基本情報\",\n          \"description\": \"投稿の基本情報を入力してください\"\n        },\n        \"step2\": {\n          \"title\": \"詳細情報\",\n          \"description\": \"投稿の詳細内容を入力してください\"\n        },\n        \"step3\": {\n          \"title\": \"ユーザー情報\",\n          \"description\": \"投稿者の情報を入力してください\"\n        },\n        \"step4\": {\n          \"title\": \"追加設定\",\n          \"description\": \"YAML形式で追加設定を入力してください\"\n        },\n        \"titleField\": {\n          \"label\": \"タイトル\",\n          \"placeholder\": \"タイトルを入力してください\",\n          \"description\": \"投稿のタイトル\"\n        },\n        \"body\": {\n          \"label\": \"本文\",\n          \"placeholder\": \"本文を入力してください\",\n          \"description\": \"投稿の内容\"\n        },\n        \"userId\": {\n          \"label\": \"ユーザーID\",\n          \"placeholder\": \"ユーザーIDを入力してください\",\n          \"description\": \"投稿者のユーザーID（1-10）\"\n        },\n        \"config\": {\n          \"label\": \"詳細設定\",\n          \"placeholder\": \"YAML形式で設定を入力してください\",\n          \"description\": \"YAML形式で設定を記述してください。VSCode風エディタで編集できます。\"\n        },\n        \"jsonConfig\": {\n          \"label\": \"JSON設定\",\n          \"placeholder\": \"JSON形式で設定を入力してください\",\n          \"description\": \"JSON形式で設定を記述してください。\"\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/create/ja.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/edit/en.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/edit/en.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"edit\": {\n        \"title\": \"Edit Resource\",\n        \"resourcetype\": \"Resource\",\n        \"successmessage\": \"Resource updated successfully\",\n        \"errormessage\": \"Failed to update resource\",\n        \"titleField\": {\n          \"label\": \"Title\",\n          \"placeholder\": \"Enter title\",\n          \"description\": \"Resource title\"\n        },\n        \"body\": {\n          \"label\": \"Body\",\n          \"placeholder\": \"Enter content\",\n          \"description\": \"Resource content\"\n        },\n        \"userId\": {\n          \"label\": \"User ID\",\n          \"placeholder\": \"Enter user ID\",\n          \"description\": \"User ID of the creator (1-10)\",\n          \"readonlymessage\": \"User ID cannot be changed\"\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/edit/en.json"
     },
     {
-      "path": "registry/new-york/blocks/template/app/messages/pages/resource2/edit/ja.json",
+      "path": "registry/new-york/blocks/template/messages/pages/resource2/edit/ja.json",
       "content": "{\n  \"pages\": {\n    \"resource2\": {\n      \"edit\": {\n        \"title\": \"リソース編集\",\n        \"resourcetype\": \"リソース\",\n        \"successmessage\": \"リソースが正常に更新されました\",\n        \"errormessage\": \"リソースの更新中にエラーが発生しました\",\n        \"titleField\": {\n          \"label\": \"タイトル\",\n          \"placeholder\": \"タイトルを入力してください\",\n          \"description\": \"リソースのタイトル\"\n        },\n        \"body\": {\n          \"label\": \"本文\",\n          \"placeholder\": \"内容を入力してください\",\n          \"description\": \"リソースの内容\"\n        },\n        \"userId\": {\n          \"label\": \"ユーザーID\",\n          \"placeholder\": \"ユーザーIDを入力してください\",\n          \"description\": \"作成者のユーザーID（1-10）\",\n          \"readonlymessage\": \"ユーザーIDは変更できません\"\n        }\n      }\n    }\n  }\n} ",
       "type": "registry:file",
       "target": "messages/pages/resource2/edit/ja.json"
